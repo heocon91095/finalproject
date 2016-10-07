@@ -17,4 +17,12 @@
 		<put-attribute name="title" value="Customer Form" />
 		<put-attribute name="body" value="/Customer.jsp" />
 	</definition>
+	<definition name="postemplate" template="\Pages\Template\postemplate.jsp">
+		<put-attribute name="title" value="blank" />
+		<put-attribute name="body" value="" />
+	</definition>
+	<definition name="pos.dash" extends="postemplate">
+	<put-attribute name="title" value="Bảng điều khiển"/>
+	<put-attribute name="body" value="/Pages/Pos/index.jsp"/>
+	</definition>
 </tiles-definitions>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>hgihi</title>
+<title><tiles:insertAttribute name="title" /></title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -24,7 +24,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="margin: 0;padding: 0;border: 0">
 <div style="width: 100%;background-color: teal;margin: 0;color: white;padding-bottom:5px;padding-left: 80px;padding-top:5px;font-size: 16px; ">
 	<a href="#" style="color: white;margin-right: 30px;"><span class="glyphicon glyphicon-cog"></span>Setting</a> 
 	<a href="#" style="color: white;margin-right: 30px;"><span class="glyphicon glyphicon-question-sign"></span>Help</a> 
@@ -51,6 +51,9 @@
 		</ul>
 	</div>
 	</nav>
+	<div class="body" style="margin: 0;padding: 0;border: 0">
+	<tiles:insertAttribute name="body" />
+	</div>
 	<div style="position: fixed; bottom: 0;background-color: teal;width: 100%;color: white;" align="center">
 	TranPhucTai-K39.104.078	&copy;Copyright
 	</div>

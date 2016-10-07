@@ -18,7 +18,7 @@
    <result name="error">Login.jsp</result>
   </action>
   <action name="hhi" class="net.viralpatel.struts2.hihi">
-   <result name="success" type="tiles">/test1</result>
+   <result name="success" type="tiles">pos.dash</result>
    <result name="error">Login.jsp</result>
   </action>
  </package>
