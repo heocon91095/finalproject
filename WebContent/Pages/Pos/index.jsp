@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
     <style>
     .taoblock{
-        padding : 7px;
+        padding : 10px;
         display:inline-block;
         text-align:center;
         font-size:x-large;

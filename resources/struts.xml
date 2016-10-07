@@ -13,11 +13,11 @@
 		<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
-  <action name="login" class="net.viralpatel.struts2.LoginAction">
-   <result name="success">test1</result>
+  <action name="login" class="Action.LoginAction">
+   <result name="success" type="chain">posindex</result>
    <result name="error">Login.jsp</result>
   </action>
-  <action name="hhi" class="net.viralpatel.struts2.hihi">
+  <action name="posindex" class="Action.posindex">
    <result name="success" type="tiles">pos.dash</result>
    <result name="error">Login.jsp</result>
   </action>

@@ -1,4 +1,4 @@
-package net.viralpatel.struts2;
+package Action;
 import java.sql.SQLException;
 
 import com.opensymphony.xwork2.ActionSupport;
