@@ -17,12 +17,22 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
-
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+<style type="text/css">
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+</style>	
 </head>
 <body style="margin: 0;padding: 0;border: 0">
 <div style="width: 100%;background-color: teal;margin: 0;color: white;padding-bottom:5px;padding-left: 80px;padding-top:5px;font-size: 16px; ">
@@ -51,9 +61,9 @@
 		</ul>
 	</div>
 	</nav>
-	<div class="body" style="margin: 0;padding: 0;border: 0">
+	<main  style="margin: 0;padding: 0;border: 0">
 	<tiles:insertAttribute name="body" />
-	</div>
+	</main>
 	<div style="position: fixed; bottom: 0;background-color: teal;width: 100%;color: white;" align="center">
 	TranPhucTai-K39.104.078	&copy;Copyright
 	</div>
