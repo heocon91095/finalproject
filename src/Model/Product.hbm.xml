@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 9, 2016 4:49:14 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Product" table="product" catalog="mobilestore" optimistic-lock="version">
+        <id name="productid" type="java.lang.Integer">
+            <column name="productid" />
+            <generator class="identity" />
+        </id>
+        <property name="prefix" type="string">
+            <column name="prefix" length="3" />
+        </property>
+        <property name="productname" type="string">
+            <column name="productname" length="30" />
+        </property>
+        <property name="producer" type="int">
+            <column name="producer" not-null="true" />
+        </property>
+        <property name="supiler" type="int">
+            <column name="supiler" not-null="true" />
+        </property>
+        <property name="groupid" type="string">
+            <column name="groupid" length="10" />
+        </property>
+        <property name="productimg" type="string">
+            <column name="productimg" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" length="65535" />
+        </property>
+        <property name="valuein" type="java.lang.Integer">
+            <column name="valuein" />
+        </property>
+        <property name="valueout" type="java.lang.Integer">
+            <column name="valueout" />
+        </property>
+        <property name="vat" type="java.lang.Integer">
+            <column name="vat" />
+        </property>
+        <property name="detail" type="string">
+            <column name="detail" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

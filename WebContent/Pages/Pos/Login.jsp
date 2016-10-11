@@ -42,7 +42,7 @@
 	color: black;
 }
 
-#wwgrp_login_username,#wwgrp_login_password {
+#wwgrp_login_user_username,#wwgrp_login_user_password {
 	margin-bottom: 10px
 }
 html,body
@@ -68,8 +68,8 @@ input[type="submit"].form-control {
 		<div align="center" class="center-block col-md-4" id="loginbox">
 			<s:actionerror />
 			<s:form action="login.action" method="post">
-				<s:textfield cssClass="form-control" name="username" label="Tài khoản" size="20" />
-				<s:password cssClass="form-control" name="password" label="Mật khẩu" size="20" />
+				<s:textfield cssClass="form-control" name="user.username" label="Tài khoản" size="20" />
+				<s:password cssClass="form-control" name="user.password" label="Mật khẩu" size="20" />
 				<s:submit cssClass="form-control" method="execute" key="label.login" align="center" />
 			</s:form>
 		</div>
