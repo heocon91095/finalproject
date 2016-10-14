@@ -34,7 +34,8 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
 		 * INSTANCE) .build(); SessionFactory sf =
 		 * metadata.getSessionFactoryBuilder().build();
 		 */
-		Session session = new FactorySessionGet().get("User");
+		SessionFactory sf = new FactorySessionGet().get();
+		Session session = sf.openSession();
 		if (session.isConnected()) {
 			System.out.println("Connection success");
 		} else {

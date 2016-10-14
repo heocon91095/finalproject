@@ -25,4 +25,8 @@
 	<put-attribute name="title" value="Bảng điều khiển"/>
 	<put-attribute name="body" value="/Pages/Pos/index.jsp"/>
 	</definition>
+	<definition name="pos.product" extends="postemplate">
+	<put-attribute name="title" value="Bảng điều khiển"/>
+	<put-attribute name="body" value="/Pages/Pos/listproduct.jsp"/>
+	</definition>
 </tiles-definitions>
