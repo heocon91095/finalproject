@@ -23,8 +23,9 @@
 			} ]
 		});
 		loadtable();
+		getgrouplist();
 		$("#addnew").click(function() {
-			$("#add input,#add textarea").val(" ");
+			$("#add input,#add textarea,#add #cmgroup").val(" ");
 			$('#cmid').removeAttr('disabled');
 			$("#submitbutton").text("Thêm");
 			$("#submitbutton").click(function() {
@@ -33,6 +34,30 @@
 			$("#myModal").modal('toggle');
 		});
 	});
+	function getgrouplist() {
+		$
+				.ajax({
+					url : "cgrouplist.action",
+					success : function(data) {
+						data.customergroups
+								.forEach(function(entry) {
+									var str = "<div><a href='#'id='g"+entry.cgroupid+"' title='"+entry.cgroupnote+"'>"
+											+ entry.cgroupname + "</a></div>";
+									var str1 = "<option value='"+entry.cgroupname+"'>"
+											+ entry.cgroupname + "</option>"
+									$(".groupitem").append(str);
+									$("#cmgroup").append(str1);
+									$("#g" + entry.cgroupid).click(function() {
+										getcustomerbygroup(entry.cgroupname);
+									});
+								});
+					}
+				});
+	}
+	function getcustomerbygroup(data) {
+		console.log(data);
+		loadtable(data);
+	}
 	function drawtable(data) {
 		console.log(data);
 		var str = "<a title='Edit' href='#' id='e"+data.customerid+"'>"
@@ -52,12 +77,16 @@
 			getcustomer(data.customerid);
 		});
 	}
-	function loadtable() {
+	function loadtable(data) {
 		$.ajax({
 			url : "/Struts22/customerlistjson",
-			method : "get",
+			method : "post",
 			async : "false",
+			data : {
+				group : data
+			},
 			success : function(data) {
+				$("#example").DataTable().clear();
 				data1 = JSON.stringify(data.customers);
 				console.log(data1);
 				data.customers.forEach(function(entry) {
@@ -72,7 +101,7 @@
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
-				$("#example").DataTable().clear();
+
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
@@ -125,7 +154,6 @@
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
-				$("#example").DataTable().clear();
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
@@ -134,7 +162,7 @@
 	}
 </script>
 <div class="botbar">
-	<a href="#" id="botbaractive">Khách hàng</a><a href="#" >In mã vạch</a>
+	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
 	<div class="botbarfunction">
 		Khách hàng <input type="text" class="form-control"
 			style="width: 200px; display: inline-block;" />
@@ -157,7 +185,7 @@
 			Thể loại <a href="#" style="float: right">+</a>
 			<div class="groupitem">
 				<div>
-					<a href="#">Tất cả</a>
+					<a href="#" onclick="return loadtable();">Tất cả</a>
 				</div>
 			</div>
 		</div>
@@ -205,8 +233,7 @@
 						<tr>
 							<td style="white-space: nowrap;">Chọn nhóm</td>
 							<td><select name="customer.customergroup" id="cmgroup">
-									<option value="all">Nhóm 1</option>
-									<option value="all">Nhóm 2</option>
+
 							</select></td>
 						</tr>
 						<tr>

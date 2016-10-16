@@ -48,6 +48,7 @@
 			<result name="error">Login.jsp</result>
 		</action>
 	</package>
+	<!-- Action return Json -->
 	<package name="Action" extends="json-default" namespace="/">
 		<!-- Product -->
 		<action name="productjson" class="Action.posproduct" method="getlist">
@@ -62,6 +63,10 @@
 		</action>
 		<action name="customerjson" class="Action.Customer.update"
 			method="getCustomerJson">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="cgrouplist" class="Action.CustomerGroup.list">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>

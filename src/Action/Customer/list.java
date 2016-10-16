@@ -2,6 +2,7 @@ package Action.Customer;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -13,23 +14,42 @@ import Model.Customer;
 
 public class list extends ActionSupport implements ModelDriven<Customer> {
 	Customer customer;
+	String group;
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
 	List<Customer> customers;
+
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		return "success";
 	}
-	public String getList(){
+
+	public String getList() {
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
-		customers = ss.createQuery("from Customer").list();
+		if (group == null) {
+			customers = ss.createQuery("from Customer").list();
+		} else {
+			Query qr = ss.createQuery("from Customer where customergroup =:group");
+			qr.setParameter("group", group);
+			customers = qr.list();
+		}
 		ss.close();
-		if(customers != null)
+		if (customers != null)
 			return "success";
 		else {
 			return "error";
 		}
 	}
+
 	@Override
 	public Customer getModel() {
 		// TODO Auto-generated method stub
