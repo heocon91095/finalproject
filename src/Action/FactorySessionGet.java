@@ -15,7 +15,7 @@ public class FactorySessionGet {
 	private static final SessionFactory sessionfactory;
 	static {
 		try {
-			Configuration cfg = new Configuration().configure("Model/hibernate.cfg.xml");
+			Configuration cfg = new Configuration().configure("/hibernate.cfg.xml");
 			sessionfactory = cfg.buildSessionFactory();
 			/*
 			 * ServiceRegistry registry = new

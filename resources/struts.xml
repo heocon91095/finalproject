@@ -21,7 +21,8 @@
 			<result name="success" type="tiles">pos.dash</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="posproduct" class="Action.posindex">
+		<!-- product -->
+		<action name="listproduct" class="Action.posindex">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
@@ -29,9 +30,38 @@
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
+		<!-- Customer -->
+		<action name="listcustomer" class="Action.Customer.list">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="addcustomer" class="Action.Customer.add">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="removecustomer" class="Action.Customer.remove">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="updatecustomer" class="Action.Customer.update">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
 	</package>
 	<package name="Action" extends="json-default" namespace="/">
+		<!-- Product -->
 		<action name="productjson" class="Action.posproduct" method="getlist">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<!-- Customer -->
+		<action name="customerlistjson" class="Action.Customer.list"
+			method="getList">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="customerjson" class="Action.Customer.update"
+			method="getCustomerJson">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>

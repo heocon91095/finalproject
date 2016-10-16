@@ -4,6 +4,8 @@
 <script type="text/javascript">
 	var data1 = null;
 	$(document).ready(function() {
+		$(".active").removeClass("active");
+		$("#navp").addClass("active");
 		$('#example').dataTable({
 			"searching" : false,
 			"columnDefs" : [ {

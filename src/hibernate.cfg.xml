@@ -12,6 +12,7 @@
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping resource="Model/Product.hbm.xml" />
-        <mapping resource="Model/User.hbm.xml" />      
+        <mapping resource="Model/User.hbm.xml" />
+        <mapping resource="Model/Customer.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

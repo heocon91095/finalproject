@@ -31,7 +31,7 @@
 	href="https://cdn.datatables.net/v/dt/jq-2.2.3/dt-1.10.12/af-2.1.2/b-1.2.2/datatables.min.css" />
 
 <script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/jq-2.2.3/dt-1.10.12/af-2.1.2/b-1.2.2/datatables.min.js"></script>
+	src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 
 <style type="text/css">
 html, body {
@@ -131,22 +131,25 @@ html, body {
 	color: black;
 	font-size: 14px;
 }
-.botbarfunction{
+
+.botbarfunction {
 	margin-top: 10px;
 	margin-left: 20px;
 	font-size: 16px;
 	color: teal;
 }
-.botbarbutton{
+
+.botbarbutton {
 	padding-top: 4px;
 	padding-bottom: 4px;
-	padding-left:10px;
+	padding-left: 10px;
 	padding-right: 10px;
 	color: white;
 	background-color: teal;
 	border: 0;
 }
-.popuptable, table.popuptable td  {
+
+.popuptable, table.popuptable td {
 	border: 5px;
 	padding-top: 10px;
 }
@@ -170,12 +173,12 @@ html, body {
 					alt="Logo hang" src="<s:url value="/img/logo.png"/>" /></a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"><span
+				<li id="navd" ><a href="/Struts22/posindex"><span
 						class="glyphicon glyphicon-home"></span></a></li>
-				<li><a href="#">Bán hàng</a></li>
-				<li><a href="#">Hàng hóa</a></li>
+				<li ><a href="#">Bán hàng</a></li>
+				<li id="navp"><a href="/Struts22/listproduct">Hàng hóa</a></li>
 				<li><a href="#">Nhập kho</a></li>
-				<li><a href="#">Khách hàng</a></li>
+				<li id="navcm"><a href="/Struts22/listcustomer">Khách hàng</a></li>
 				<li><a href="#">Nhà cung cấp</a></li>
 				<li><a href="#">Thu chi</a></li>
 				<li><a href="#">Báo cáo</a></li>
