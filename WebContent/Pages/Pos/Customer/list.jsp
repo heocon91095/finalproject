@@ -33,12 +33,23 @@
 			});
 			$("#myModal").modal('toggle');
 		});
+		$("#addgroup").click(function() {
+			$("#groupModal").modal('toggle');
+		});
+		$("#submitgroup").click(function() {
+			addgroup();
+			$("#groupModal").modal('toggle');
+		});
+		
 	});
 	function getgrouplist() {
+		$(".groupitem").html("");
 		$
 				.ajax({
 					url : "cgrouplist.action",
 					success : function(data) {
+						var strall = "<div><a href='#' onclick='return loadtable();'>Tất cả</a></div>"
+						$(".groupitem").append(strall);
 						data.customergroups
 								.forEach(function(entry) {
 									var str = "<div><a href='#'id='g"+entry.cgroupid+"' title='"+entry.cgroupnote+"'>"
@@ -83,7 +94,26 @@
 			method : "post",
 			async : "false",
 			data : {
-				group : data
+				group : data,
+			},
+			success : function(data) {
+				$("#example").DataTable().clear();
+				data1 = JSON.stringify(data.customers);
+				console.log(data1);
+				data.customers.forEach(function(entry) {
+					drawtable(entry);
+				});
+			},
+		});
+	}
+	function loadtablebykeyword() {
+		console.log($("#txt_cmsearch").val());
+		$.ajax({
+			url : "/Struts22/customerlistjson",
+			method : "post",
+			async : "false",
+			data : {
+				searchvalue : $("#txt_cmsearch").val(),
 			},
 			success : function(data) {
 				$("#example").DataTable().clear();
@@ -105,6 +135,16 @@
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+			}
+		});
+	}
+	function addgroup() {
+		$.ajax({
+			url : "addcgroup.action",
+			data : $("#formaddgroup").serialize(),
+			success : function(data) {
+				console.log("ok");
+				getgrouplist();
 			}
 		});
 	}
@@ -130,7 +170,7 @@
 			success : function(data1) {
 				console.log("ok");
 				var cus = data1.customer;
-				console.log(cus);
+				$(".modal-title").text("Cập nhật");
 				$("#cmid").val(cus.customerid);
 				$("#cmid").attr('disabled', 'disabled');
 				$("#cmname").val(cus.customername);
@@ -164,9 +204,9 @@
 <div class="botbar">
 	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
 	<div class="botbarfunction">
-		Khách hàng <input type="text" class="form-control"
+		Khách hàng <input type="text" class="form-control" id="txt_cmsearch"
 			style="width: 200px; display: inline-block;" />
-		<button class="botbarbutton">
+		<button class="botbarbutton" id="but_cmsearch" onclick="loadtablebykeyword()">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
@@ -182,12 +222,8 @@
 <div class="row">
 	<div class="col-md-2">
 		<div class="groupcontainer">
-			Thể loại <a href="#" style="float: right">+</a>
-			<div class="groupitem">
-				<div>
-					<a href="#" onclick="return loadtable();">Tất cả</a>
-				</div>
-			</div>
+			Thể loại <a href="#" style="float: right" id="addgroup">+</a>
+			<div class="groupitem"></div>
 		</div>
 	</div>
 	<div class="col-md-10 ">
@@ -254,6 +290,35 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="submitbutton" class="btn btn-default">Thêm</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="groupModal" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Thêm nhóm khách hàng</h4>
+			</div>
+			<div class="modal-body ">
+				<form action="addcustomergroup.action" id="formaddgroup">
+					<table width="100%" class="popuptable" align="center">
+						<tr>
+							<td style="white-space: nowrap;" width="30%">Tên nhóm</td>
+							<td><input type="text" name="customergroup.cgroupname" /></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Thông tin nhóm</td>
+							<td><textarea cols="40" name="customergroup.cgroupnote"></textarea></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="submitgroup" class="btn btn-default">Thêm</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

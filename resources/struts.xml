@@ -43,10 +43,14 @@
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="updatecustomer" class="Action.Customer.update">
+		<action name="addcgroup" class="Action.CustomerGroup.add">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>
+		<action name="updatecustomer" class="Action.Customer.update">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>	
 	</package>
 	<!-- Action return Json -->
 	<package name="Action" extends="json-default" namespace="/">
