@@ -31,7 +31,7 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<!-- Customer -->
-		<action name="listcustomer" class="Action.Customer.list">
+		<action name="customer" class="Action.Customer.list">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>
@@ -48,6 +48,28 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<action name="updatecustomer" class="Action.Customer.update">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>	
+		<!-- Suplier -->
+		<action name="suplier" class="Action.Customer.list">
+			<result name="success" type="tiles">pos.suplier</result>
+			<result name="error">Login.jsp</result>
+		</action>		
+		<action name="addsuplier" class="Action.Suplier.add">
+			<result name="success" type="tiles">pos.suplier </result>
+			<result name="error">Login.jsp</result>
+		</action>
+		  
+		<action name="removesuplier" class="Action.Suplier.remove">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="addsgroup" class="Action.SuplierGroup.add">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="updatesuplier" class="Action.Suplier.update">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>	
@@ -71,6 +93,21 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<action name="cgrouplist" class="Action.CustomerGroup.list">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<!-- Suplier -->
+		<action name="suplierlistjson" class="Action.Suplier.list"
+			method="getList">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="suplierjson" class="Action.Suplier.update"
+			method="getsuplierJson">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="sgrouplist" class="Action.SuplierGroup.list">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>

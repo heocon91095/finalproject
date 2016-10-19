@@ -3,28 +3,25 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 19, 2016 8:00:20 PM by Hibernate Tools 5.1.0.Alpha1 -->
 <hibernate-mapping>
-    <class name="Model.Customer" table="customer" catalog="mobilestore" optimistic-lock="version">
-        <id name="customerid" type="string">
-            <column name="customerid" length="10" />
+    <class name="Model.Suplier" table="suplier" catalog="mobilestore" optimistic-lock="version">
+        <id name="suplierid" type="string">
+            <column name="suplierid" length="10" />
             <generator class="assigned" />
         </id>
-        <property name="customername" type="string">
-            <column name="customername" length="50" not-null="true" />
+        <property name="supliername" type="string">
+            <column name="supliername" length="50" not-null="true" />
         </property>
         <property name="phone" type="string">
             <column name="phone" length="15" not-null="true" />
         </property>
         <property name="address" type="string">
-            <column name="address" not-null="true" />
+            <column name="address" length="65535" not-null="true" />
         </property>
-        <property name="customergroup" type="string">
-            <column name="customergroup" length="20" />
-        </property>
-        <property name="username" type="string">
-            <column name="username" length="25" />
+        <property name="supliergroup" type="string">
+            <column name="supliergroup" length="50" />
         </property>
         <property name="mail" type="string">
-            <column name="mail" length="50" />
+            <column name="mail" length="150" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
