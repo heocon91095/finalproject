@@ -27,7 +27,7 @@
 	</definition>
 	<definition name="pos.product" extends="postemplate">
 	<put-attribute name="title" value="Sản phẩm"/>
-	<put-attribute name="body" value="/Pages/Pos/listproduct.jsp"/>
+	<put-attribute name="body" value="/Pages/Pos/Product/Product.jsp"/>
 	</definition>
 	<definition name="pos.customer" extends="postemplate">
 	<put-attribute name="title" value="Khách hàng"/>
@@ -36,5 +36,9 @@
 	<definition name="pos.suplier" extends="postemplate">
 	<put-attribute name="title" value="Nhà cung cấp"/>
 	<put-attribute name="body" value="/Pages/Pos/Suplier/Suplier.jsp"/>
+	</definition>
+	<definition name="pos.RP" extends="postemplate">
+	<put-attribute name="title" value="Thu chi"/>
+	<put-attribute name="body" value="/Pages/Pos/RP/RP.jsp"/>
 	</definition>
 </tiles-definitions>

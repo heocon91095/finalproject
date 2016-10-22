@@ -179,7 +179,7 @@ html, body {
 				<li id="navp"><a href="/Struts22/listproduct">Hàng hóa</a></li>
 				<li><a href="#">Nhập kho</a></li>
 				<li id="navcm"><a href="/Struts22/listcustomer">Khách hàng</a></li>
-				<li><a href="#">Nhà cung cấp</a></li>
+				<li id="navsp"><a href="#">Nhà cung cấp</a></li>
 				<li><a href="#">Thu chi</a></li>
 				<li><a href="#">Báo cáo</a></li>
 			</ul>

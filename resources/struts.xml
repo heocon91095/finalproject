@@ -22,7 +22,7 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<!-- product -->
-		<action name="listproduct" class="Action.posindex">
+		<action name="product" class="Action.posindex">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
@@ -59,8 +59,7 @@
 		<action name="addsuplier" class="Action.Suplier.add">
 			<result name="success" type="tiles">pos.suplier </result>
 			<result name="error">Login.jsp</result>
-		</action>
-		  
+		</action>	  
 		<action name="removesuplier" class="Action.Suplier.remove">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
@@ -70,6 +69,23 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<action name="updatesuplier" class="Action.Suplier.update">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>	
+		<!-- Receipt and Payment -->
+		<action name="rp" class="Action.RP.list">
+			<result name="success" type="tiles">pos.RP</result>
+			<result name="error">Login.jsp</result>
+		</action>		
+		<action name="addrp" class="Action.RP.add">
+			<result name="success" type="tiles">pos.RP</result>
+			<result name="error">Login.jsp</result>
+		</action>	  
+		<action name="removerp" class="Action.RP.remove">
+			<result name="success" type="tiles">pos.customer</result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="updaterp" class="Action.RP.update">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>	
@@ -108,6 +124,15 @@
 			<result name="error">Login.jsp</result>
 		</action>
 		<action name="sgrouplist" class="Action.SuplierGroup.list">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<!-- Receipt and Payment -->
+		<action name="rplistjson" class="Action.RP.list">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
+		<action name="rpjson" class="Action.RP.update" method="getrpJson">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>

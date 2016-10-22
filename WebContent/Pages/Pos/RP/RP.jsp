@@ -14,7 +14,7 @@
 	var data1 = null;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navsp").addClass("active");
+		$("#navcm").addClass("active");
 		$('#example').dataTable({
 			"searching" : false,
 			"columnDefs" : [ {
@@ -23,7 +23,6 @@
 			} ]
 		});
 		loadtable();
-		getgrouplist();
 		$("#addnew").click(function() {
 			$("#add input,#add textarea,#add #cmgroup").val(" ");
 			$('#cmid').removeAttr('disabled');
@@ -40,58 +39,34 @@
 			addgroup();
 			$("#groupModal").modal('toggle');
 		});
-		
+
 	});
-	function getgrouplist() {
-		$(".groupitem").html("");
-		$
-				.ajax({
-					url : "sgrouplist.action",
-					success : function(data) {
-						var strall = "<div><a href='#' onclick='return loadtable();'>Tất cả</a></div>"
-						$(".groupitem").append(strall);
-						console.log(data);
-						data.supliergroups
-								.forEach(function(entry) {
-									var str = "<div><a href='#'id='g"+entry.sgroupid+"' title='"+entry.sgroupnote+"'>"
-											+ entry.sgroupname + "</a></div>";
-									var str1 = "<option value='"+entry.sgroupname+"'>"
-											+ entry.sgroupname + "</option>"
-									$(".groupitem").append(str);
-									$("#cmgroup").append(str1);
-									$("#g" + entry.sgroupid).click(function() {
-										getsuplierbygroup(entry.sgroupname);
-									});
-								});
-					}
-				});
-	}
-	function getsuplierbygroup(data) {
+	function getcustomerbygroup(data) {
 		console.log(data);
 		loadtable(data);
 	}
 	function drawtable(data) {
 		console.log(data);
-		var str = "<a title='Edit' href='#' id='e"+data.suplierid+"'>"
-				+ "<span class='glyphicon glyphicon-edit' style='color:green' cusid='"+data.suplierid+"' ></span>"
+		var str = "<a title='Edit' href='#' id='e"+data.billid+"'>"
+				+ "<span class='glyphicon glyphicon-edit' style='color:green' cusid='"+data.billid+"' ></span>"
 				+ "</a> | "
-				+ "<a title='Remove' href='#' id='r"+data.suplierid+"'>"
-				+ "<span class='glyphicon glyphicon-trash'style='color:red' cusid='"+data.suplierid+"' ></span>"
+				+ "<a title='Remove' href='#' id='r"+data.billid+"'>"
+				+ "<span class='glyphicon glyphicon-trash'style='color:red' cusid='"+data.billid+"' ></span>"
 				+ "</a>";
 		$('#example').DataTable().row.add(
-				[ data.suplierid, data.supliername, data.address, data.phone,
-						data.mail, data.supliergroup, str ])
+				[ data.billid, data.billtype, data.receivername, data.phone,
+						data.address, data.cash, data.reason, data.date, str ])
 				.draw(false);
-		$("#r" + data.suplierid).click(function() {
-			remove(data.suplierid);
+		$("#r" + data.billid).click(function() {
+			remove(data.billid);
 		});
-		$("#e" + data.suplierid).click(function() {
-			getsuplier(data.suplierid);
+		$("#e" + data.billid).click(function() {
+			getrp(data.billid);
 		});
 	}
 	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/suplierlistjson",
+			url : "/Struts22/rplistjson",
 			method : "post",
 			async : "false",
 			data : {
@@ -99,9 +74,7 @@
 			},
 			success : function(data) {
 				$("#example").DataTable().clear();
-				data1 = JSON.stringify(data.supliers);
-				console.log(data1);
-				data.supliers.forEach(function(entry) {
+				data.receiptandpayments.forEach(function(entry) {
 					drawtable(entry);
 				});
 			},
@@ -110,7 +83,7 @@
 	function loadtablebykeyword() {
 		console.log($("#txt_cmsearch").val());
 		$.ajax({
-			url : "/Struts22/suplierlistjson",
+			url : "/Struts22/customerlistjson",
 			method : "post",
 			async : "false",
 			data : {
@@ -118,9 +91,9 @@
 			},
 			success : function(data) {
 				$("#example").DataTable().clear();
-				data1 = JSON.stringify(data.supliers);
+				data1 = JSON.stringify(data.customers);
 				console.log(data1);
-				data.supliers.forEach(function(entry) {
+				data.customers.forEach(function(entry) {
 					drawtable(entry);
 				});
 			},
@@ -128,9 +101,8 @@
 	}
 	function add() {
 		$.ajax({
-			url : "addsuplier.action",
+			url : "addrp.action",
 			data : $("#add").serialize(),
-			type: "post",
 			success : function(data) {
 				console.log("ok");
 
@@ -140,21 +112,11 @@
 			}
 		});
 	}
-	function addgroup() {
-		$.ajax({
-			url : "addsgroup.action",
-			data : $("#formaddgroup").serialize(),
-			success : function(data) {
-				console.log("ok");
-				getgrouplist();
-			}
-		});
-	}
 	function remove(data) {
 		$.ajax({
-			url : "removesuplier.action",
+			url : "removerp.action",
 			data : {
-				suplierid : data
+				billid : data
 			},
 			success : function(data) {
 				console.log("ok");
@@ -163,36 +125,39 @@
 			}
 		});
 	}
-	function getsuplier(data) {
+	function getrp(data) {
+		console.log(data);
 		$.ajax({
-			url : "suplierjson.action",
+			url : "rpjson.action",
 			data : {
-				suplierid : data
+				billid : data
 			},
 			success : function(data1) {
 				console.log("ok");
-				var cus = data1.suplier;
+				var cus = data1.receiptandpayment;
 				$(".modal-title").text("Cập nhật");
-				$("#cmid").val(cus.suplierid);
-				$("#cmid").attr('disabled', 'disabled');
-				$("#cmname").val(cus.supliername);
-				$("#cmgroup").val(cus.supliergroup);
-				$("#cmaddress").val(cus.address);
-				$("#cmmail").val(cus.mail);
-				$("#cmphone").val(cus.phone);
+				$("#bid").val(cus.billid);
+				$("#bid").attr('disabled', 'disabled');
+				$("#bname").val(cus.receivername);
+				$("#bgroup").val(cus.billtype);
+				$("#baddress").val(cus.address);
+				$("#breason").val(cus.reason);
+				$("#bphone").val(cus.phone);
+				$("#bcash").val(cus.cash);
+				$("#bdate").val(cus.date);
 				$('#myModal').modal("toggle");
 				$("#submitbutton").text("Cập nhật");
 				$("#submitbutton").click(function() {
-					updatesuplier();
+					updaterp();
 				});
 			}
 		});
 	}
-	function updatesuplier() {
+	function updaterp() {
 		//console.log($("#add").serialize());
-		$('#cmid').removeAttr('disabled');
+		$('#bid').removeAttr('disabled');
 		$.ajax({
-			url : "updatesuplier.action",
+			url : "updaterp.action",
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
@@ -204,11 +169,12 @@
 	}
 </script>
 <div class="botbar">
-	<a href="#" id="botbaractive">Nhà cung cấp</a><a href="#">In mã vạch</a>
+	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
 	<div class="botbarfunction">
-		Nhà cung cấp <input type="text" class="form-control" id="txt_cmsearch"
+		Khách hàng <input type="text" class="form-control" id="txt_cmsearch"
 			style="width: 200px; display: inline-block;" />
-		<button class="botbarbutton" id="but_cmsearch" onclick="loadtablebykeyword()">
+		<button class="botbarbutton" id="but_cmsearch"
+			onclick="loadtablebykeyword()">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
@@ -224,7 +190,7 @@
 <div class="row">
 	<div class="col-md-2">
 		<div class="groupcontainer">
-			Nhóm NCC <a href="#" style="float: right" id="addgroup">+</a>
+			Thể loại <a href="#" style="float: right" id="addgroup">+</a>
 			<div class="groupitem"></div>
 		</div>
 	</div>
@@ -233,12 +199,14 @@
 			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th>Mã NCC</th>
-						<th width="120px">Nhà cung cấp</th>
-						<th width="20%">Địa chỉ</th>
+						<th>Mã phiếu</th>
+						<th>Loại</th>
+						<th>Người nhận</th>
 						<th>Điện thoại</th>
-						<th>Email</th>
-						<th width="100px">Nhóm</th>
+						<th width="20%">Địa chỉ</th>
+						<th>Số tiền</th>
+						<th>Lý do</th>
+						<th width="100px">Ngày tạo</th>
 						<th>Chức năng</th>
 					</tr>
 				</thead>
@@ -253,38 +221,52 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm NCC</h4>
+				<h4 class="modal-title">Thêm khách hàng</h4>
 			</div>
 			<div class="modal-body ">
-				<form action="addsuplier.action" id="add">
+				<form action="addproduct.action" id="add">
 					<table width="100%" class="popuptable" align="center">
 						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã nhà cung cấp</td>
-							<td><input type="text" name="suplier.suplierid" id="cmid" /></td>
+							<td style="white-space: nowrap;" width="30%">Mã phiếu</td>
+							<td><input type="text" name="receiptandpayment.billid"
+								id="bid" /></td>
 						</tr>
 						<tr>
-							<td style="white-space: nowrap;">Tên nhà cung cấp</td>
-							<td><input type="text" name="suplier.supliername"
-								id="cmname" /></td>
+							<td style="white-space: nowrap;">Tên người nhận</td>
+							<td><input type="text" name="receiptandpayment.receivername"
+								id="bname" /></td>
 						</tr>
 						<tr>
-							<td style="white-space: nowrap;">Chọn nhóm</td>
-							<td><select name="suplier.supliergroup" id="cmgroup">
-
+							<td style="white-space: nowrap;">Loại phiếu</td>
+							<td><select name="receiptandpayment.billtype" id="btype">
+									<option value="Thu">Thu</option>
+									<option value="Chi">Chi</option>
 							</select></td>
 						</tr>
 						<tr>
+							<td style="white-space: nowrap;">Số tiền</td>
+							<td><input type="number" name="receiptandpayment.cash"
+								id="bcash" /> VND</td>
+						</tr>
+						<tr>
 							<td style="white-space: nowrap;">Địa chỉ</td>
-							<td><textarea cols="40" name="suplier.address"
-									id="cmaddress"></textarea></td>
+							<td><textarea cols="40" name="receiptandpayment.address"
+									id="baddress"></textarea></td>
 						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Số điện thoại</td>
-							<td><input type="text" name="suplier.phone" id="cmphone" /></td>
+							<td><input type="text" name="receiptandpayment.phone"
+								id="bphone" /></td>
 						</tr>
 						<tr>
-							<td style="white-space: nowrap;">Email</td>
-							<td><input type="text" name="suplier.mail" id="cmmail" /></td>
+							<td style="white-space: nowrap;">Lý do</td>
+							<td><textarea cols="40" name="receiptandpayment.reason"
+								id="breason" ></textarea></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Ngày lập</td>
+							<td><input type="date" name="receiptandpayment.date"
+								id="bdate" /></td>
 						</tr>
 					</table>
 				</form>
@@ -302,18 +284,18 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm nhóm nhà cung cấp</h4>
+				<h4 class="modal-title">Thêm nhóm khách hàng</h4>
 			</div>
 			<div class="modal-body ">
-				<form action="addsupliergroup.action" id="formaddgroup">
+				<form action="addcustomergroup.action" id="formaddgroup">
 					<table width="100%" class="popuptable" align="center">
 						<tr>
 							<td style="white-space: nowrap;" width="30%">Tên nhóm</td>
-							<td><input type="text" name="supliergroup.sgroupname" /></td>
+							<td><input type="text" name="customergroup.cgroupname" /></td>
 						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Thông tin nhóm</td>
-							<td><textarea cols="40" name="supliergroup.sgroupnote"></textarea></td>
+							<td><textarea cols="40" name="customergroup.cgroupnote"></textarea></td>
 						</tr>
 					</table>
 				</form>

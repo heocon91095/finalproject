@@ -4,6 +4,7 @@
 <script type="text/javascript">
 	var data1 = null;
 	$(document).ready(function() {
+
 		$(".active").removeClass("active");
 		$("#navp").addClass("active");
 		$('#example').dataTable({
@@ -11,7 +12,21 @@
 			"columnDefs" : [ {
 				"className" : "dt-center",
 				"targets" : "_all"
-			} ]
+			} ],
+		});
+		$('#example tbody').on('click', 'td.details-control', function() {
+			var tr = $(this).closest('tr');
+			var row = $('#example').dataTable.row(tr);
+
+			if (row.child.isShown()) {
+				// This row is already open - close it
+				row.child.hide();
+				tr.removeClass('shown');
+			} else {
+				// Open this row
+				row.child("Opening").show();
+				tr.addClass('shown');
+			}
 		});
 		$.ajax({
 			url : "/Struts22/productjson",
@@ -42,9 +57,11 @@
 	}
 	function sm() {
 		$.ajax({
-			url:"addproduct.action",
-			data: $("#add").serialize(),
-			success: function(data){console.log("ok");}
+			url : "addproduct.action",
+			data : $("#add").serialize(),
+			success : function(data) {
+				console.log("ok");
+			}
 		});
 	}
 </script>
@@ -121,7 +138,7 @@
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Chọn nhóm</td>
-									<td><select name="product.groupid" >
+									<td><select name="product.groupid">
 											<option value="all">Nhóm 1</option>
 											<option value="all">Nhóm 2</option>
 									</select></td>
@@ -147,11 +164,14 @@
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Giá nhập&nbsp;</td>
-									<td><input type="text" name="product.valuein" style="width: 100%;" /></td>
+									<td><input type="text" name="product.valuein"
+										style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; Giá bán &nbsp;</td>
-									<td><input type="text" name="product.valueout" style="width: 100%" /></td>
+									<td><input type="text" name="product.valueout"
+										style="width: 100%" /></td>
 									<td style="white-space: nowrap;">&nbsp; VAT &nbsp;</td>
-									<td><input type="text" name="product.vat" style="width: 60%" />%</td>
+									<td><input type="text" name="product.vat"
+										style="width: 60%" />%</td>
 								</tr>
 							</table>
 						</div>
@@ -160,8 +180,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" onclick="sm()" class="btn btn-default">Thêm</button>
-				<button type="button"  class="btn btn-default"
-					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

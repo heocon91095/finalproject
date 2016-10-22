@@ -16,6 +16,7 @@
         <mapping resource="Model/Supliergroup.hbm.xml" />
         <mapping resource="Model/User.hbm.xml" />
         <mapping resource="Model/Customer.hbm.xml" />
+        <mapping resource="Model/Receiptandpayment.hbm.xml" />
         <mapping resource="Model/Suplier.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
