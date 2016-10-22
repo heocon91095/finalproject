@@ -2,21 +2,41 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
-	var data1 = null;
+	
 	$(document).ready(function() {
 
 		$(".active").removeClass("active");
 		$("#navp").addClass("active");
-		$('#example').dataTable({
+		var table = $('#example').DataTable({
 			"searching" : false,
 			"columnDefs" : [ {
 				"className" : "dt-center",
 				"targets" : "_all"
 			} ],
+			"columns" : [ {
+				"className" : 'details-control dt-center',
+				"orderable" : false,
+				"data" : null,
+				"defaultContent" : "<span class=' glyphicon glyphicon-plus'></span>"
+			}, {
+				"data" : "productid"
+			}, {
+				"data" : "productname"
+			}, {
+				"data" : "pricein"
+			}, {
+				"data" : "priceout"
+			}, {
+				"data" : "unit"
+			}, {
+				"data" : "groupid"
+			}, {
+				"data" : "str"
+			}, ]
 		});
 		$('#example tbody').on('click', 'td.details-control', function() {
 			var tr = $(this).closest('tr');
-			var row = $('#example').dataTable.row(tr);
+			var row = table.row(tr);
 
 			if (row.child.isShown()) {
 				// This row is already open - close it
@@ -24,7 +44,7 @@
 				tr.removeClass('shown');
 			} else {
 				// Open this row
-				row.child("Opening").show();
+				row.child(showProductDetail(row.data().productid)).show();
 				tr.addClass('shown');
 			}
 		});
@@ -36,7 +56,6 @@
 				data1 = JSON.stringify(data.products);
 				console.log(data1);
 				data.products.forEach(function(entry) {
-					entry.productid = entry.prefix + entry.productid;
 					drawtable(entry);
 				});
 			},
@@ -50,10 +69,8 @@
 				+ "<a title='Remove' href='#'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red'></span>"
 				+ "</a>";
-		$('#example').DataTable().row.add(
-				[ data.productid, data.productname, data.valuein,
-						data.valueout, data.unit, data.groupid, str ]).draw(
-				false);
+		data.str = str;
+		$('#example').DataTable().row.add(data).draw(false);
 	}
 	function sm() {
 		$.ajax({
@@ -64,7 +81,36 @@
 			}
 		});
 	}
+	function showProductDetail(id){
+		console.log(id);
+		var str = "";
+		$.ajax({
+			url : "productdetailjson.action",
+			data : { productid : id },
+			async : false,
+			success : function(data) {
+				console.log(data);
+				var pd = data.pd;
+				str = "<p>"+pd.display+"</p>"
+				+ "<p>"+pd.os+"</p>"
+				+ "<p>"+pd.frontcam+"</p>"
+				+ "<p>"+pd.backcam+"</p>"
+				+ "<p>"+pd.cpu+"</p>"
+				+ "<p>"+pd.ram+"</p>"
+				+ "<p>"+pd.storage+"</p>"
+				+ "<p>"+pd.sdcard+"</p>"
+				+ "<p>"+pd.sim+"</p>"
+				+ "<p>"+pd.battery+"</p>";
+			}
+		});
+		return str;
+	}
 </script>
+<style>
+.details-control {
+cursor: pointer;
+}
+</style>
 <div class="botbar">
 	<a href="#" id="botbaractive">Hàng hóa</a> <a href="#">Nhập kho</a> <a
 		href="#">Chuyển hàng</a> <a href="#">Kiểm hàng</a>
@@ -101,6 +147,7 @@
 			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Mã hàng hóa</th>
 						<th>Tên hàng hóa</th>
 						<th>Giá nhập</th>
@@ -137,6 +184,14 @@
 									<td><input type="text" name="product.productname" /></td>
 								</tr>
 								<tr>
+									<td style="white-space: nowrap;">Nhà sản xuất</td>
+									<td><input type="text" name="product.producer" /></td>
+								</tr>
+								<tr>
+									<td style="white-space: nowrap;">Nhà cung cấp</td>
+									<td><input type="text" name="product.supiler" /></td>
+								</tr>
+								<tr>
 									<td style="white-space: nowrap;">Chọn nhóm</td>
 									<td><select name="product.groupid">
 											<option value="all">Nhóm 1</option>
@@ -164,10 +219,10 @@
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Giá nhập&nbsp;</td>
-									<td><input type="text" name="product.valuein"
+									<td><input type="text" name="product.pricein"
 										style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; Giá bán &nbsp;</td>
-									<td><input type="text" name="product.valueout"
+									<td><input type="text" name="product.priceout"
 										style="width: 100%" /></td>
 									<td style="white-space: nowrap;">&nbsp; VAT &nbsp;</td>
 									<td><input type="text" name="product.vat"

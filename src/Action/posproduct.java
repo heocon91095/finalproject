@@ -23,17 +23,9 @@ public class posproduct extends ActionSupport implements ModelDriven<Product> {
 	}
 
 	public String addproduct() {
-		Product pd = new Product();
-		pd.setProductname(product.getProductname());
-		pd.setGroupid(product.getGroupid());
-		pd.setNote(product.getNote());
-		pd.setValuein(product.getValuein());
-		pd.setValueout(product.getValueout());
-		pd.setVat(product.getVat());
-		pd.setUnit("cai");
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
-		ss.save(pd);
+		ss.save(product);
 		ss.flush();
 		ss.close();
 		return "success";

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 22, 2016 8:04:53 PM by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="Model.Productdetail" table="productdetail" catalog="mobilestore" optimistic-lock="version">
+        <id name="productid" type="string">
+            <column name="productid" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="display" type="string">
+            <column name="display" not-null="true" />
+        </property>
+        <property name="os" type="string">
+            <column name="os" not-null="true" />
+        </property>
+        <property name="frontcam" type="string">
+            <column name="frontcam" length="50" not-null="true" />
+        </property>
+        <property name="backcam" type="string">
+            <column name="backcam" length="50" not-null="true" />
+        </property>
+        <property name="cpu" type="string">
+            <column name="cpu" length="50" not-null="true" />
+        </property>
+        <property name="ram" type="string">
+            <column name="ram" length="50" not-null="true" />
+        </property>
+        <property name="storage" type="string">
+            <column name="storage" length="50" not-null="true" />
+        </property>
+        <property name="sdcard" type="string">
+            <column name="sdcard" length="60" not-null="true" />
+        </property>
+        <property name="sim" type="string">
+            <column name="sim" length="50" not-null="true" />
+        </property>
+        <property name="battery" type="string">
+            <column name="battery" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

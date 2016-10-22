@@ -97,6 +97,11 @@
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
+		<!-- Product detail -->
+		<action name="productdetailjson" class="Action.ProductDetail.get" >
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
+		</action>
 		<!-- Customer -->
 		<action name="customerlistjson" class="Action.Customer.list"
 			method="getList">
