@@ -91,16 +91,17 @@
 			success : function(data) {
 				console.log(data);
 				var pd = data.pd;
-				str = "<p>"+pd.display+"</p>"
-				+ "<p>"+pd.os+"</p>"
-				+ "<p>"+pd.frontcam+"</p>"
-				+ "<p>"+pd.backcam+"</p>"
-				+ "<p>"+pd.cpu+"</p>"
-				+ "<p>"+pd.ram+"</p>"
-				+ "<p>"+pd.storage+"</p>"
-				+ "<p>"+pd.sdcard+"</p>"
-				+ "<p>"+pd.sim+"</p>"
-				+ "<p>"+pd.battery+"</p>";
+				str = "<table align='right'><tr><td>Hien thi:</td><td>"+pd.display+"</td>"
+			    +"<td>OS:</td><td>"+pd.os+"</td></tr>"
+			  +"<tr><td>Camera truoc:</td><td>"+pd.frontcam+"</td>"
+			    +"<td>cmaera sau:</td><td>"+pd.backcam+"</td></tr>"
+			    +"<tr><td>cpu:</td><td>"+pd.cpu+"</td>"
+			    +"<td>ram:</td><td>"+pd.ram+"</td></tr>"
+			    +"<tr><td>Bo nho:</td><td>"+pd.storage+"</td>"
+			    +"<td>The nho:</td><td>"+pd.sdcard+"</td></tr>"
+			    +"<tr><td>Sim:</td><td>"+pd.sim+"</td>"
+			    +"<td>Pin:</td><td>"+pd.battery+"</td></tr>"
+			+"</table>";
 			}
 		});
 		return str;
