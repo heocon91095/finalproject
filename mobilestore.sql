@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 22, 2016 at 06:35 AM
+-- Host: localhost
+-- Generation Time: Oct 23, 2016 at 04:42 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -76,29 +76,54 @@ INSERT INTO `customergroup` (`cgroupid`, `cgroupname`, `cgroupnote`) VALUES
 --
 
 CREATE TABLE `product` (
-  `prefix` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `productid` int(6) UNSIGNED ZEROFILL NOT NULL,
-  `productname` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `unit` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `producer` int(4) NOT NULL,
-  `supiler` int(4) NOT NULL,
-  `groupid` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `productimg` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `note` mediumtext COLLATE utf8_unicode_ci,
-  `valuein` int(11) DEFAULT NULL,
-  `valueout` int(11) DEFAULT NULL,
-  `vat` int(11) DEFAULT NULL,
-  `detail` mediumtext COLLATE utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `productid` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `productname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `producer` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supiler` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `groupid` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `prductimg` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pricein` int(11) NOT NULL,
+  `priceout` int(11) NOT NULL,
+  `vat` int(11) NOT NULL,
+  `detail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prefix`, `productid`, `productname`, `unit`, `producer`, `supiler`, `groupid`, `productimg`, `note`, `valuein`, `valueout`, `vat`, `detail`) VALUES
-('SP', 000001, 'Sản phẩm', 'cái', 123, 124, '1', '1234', 'Sản phẩm', 5000, 10000, 10, NULL),
-('SP', 000002, 'San pham 2', 'Chiec', 12, 12, 'hihi', NULL, 'null not', 100, 200, 10, NULL),
-(NULL, 000004, 'dsfsd', 'cai', 0, 0, 'all', NULL, 'fdsfdsf', 234, 3223, 423, NULL);
+INSERT INTO `product` (`productid`, `productname`, `unit`, `producer`, `supiler`, `groupid`, `prductimg`, `note`, `pricein`, `priceout`, `vat`, `detail`) VALUES
+('SP001', 'Sản phẩm 1', 'Cái', 'Samsung', 'SamsungVN', 'Sản phẩm 1', '', '', 10000, 12000, 10, ''),
+('SP002', 'Sáº£n pháº©m 2', 'CÃ¡i', 'LG', 'LG Viá»?t Nam', 'all', NULL, 'xxxyyy', 20000, 25000, 10, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productdetail`
+--
+
+CREATE TABLE `productdetail` (
+  `productid` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `os` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `frontcam` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `backcam` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cpu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ram` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `storage` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sdcard` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sim` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `battery` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `productdetail`
+--
+
+INSERT INTO `productdetail` (`productid`, `display`, `os`, `frontcam`, `backcam`, `cpu`, `ram`, `storage`, `sdcard`, `sim`, `battery`) VALUES
+('SP001', '5inch, FullHD, Amoled ', 'Android 6.0', '5.0MP', '8.0MP', 'Snapdragon 650', '4GB', '64GB', '256GB', '2 Sim', '3000 mAh');
 
 -- --------------------------------------------------------
 
@@ -214,6 +239,12 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`productid`);
 
 --
+-- Indexes for table `productdetail`
+--
+ALTER TABLE `productdetail`
+  ADD PRIMARY KEY (`productid`);
+
+--
 -- Indexes for table `receiptandpayment`
 --
 ALTER TABLE `receiptandpayment`
@@ -246,11 +277,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `customergroup`
   MODIFY `cgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `product`
---
-ALTER TABLE `product`
-  MODIFY `productid` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supliergroup`
 --
