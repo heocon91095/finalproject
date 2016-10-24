@@ -11,7 +11,13 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
+        <mapping resource="Model/Customergroup.hbm.xml" />
         <mapping resource="Model/Product.hbm.xml" />
+        <mapping resource="Model/Supliergroup.hbm.xml" />
+        <mapping resource="Model/Productdetail.hbm.xml" />
         <mapping resource="Model/User.hbm.xml" />
+        <mapping resource="Model/Customer.hbm.xml" />
+        <mapping resource="Model/Receiptandpayment.hbm.xml" />
+        <mapping resource="Model/Suplier.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
