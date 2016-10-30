@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 23, 2016 at 04:42 AM
+-- Generation Time: Oct 30, 2016 at 04:38 AM
 -- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -95,8 +95,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`productid`, `productname`, `unit`, `producer`, `supiler`, `groupid`, `prductimg`, `note`, `pricein`, `priceout`, `vat`, `detail`) VALUES
-('SP001', 'Sản phẩm 1', 'Cái', 'Samsung', 'SamsungVN', 'Sản phẩm 1', '', '', 10000, 12000, 10, ''),
-('SP002', 'Sáº£n pháº©m 2', 'CÃ¡i', 'LG', 'LG Viá»?t Nam', 'all', NULL, 'xxxyyy', 20000, 25000, 10, NULL);
+('asdf', 'asfd 123', 'sdfa', 'sdfa', 'fdsa', 'Group 1', NULL, 'sdfa', 132, 321, 312, NULL),
+('qwe', 'qew', 'qwe', 'qew', 'qwe', 'Group 1', NULL, 'eqw', 312, 312, 132, NULL),
+('SP001', 'S?n ph?m 1', 'Cái', 'Samsung', 'SamsungVN', 'Group 1', NULL, '', 10000, 12000, 10, NULL),
+('SP002', 'LG G2', 'Cai', 'LG', 'LG VN', 'Nhom 1', NULL, 'LG G2', 50000, 60000, 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -115,15 +117,40 @@ CREATE TABLE `productdetail` (
   `storage` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sdcard` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sim` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `battery` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `battery` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `special` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `productdetail`
 --
 
-INSERT INTO `productdetail` (`productid`, `display`, `os`, `frontcam`, `backcam`, `cpu`, `ram`, `storage`, `sdcard`, `sim`, `battery`) VALUES
-('SP001', '5inch, FullHD, Amoled ', 'Android 6.0', '5.0MP', '8.0MP', 'Snapdragon 650', '4GB', '64GB', '256GB', '2 Sim', '3000 mAh');
+INSERT INTO `productdetail` (`productid`, `display`, `os`, `frontcam`, `backcam`, `cpu`, `ram`, `storage`, `sdcard`, `sim`, `battery`, `image`, `special`) VALUES
+('asdf', 'fd123', 'fsaddf', 'dfsa', 'asdf', 'asfdsa', 'fd', 'fsadfsad', 'fasd', 'sadf', 'fsad', '', 'fasd'),
+('qwe', 'das', 'das', 'dsa', 'sda', 'asd', 'sad', 'sad', 'sda', 'dsa', 'sda', '', 'sadsda'),
+('SP001', '5inch, FullHD, Amoled ', 'Android 6.0', '5.0MP', '8.0MP', 'Snapdragon 650', '4GB', '64GB', '256GB', '2 Sim', '3000 mAh', '', ''),
+('SP002', '5inch, FullHD', 'Android', '8MP', '13MP', 'SnapDragon 800', '2Gb', '16GB', '25GB', '1 Sim', '3400 mAh', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productgroup`
+--
+
+CREATE TABLE `productgroup` (
+  `pgroupid` int(11) NOT NULL,
+  `pgroupname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pgroupnote` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `productgroup`
+--
+
+INSERT INTO `productgroup` (`pgroupid`, `pgroupname`, `pgroupnote`) VALUES
+(1, 'Nhom 1', 'Ahihi'),
+(2, 'Group 1', 'This is group1');
 
 -- --------------------------------------------------------
 
@@ -245,6 +272,12 @@ ALTER TABLE `productdetail`
   ADD PRIMARY KEY (`productid`);
 
 --
+-- Indexes for table `productgroup`
+--
+ALTER TABLE `productgroup`
+  ADD PRIMARY KEY (`pgroupid`);
+
+--
 -- Indexes for table `receiptandpayment`
 --
 ALTER TABLE `receiptandpayment`
@@ -277,6 +310,11 @@ ALTER TABLE `user`
 --
 ALTER TABLE `customergroup`
   MODIFY `cgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `productgroup`
+--
+ALTER TABLE `productgroup`
+  MODIFY `pgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `supliergroup`
 --

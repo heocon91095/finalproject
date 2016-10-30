@@ -2,6 +2,7 @@ package Action;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -13,10 +14,46 @@ import Model.Product;
 public class posproduct extends ActionSupport implements ModelDriven<Product> {
 	Product product;
 	List<Product> products;
+	String key;
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	String group;
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
 
 	public String getlist() {
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
+		if (key !=null)
+		{
+			Query query = ss.createQuery("from Product where productname like :key");
+			query.setParameter("key", "%"+key+"%");
+			products = query.list();
+			System.out.println(products.get(0));
+			ss.close();
+			System.out.println("1");
+			return "success";
+		}
+		if(group != null)
+		{
+			Query query = ss.createQuery("from Product where groupid = :group");
+			query.setParameter("group", group);
+			products = query.list();
+			ss.close();
+			System.out.println("2");
+			return "success";
+		}
 		products = ss.createQuery("from Product").list();
 		ss.close();
 		return "success";

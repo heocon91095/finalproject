@@ -2,8 +2,6 @@ package Action;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.interceptor.SessionAware;
 
 public class posindex implements SessionAware{
