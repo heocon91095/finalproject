@@ -1,5 +1,13 @@
 package Action.ProductDetail;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -9,10 +17,43 @@ import com.opensymphony.xwork2.ModelDriven;
 import Action.FactorySessionGet;
 import Model.Productdetail;
 
-public class add extends ActionSupport implements ModelDriven<Productdetail>{
+public class add extends ActionSupport implements ModelDriven<Productdetail>,ServletRequestAware{
 Productdetail productdetail;
+File fileupload;
+String fileUploadContentType;
+String fileencode;
+public HttpServletRequest request;
+public File getFileupload() {
+	return fileupload;
+}
+public String getFileencode() {
+	return fileencode;
+}
+public void setFileencode(String fileencode) {
+	this.fileencode = fileencode;
+}
+public void setFileupload(File fileupload) {
+	this.fileupload = fileupload;
+}
+public String getFileUploadContentType() {
+	return fileUploadContentType;
+}
+public void setFileUploadContentType(String fileUploadContentType) {
+	this.fileUploadContentType = fileUploadContentType;
+}
 @Override
 	public String execute() throws Exception {
+	try{
+		File desFile = new File(request.getServletContext().getRealPath("/img/product")+"/"+productdetail.getImage());
+		System.out.println(fileencode);
+		byte[] arrbyte = Base64.decodeBase64(fileencode) ;
+		FileUtils.writeByteArrayToFile(desFile, arrbyte);
+		System.out.println(desFile.getAbsolutePath());
+	}
+	catch(IOException e)
+	{
+		System.out.println("No File");
+	}
 		// TODO Auto-generated method stub
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
@@ -34,6 +75,11 @@ public void setProductdetail(Productdetail productdetail) {
 public Productdetail getModel() {
 	// TODO Auto-generated method stub
 	return productdetail;
+}
+@Override
+public void setServletRequest(HttpServletRequest request) {
+	// TODO Auto-generated method stub
+	this.request = request;
 }
 
 }
