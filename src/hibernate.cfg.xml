@@ -13,6 +13,7 @@
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping resource="Model/Customergroup.hbm.xml" />
         <mapping resource="Model/Product.hbm.xml" />
+        <mapping resource="Model/Productgroup.hbm.xml" />
         <mapping resource="Model/Supliergroup.hbm.xml" />
         <mapping resource="Model/Productdetail.hbm.xml" />
         <mapping resource="Model/User.hbm.xml" />
