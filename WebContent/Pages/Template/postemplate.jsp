@@ -32,7 +32,11 @@
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
-
+<!-- Easy Autocomplete JS and CSS -->
+	<script src="/Struts22/Script/jquery.easy-autocomplete.min.js" ></script>
+	
+	<link rel="/Struts22/Script/easy-autocomplete.themes.min.css" rel="stylesheet" type="text/css" />
+	<link rel="/Struts22/Script/easy-autocomplete.min.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -140,6 +144,7 @@ html, body {
 }
 
 .botbarbutton {
+margin-left:30px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-left: 10px;

@@ -109,7 +109,13 @@
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
 		</action>	
+	<!-- Sell -->
+		<action name="sell" class="Action.Sell.add">
+		<result name="success" type="tiles">pos.sell</result>
+		<result name="error">Login.jsp</result>
+		</action>
 	</package>
+	
 	
 	
 	<!-- Action return Json -->

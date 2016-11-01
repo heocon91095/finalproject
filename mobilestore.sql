@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2016 at 04:38 AM
+-- Generation Time: Nov 01, 2016 at 03:14 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -127,10 +127,10 @@ CREATE TABLE `productdetail` (
 --
 
 INSERT INTO `productdetail` (`productid`, `display`, `os`, `frontcam`, `backcam`, `cpu`, `ram`, `storage`, `sdcard`, `sim`, `battery`, `image`, `special`) VALUES
-('asdf', 'fd123', 'fsaddf', 'dfsa', 'asdf', 'asfdsa', 'fd', 'fsadfsad', 'fasd', 'sadf', 'fsad', '', 'fasd'),
-('qwe', 'das', 'das', 'dsa', 'sda', 'asd', 'sad', 'sad', 'sda', 'dsa', 'sda', '', 'sadsda'),
-('SP001', '5inch, FullHD, Amoled ', 'Android 6.0', '5.0MP', '8.0MP', 'Snapdragon 650', '4GB', '64GB', '256GB', '2 Sim', '3000 mAh', '', ''),
-('SP002', '5inch, FullHD', 'Android', '8MP', '13MP', 'SnapDragon 800', '2Gb', '16GB', '25GB', '1 Sim', '3400 mAh', '', '');
+('asdf', 'fd123', 'fsaddf', 'dfsa', 'asdf', 'asfdsa', 'fd', 'fsadfsad', 'fasd', 'sadf', 'fsad', 'galaxynote7.jpg', 'fasd'),
+('qwe', 'das', 'das', 'dsa', 'sda', 'asd', 'sad', 'sad', 'sda', 'dsa', 'sda', 'galaxynote7.jpg', 'sadsda'),
+('SP001', '5inch, FullHD, Amoled ', 'Android 6.0', '5.0MP', '8.0MP', 'Snapdragon 650', '4GB', '64GB', '256GB', '2 Sim', '3000 mAh', 'galaxynote7.jpg', ''),
+('SP002', '5inch, FullHD', 'Android', '8MP', '13MP', 'SnapDragon 800', '2Gb', '16GB', '25GB', '1 Sim', '3400 mAh', 'galaxynote7.jpg', '');
 
 -- --------------------------------------------------------
 
