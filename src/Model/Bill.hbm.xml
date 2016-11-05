@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 4, 2016 7:00:31 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Bill" table="bill" catalog="mobilestore" optimistic-lock="version">
+        <id name="billid" type="java.lang.Integer">
+            <column name="billid" />
+            <generator class="identity" />
+        </id>
+        <property name="customerid" type="string">
+            <column name="customerid" length="10" />
+        </property>
+        <property name="total" type="int">
+            <column name="total" not-null="true" />
+        </property>
+        <property name="tax" type="int">
+            <column name="tax" not-null="true" />
+        </property>
+        <property name="pay" type="int">
+            <column name="pay" not-null="true" />
+        </property>
+        <property name="excess" type="int">
+            <column name="excess" not-null="true" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

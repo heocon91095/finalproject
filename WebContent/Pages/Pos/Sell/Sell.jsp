@@ -5,7 +5,7 @@
 	var plist = [];
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navp").addClass("active");
+		$("#navs").addClass("active");
 		$('#example').dataTable({
 			"bPaginate" : false,
 			"bInfo" : false,
@@ -23,13 +23,117 @@
 			} ]
 		});
 		loadtable();
-		loadtablebykey()
+		loadtablebykey();
 		getgrouplist();
 		countptotal();
 		getpaytotal();
 		getexcess();
-		autocompletecustomer();
+		getcustomerlist();
+		getcustomergrouplist();
+		$("#createcustomer").click(function() {
+			$("#add input,#add textarea,#add #cmgroup").val(" ");
+			$('#cmid').removeAttr('disabled');
+			$("#submitbutton").text("Thêm");
+			$("#submitbutton").click(function() {
+				addcustomer();
+			});
+			getcustomerlist();
+			$("#myModal").modal('toggle');
+		});
 	});
+	function addcustomer() {
+		$.ajax({
+			url : "addcustomer.action",
+			data : $("#add").serialize(),
+			success : function(data) {
+				console.log("ok");
+
+				loadtable();
+				//jQuery.noConflict();
+				$("#myModal").modal('toggle');
+			}
+		});
+	}
+	function addbill() {
+		var bill = {
+			customerid : $("#txtcustomer").val(),
+			total : $("#paytotal").text(),
+			tax : $("#tax").val(),
+			pay : $("#pay").val(),
+			excess : $("#excess").val(),
+			note : $("#note").val(),
+			status : $("#status").val()
+		};
+		console.log(JSON.stringify(bill));
+		$.ajax({
+			url : "addbill.action",
+			data : bill,
+			type : "post",
+			success : function(data) {
+				console.log(data);
+				var bid = data.bill.billid;
+				console
+				tabledata = getalldata();
+				tabledata.forEach(function(entry) {
+					var billdetail = {
+						billid : bid,
+						productid : entry[0],
+						productname : entry[1],
+						number : $("#n" + entry[0]).val(),
+						unitprice : entry[3],
+						totalprice : entry[4]
+					};
+					console.log(billdetail);
+					$.ajax({
+						url : "addbilldetail",
+						data : billdetail,
+						success : function(data1) {
+							console.log("ok");
+						}
+					});
+				});
+			}
+		});
+	}
+	function getcustomergrouplist() {
+		$(".groupitem").html("");
+		$.ajax({
+			url : "cgrouplist.action",
+			success : function(data) {
+				data.customergroups.forEach(function(entry) {
+					var str1 = "<option value='"+entry.cgroupname+"'>"
+							+ entry.cgroupname + "</option>"
+					$("#cmgroup").append(str1);
+				});
+			}
+		});
+	}
+	function getcustomerlist() {
+		return $
+				.ajax({
+					url : "/Struts22/customerlistjson",
+					method : "post",
+					async : false,
+					success : function(data) {
+						var option;
+						data.customers
+								.forEach(function(entry) {
+									option += "<option value='"+entry.customerid+"' data-value ='"+entry.customername+"'>"
+											+ entry.customername + "</ option>";
+								});
+						$("#listcustomer").html(option);
+						$("#txtcustomer").change(
+								function() {
+									console.log($(this));
+									var name = $(
+											"#listcustomer [value='"
+													+ $(this).val() + "']")
+											.text();
+									$("#paycustomer").text(name);
+								});
+					},
+				});
+	}
 	function countptotal() {
 		$(".pnumber").change(function() {
 			var thisobject = $(this);
@@ -40,24 +144,22 @@
 	}
 	function getgrouplist() {
 		$(".groupitem").html("");
-		$
-				.ajax({
-					url : "pgrouplist.action",
-					success : function(data) {
-						var strall = "<option value='all'>Tất cả</ option>"
-						$("#groupitem").append(strall);
-						data.pgs.forEach(function(entry) {
-							var str = "<option value='"+entry.pgroupname+"'>"
-									+ entry.pgroupname + "</ option>";
-							$("#groupitem").append(str);
-						});
-						getgroup();
-					}
+		$.ajax({
+			url : "pgrouplist.action",
+			success : function(data) {
+				var strall = "<option value='all'>Tất cả</ option>"
+				$("#groupitem").append(strall);
+				data.pgs.forEach(function(entry) {
+					var str = "<option value='"+entry.pgroupname+"'>"
+							+ entry.pgroupname + "</ option>";
+					$("#groupitem").append(str);
 				});
+				getgroup();
+			}
+		});
 	}
-	function getgroup()
-	{
-		$("#groupitem").change(function(){
+	function getgroup() {
+		$("#groupitem").change(function() {
 			var gid = $(this).val();
 			console.log(gid);
 			loadtable(gid);
@@ -75,8 +177,20 @@
 				$(".product-container").empty();
 				data1 = JSON.stringify(data.products);
 				console.log(data1);
+				var count = 0;
 				data.products.forEach(function(entry) {
-					drawproductgrid(entry);
+					++count;
+					if ((count - 1) % 12 == 0) {
+						var str = "<li><a href='#'>" + (((count - 1) / 12) + 1)
+								+ "</a></li> "
+						$(".pagination").append(str);
+					}
+					if (count <= 12) {
+						drawproductgrid(entry, true, count);
+					} else {
+						drawproductgrid(entry, false, count);
+					}
+
 				});
 				$(".product-block").click(function() {
 					var obj = $(this);
@@ -86,11 +200,26 @@
 					var price = $("#" + id + " .price").val();
 					addtocart(id, name, price);
 				});
+				$(".pagination li").click(function() {
+					var obj = $(this);
+					var number = obj.text();
+					console.log(number);
+					$(".product-block").each(function(i,obj){
+						console.log(obj);
+						//$(this).removeAttr("hidden");
+						$(this).hide();
+						var count = $(this).attr("count");
+						if(count > ((number -1)*12) && count <= (number*12) )
+							{
+							$(this).show();
+							}
+					});		
+				});
 			},
 		});
 	}
 	function loadtablebykey() {
-		$("#txtsearch").change(function(){
+		$("#txtsearch").change(function() {
 			$.ajax({
 				url : "/Struts22/productjson",
 				method : "post",
@@ -107,19 +236,36 @@
 					});
 				},
 			});
-		});	
+		});
 	}
-	function drawproductgrid(data) {
-		console.log(data);
-		var str = "<div class='product-block' id ='"+data.productid+"' >"
-				+ "<div class='product-img'>"
-				+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
-				+ "</div>"
-				+ "<input type='hidden' class='price' value="+data.priceout+" />"
-				+ "<input type='hidden' class='name' value="+data.productname+" />"
-				+ "<div class='product-price'>" + data.priceout + "</div>"
-				+ "<div class='product-detail'>" + data.productname
-				+ " <br />Tồn kho : 1" + "</div>" + "</div>";
+	function drawproductgrid(data, option, count) {
+		if (option) {
+			var str = "<div class='product-block' count='"+count+"' id ='"+data.productid+"' >"
+					+ "<div class='product-img'>"
+					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "</div>"
+					+ "<input type='hidden' class='price' value="+data.priceout+" />"
+					+ "<input type='hidden' class='name' value="+data.productname+" />"
+					+ "<div class='product-price'>"
+					+ data.priceout
+					+ "</div>"
+					+ "<div class='product-detail'>"
+					+ data.productname
+					+ " <br />Tồn kho : 1" + "</div>" + "</div>";
+		} else {
+			var str = "<div class='product-block' count='"+count+"' hidden id ='"+data.productid+"' >"
+					+ "<div class='product-img'>"
+					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "</div>"
+					+ "<input type='hidden' class='price' value="+data.priceout+" />"
+					+ "<input type='hidden' class='name' value="+data.productname+" />"
+					+ "<div class='product-price'>"
+					+ data.priceout
+					+ "</div>"
+					+ "<div class='product-detail'>"
+					+ data.productname
+					+ " <br />Tồn kho : 1" + "</div>" + "</div>";
+		}
 		$(".product-container").append(str);
 	}
 
@@ -204,7 +350,7 @@
 	function getalldata() {
 		var table = $("#example").dataTable();
 		var data = table.fnGetData();
-		console.log(data);
+		return data;
 	}
 	function getpaytotal() {
 		$(".total").change(
@@ -221,23 +367,25 @@
 					$("#paytotal").text(paytotal);
 				});
 	}
-	function getexcess(){
-		$("#pay").change(function(){
-			var excess = parseInt($("#pay").val()) - parseInt($("#paytotal").text());
-			$("#excess").val(excess);
-		});
+	function getexcess() {
+		$("#pay").change(
+				function() {
+					var excess = parseInt($("#pay").val())
+							- parseInt($("#paytotal").text());
+					$("#excess").val(excess);
+				});
 	}
-	function autocompletecustomer(){
+	function autocompletecustomer() {
 		var options = {
-				  url: "customerlistjson.action",
-				  getValue: "customers.customername",
-				  list: {	
-				    match: {
-				      enabled: true
-				    }
-				  },
-				  theme: "square"
-				};
+			url : "customerlistjson.action",
+			getValue : "customers.customername",
+			list : {
+				match : {
+					enabled : true
+				}
+			},
+			theme : "square"
+		};
 		$("#txtsearchcustomer").easyAutocomplete(options);
 	}
 </script>
@@ -277,14 +425,19 @@
 		href="#">Chuyển hàng</a> <a href="#">Kiểm hàng</a>
 	<div class="botbarfunction">
 		Thêm hóa đơn <input type="text" class="form-control" id="txtsearch"
-			style="width: 200px; display: inline-block;" placeholder="Tìm kiếm hàng hóa" />
+			style="width: 200px; display: inline-block;"
+			placeholder="Tìm kiếm hàng hóa" />
 		</button>
-		<div style="display:inline-block">
-		<input type="text" class="form-control" id="txtsearchcustomer" placeholder="Tìm kiếm khách hàng"
-			style="width: 200px; display: inline-block; margin-left: 20px" />
-			</div>
-		<button onclick="loadtablebykey()" class="botbarbutton">
-			<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span>
+		<div style="display: inline-block">
+			<input id="txtcustomer" list="listcustomer" class="form-control"
+				placeholder="Tìm kiếm khách hàng"
+				style="width: 200px; display: inline-block; margin-left: 20px" />
+			<datalist id="listcustomer">
+			</datalist>
+		</div>
+		<button id="createcustomer" class="botbarbutton">
+			<span class="glyphicon glyphicon-plus"></span><span
+				class="glyphicon glyphicon-user"></span>
 		</button>
 		<div style="float: right;">
 			<button class="botbarbutton">
@@ -297,20 +450,28 @@
 <div class="row" style="margin-bottom: 50px">
 	<div class="col-md-5"
 		style="margin-top: 10px; padding-left: 20px; margin-bottom: 50px">
-		<div class="product-tool">
-			<select id="groupitem">
-			</select> Phân trang:
-			<div class="pagecontainer" style="display: inline-block;">
-				<div class="page-block"
-					style="padding: 5px; border: solid 1px; background-color: #F1F1F1">1</div>
-			</div>
+		<div class="product-tool"
+			style="display: inline-block; display: flex; align-items: center;">
+			Nhóm:<select id="groupitem" class="form-control"
+				style="display: inline-block; vertical-align: middle; width: 100px">
+			</select>&nbsp; Trang:
+			<ul class="pagination">
+			</ul>
 		</div>
 		<div class="product-container"
 			style="margin-top: 10px; display: inline-block;"></div>
 	</div>
 	<div class="col-md-7 ">
 		<p style="margin-top: 5px; margin-left: 15px">
-			Người mua : <span style="color: blue">Khách vãng lai</span>
+			Người mua : <span id="paycustomer" style="color: blue">Khách
+				vãng lai</span> 
+				Tình trạng <select id="status">
+				<option value="Đã giao hàng">Đã giao hàng</option>
+				<option value="Đã thanh toán">Đã thanh toán</option>
+				<option value="Đã xác nhận">Đã xác nhận</option>
+				<option value="Chờ xử lý">Chờ xử lý</option>
+				<option value="Hủy">Hủy</option>
+				</select>
 		</p>
 		<div class="tablecontainer" style="min-height: 250px;">
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -338,29 +499,31 @@
 					style="margin: 5px; border: solid 1px; padding: 15px">
 					<p>Thanh toán</p>
 					<hr />
-					<table width="100%">
+					<table width="100%"
+						style="border-collapse: separate; border-spacing: 10px;">
 						<tr align="right">
 							<td>Tổng cộng</td>
 							<td id="paytotal" style="color: red; font-size: large;">0</td>
 						</tr>
 						<tr align="right">
 							<td>Thuế</td>
-							<td><input type="text" id="tax" style="text-align: right;"
-								value=0 /></td>
+							<td><input type="number" class="form-control" id="tax"
+								style="text-align: right;" value=0 /></td>
 						</tr>
 						<tr align="right">
 							<td>Thanh toán</td>
-							<td><input type="text" id="pay" style="text-align: right;" /></td>
+							<td><input type="number" class="form-control" id="pay"
+								style="text-align: right;" /></td>
 						</tr>
 						<tr align="right">
 							<td>Tiền thừa</td>
-							<td><input type="text" id="excess"
+							<td><input type="number" class="form-control" id="excess"
 								style="text-align: right;" /></td>
 						</tr>
 					</table>
 				</div>
 				<div>
-					<input type="button" onclick="getalldata()" style="width: 100px"
+					<input type="button" onclick="addbill()" style="width: 100px"
 						value="Luu" />
 				</div>
 			</div>
@@ -370,7 +533,7 @@
 					<p>
 						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
 					</p>
-					<input type="text" placeholder="Ghi chu"
+					<input type="text" id="note" placeholder="Ghi chu"
 						style="background-color: #d1e2ff; border: none" />
 				</div>
 			</div>
@@ -379,129 +542,45 @@
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog ">
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm sản phẩm</h4>
+				<h4 class="modal-title">Thêm khách hàng</h4>
 			</div>
 			<div class="modal-body ">
-				<form action="addproduct.action" id="add"
-					enctype="multipart/form-data">
-					<div class="row">
-						<div class="col-md-5">
-							<table width="100%" class="popuptable">
-								<tr>
-									<td style="white-space: nowrap;">Mã hàng hóa&nbsp;</td>
-									<td><input type="text" id="code" name="product.productid" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Tên hàng hóa&nbsp;</td>
-									<td><input type="text" id="name"
-										name="product.productname" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Nhà sản xuất&nbsp;</td>
-									<td><input type="text" id="producer"
-										name="product.producer" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Nhà cung cấp&nbsp;</td>
-									<td><input type="text" id="suplier" name="product.supiler" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Chọn nhóm&nbsp;</td>
-									<td><select id="group" name="product.groupid">
+				<form action="addproduct.action" id="add">
+					<table width="100%" class="popuptable" align="center">
+						<tr>
+							<td style="white-space: nowrap;" width="30%">Mã khách hàng</td>
+							<td><input type="text" name="customer.customerid" id="cmid" /></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Tên khách hàng</td>
+							<td><input type="text" name="customer.customername"
+								id="cmname" /></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Chọn nhóm</td>
+							<td><select name="customer.customergroup" id="cmgroup">
 
-									</select></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Đơn vị tính&nbsp;</td>
-									<td><input type="text" id="unit" name="product.unit" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;" id="img">Hình ảnh&nbsp;</td>
-									<td><input type="file" name="imgfile" id="imgfile" /><input
-										type="hidden" name="productdetail.image" id="filename" /> <input
-										type="hidden" name="fileencode" id="fileencode" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Ghi chú&nbsp;</td>
-									<td><textarea id="note" name="product.note" cols="23"
-											rows="4"></textarea></td>
-								</tr>
-							</table>
-						</div>
-						<div class="col-md-7">
-							<table width="100%" class="popuptable">
-								<tr>
-									<td colspan="6"><b>Thiết lập giá</b></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Giá nhập&nbsp;</td>
-									<td><input id="pricein" type="text" name="product.pricein"
-										style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp; Giá bán &nbsp;</td>
-									<td><input type="text" id="priceout"
-										name="product.priceout" style="width: 100%" /></td>
-									<td style="white-space: nowrap;">&nbsp; VAT &nbsp;</td>
-									<td><input type="text" id="vat" name="product.vat"
-										style="width: 60%" />%</td>
-								</tr>
-							</table>
-							<table width="100%" class="popuptable">
-								<tr>
-									<td colspan="4"><b>Thông tin chi tiết</b></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Màn hình&nbsp;</td>
-									<td><input type="text" id="display"
-										name="productdetail.display" style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp; OS &nbsp;</td>
-									<td><input type="text" id="os" name="productdetail.os"
-										style="width: 100%" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Camera trước&nbsp;</td>
-									<td><input type="text" id="frontcam"
-										name="productdetail.frontcam" style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp; Camera sau &nbsp;</td>
-									<td><input type="text" id="backcam"
-										name="productdetail.backcam" style="width: 100%" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">CPU&nbsp;</td>
-									<td><input type="text" id="cpu" name="productdetail.cpu"
-										style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp; Ram &nbsp;</td>
-									<td><input type="text" id="ram" name="productdetail.ram"
-										style="width: 100%" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Bộ nhớ&nbsp;</td>
-									<td><input type="text" id="storage"
-										name="productdetail.storage" style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp;Thẻ nhớ &nbsp;</td>
-									<td><input type="text" id="sdcard"
-										name="productdetail.sdcard" style="width: 100%" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Sim&nbsp;</td>
-									<td><input type="text" id="sim" name="productdetail.sim"
-										style="width: 100%;" /></td>
-									<td style="white-space: nowrap;">&nbsp; Pin &nbsp;</td>
-									<td><input type="text" id="battery"
-										name="productdetail.battery" style="width: 100%" /></td>
-								</tr>
-								<tr>
-									<td style="white-space: nowrap;">Đặc biệt&nbsp;</td>
-									<td colspan="3"><input type="text" id="special"
-										name="productdetail.special" style="width: 100%;" /></td>
-								</tr>
-							</table>
-						</div>
-					</div>
+							</select></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Địa chỉ</td>
+							<td><textarea cols="40" name="customer.address"
+									id="cmaddress"></textarea></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Số điện thoại</td>
+							<td><input type="text" name="customer.phone" id="cmphone" /></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Email</td>
+							<td><input type="text" name="customer.mail" id="cmmail" /></td>
+						</tr>
+					</table>
 				</form>
 			</div>
 			<div class="modal-footer">

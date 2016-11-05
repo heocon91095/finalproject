@@ -100,6 +100,7 @@
 		});
 	}
 	function add() {
+		console.log($("#add").serialize());
 		$.ajax({
 			url : "addrp.action",
 			data : $("#add").serialize(),

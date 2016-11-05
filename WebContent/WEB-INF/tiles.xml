@@ -45,4 +45,8 @@
 	<put-attribute name="title" value="Bán hàng"/>
 	<put-attribute name="body" value="/Pages/Pos/Sell/Sell.jsp"/>
 	</definition>
+	<definition name="pos.billlist" extends="postemplate">
+	<put-attribute name="title" value="Danh sách hóa đơn"/>
+	<put-attribute name="body" value="/Pages/Pos/Sell/BillList.jsp"/>
+	</definition>
 </tiles-definitions>

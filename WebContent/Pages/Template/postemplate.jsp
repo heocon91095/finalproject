@@ -32,11 +32,6 @@
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
-<!-- Easy Autocomplete JS and CSS -->
-	<script src="/Struts22/Script/jquery.easy-autocomplete.min.js" ></script>
-	
-	<link rel="/Struts22/Script/easy-autocomplete.themes.min.css" rel="stylesheet" type="text/css" />
-	<link rel="/Struts22/Script/easy-autocomplete.min.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -144,7 +139,6 @@ html, body {
 }
 
 .botbarbutton {
-margin-left:30px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-left: 10px;
@@ -180,8 +174,8 @@ margin-left:30px;
 			<ul class="nav navbar-nav">
 				<li id="navd" ><a href="/Struts22/posindex"><span
 						class="glyphicon glyphicon-home"></span></a></li>
-				<li ><a href="#">Bán hàng</a></li>
-				<li id="navp"><a href="/Struts22/listproduct">Hàng hóa</a></li>
+				<li id="navs"><a href="/Struts22/sell">Bán hàng</a></li>
+				<li id="navp"><a href="/Struts22/product">Hàng hóa</a></li>
 				<li><a href="#">Nhập kho</a></li>
 				<li id="navcm"><a href="/Struts22/listcustomer">Khách hàng</a></li>
 				<li id="navsp"><a href="#">Nhà cung cấp</a></li>

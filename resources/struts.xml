@@ -110,8 +110,20 @@
 			<result name="error">Login.jsp</result>
 		</action>	
 	<!-- Sell -->
-		<action name="sell" class="Action.Sell.add">
+		<action name="sell" class="Action.Sell.create">
 		<result name="success" type="tiles">pos.sell</result>
+		<result name="error">Login.jsp</result>
+		</action>
+		<action name="addbilldetail" class="Action.Sell.adddetail">
+		<result name="success" type="tiles">pos.sell</result>
+		<result name="error">Login.jsp</result>
+		</action>
+		<action name="billlist" class="Action.Sell.showlist">
+		<result name="success" type="tiles">pos.billlist</result>
+		<result name="error">Login.jsp</result>
+		</action>
+		<action name="getbilllist" class="Action.Sell.list">
+		<result name="success" type="tiles">pos.billlist</result>
 		<result name="error">Login.jsp</result>
 		</action>
 	</package>
@@ -178,6 +190,15 @@
 		<action name="rpjson" class="Action.RP.update" method="getrpJson">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
+		</action>
+		<!-- Sell -->
+		<action name="addbill" class="Action.Sell.add">
+		<result name="success" type="json"></result>
+		<result name="error">Login.jsp</result>
+		</action>
+		<action name="getbilllist" class="Action.Sell.list">
+		<result name="success" type="json"></result>
+		<result name="error">Login.jsp</result>
 		</action>
 	</package>
 </struts>
