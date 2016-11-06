@@ -153,6 +153,53 @@ html, body {
 	padding-top: 10px;
 }
 </style>
+<script>
+	$(document).ready(function() {
+		$("#edituser").click(function(data) {
+			$("#myModal").modal('toggle');
+			var username = "${sessionScope.username}";
+			$.ajax({
+				url : 'getemployee.action',
+				data : {
+					username : username
+				},
+				success : function(data) {
+					console.log(data);
+					$("#uname").val(data.employee.employeename);
+					$("#uaddress").val(data.employee.address);
+					$("#uphone").val(data.employee.phone);
+					$("#umail").val(data.employee.mail);
+					$("#uuser").val(data.employee.username);
+					$("#uid").val(data.employee.employeeid);
+				}
+			});
+		});
+	});
+	function changeinfo() {
+		$.ajax({
+			url : 'updateemployee.action',
+			type: 'post',
+			data : $("#updateinfo").serialize(),
+			success : function() {
+				console.log("update OK");
+				location.reload();
+			}
+		});
+	}
+	function changepassword(){
+		if($("#newpass").val() == $("#renewpass").val() )
+		$.ajax({
+			url : 'changepassword.action',
+			type: 'post',
+			data : $("#changepass").serialize(),
+			success : function() {
+				console.log("update OK");
+				alert("Re-login to take effect");
+				window.location.href = "/Struts22/";
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<div class="topbar">
@@ -160,9 +207,9 @@ html, body {
 			href="#"><span class="glyphicon glyphicon-question-sign"></span>Help</a>
 		<a href="#">Chi nhánh</a>
 		<div class="login" style="float: right;">
-			<a href="#"><span class="glyphicon glyphicon-user"></span> Sign
-				Up</a> <a href="#"><span class="glyphicon glyphicon-log-in"></span>
-				Login</a>
+			<a href="#" id="edituser"><span class="glyphicon glyphicon-user"></span>
+				${sessionScope.username}</a> <a id="logout" href="/Struts22/logout"><span
+				class="glyphicon glyphicon-log-in"></span> Logout</a>
 		</div>
 	</div>
 	<nav class="navbar navbar-default">
@@ -172,22 +219,89 @@ html, body {
 					alt="Logo hang" src="<s:url value="/img/logo.png"/>" /></a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li id="navd" ><a href="/Struts22/posindex"><span
+				<li id="navd"><a href="/Struts22/posindex"><span
 						class="glyphicon glyphicon-home"></span></a></li>
 				<li id="navs"><a href="/Struts22/sell">Bán hàng</a></li>
 				<li id="navp"><a href="/Struts22/product">Hàng hóa</a></li>
 				<li><a href="#">Nhập kho</a></li>
 				<li id="navcm"><a href="/Struts22/listcustomer">Khách hàng</a></li>
 				<li id="navsp"><a href="#">Nhà cung cấp</a></li>
-				<li><a href="#">Thu chi</a></li>
+				<li id="navrp"><a href="#">Thu chi</a></li>
 				<li><a href="#">Báo cáo</a></li>
 			</ul>
 		</div>
 	</nav>
-	<main style="margin: 0;padding: 0;border: 0"> <tiles:insertAttribute
+	<main style="margin-bottom:100px ;padding: 0;border: 0"> <tiles:insertAttribute
 		name="body" /> </main>
 	<div
 		style="position: fixed; bottom: 0; background-color: teal; width: 100%; color: white;"
 		align="center">TranPhucTai-K39.104.078 &copy;Copyright</div>
+
+	<!-- Modal -->
+
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog ">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Thay đổi thông tin</h4>
+				</div>
+				<div class="modal-body ">
+					<form id="updateinfo">
+						<input type="hidden" id="uid" name="employee.employeeid" /> <input
+							type="hidden" id="uuser" name="employee.username" />
+						<table width="100%" class="popuptable" align="center">
+							<tr>
+								<td style="white-space: nowrap;">Họ tên</td>
+								<td><input type="text" name="employee.employeename"
+									id="uname" /></td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap;">Địa chỉ</td>
+								<td><textarea cols="40" name="employee.address"
+										id="uaddress"></textarea></td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap;">Số điện thoại</td>
+								<td><input type="text" name="employee.phone" id="uphone" /></td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap;">Email</td>
+								<td><input type="text" name="employee.mail" id="umail" /></td>
+							</tr>
+						</table>
+					</form>
+					<div>
+						<hr />
+						<h4>Đổi mật khẩu</h4>
+					</div>
+					<form id="changepass">
+						<table width="100%" class="popuptable" align="center">
+							<tr>
+								<td style="white-space: nowrap;">Mật khẩu cũ</td>
+								<td><input type="password" name="oldpass" id="oldpass" /></td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap;">Mật khẩu mới</td>
+								<td><input type="password" name="newpass" id ="newpass" /></td>
+							</tr>
+							<tr>
+								<td style="white-space: nowrap;">Nhập lại mật khẩu mới</td>
+								<td><input type="password" name="renewpass" id="renewpass"/></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" onclick="changepassword()"
+						class="btn btn-default">Đổi mật khẩu</button>
+					<button type="button" onclick="changeinfo()"
+						class="btn btn-default">Cập nhật thông tin</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

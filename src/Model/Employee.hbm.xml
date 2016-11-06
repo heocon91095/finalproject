@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 6, 2016 4:26:52 PM by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="Model.Employee" table="employee" catalog="mobilestore" optimistic-lock="version">
+        <id name="employeeid" type="java.lang.Integer">
+            <column name="employeeid" />
+            <generator class="identity" />
+        </id>
+        <property name="employeename" type="string">
+            <column name="employeename" length="75" not-null="true" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="15" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" not-null="true" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="100" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

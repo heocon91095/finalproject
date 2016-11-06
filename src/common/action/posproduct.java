@@ -1,4 +1,4 @@
-package Action;
+package common.action;
 
 import java.util.List;
 

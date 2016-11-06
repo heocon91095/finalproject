@@ -1,4 +1,4 @@
-package Action.Sell;
+package sell.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 

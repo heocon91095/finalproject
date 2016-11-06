@@ -14,8 +14,8 @@ import org.hibernate.SessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import Action.FactorySessionGet;
 import Model.Productdetail;
+import common.action.FactorySessionGet;
 
 public class add extends ActionSupport implements ModelDriven<Productdetail>,ServletRequestAware{
 Productdetail productdetail;

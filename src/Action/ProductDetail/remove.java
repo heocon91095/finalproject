@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import Action.FactorySessionGet;
+import common.action.FactorySessionGet;
 
 public class remove extends ActionSupport{
 String productid;

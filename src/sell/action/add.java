@@ -1,4 +1,6 @@
-package Action.Sell;
+package sell.action;
+
+import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,8 +8,8 @@ import org.hibernate.SessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import Action.FactorySessionGet;
 import Model.Bill;
+import common.action.FactorySessionGet;
 
 public class add extends ActionSupport{
 	Bill bill;
@@ -85,7 +87,8 @@ public class add extends ActionSupport{
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println(customerid);
-		bill = new Bill(customerid, total, tax, pay, excess, note,status);
+		Date date = new Date();
+		bill = new Bill(customerid, total, tax, pay, excess, note,status,date);
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		ss.save(bill);

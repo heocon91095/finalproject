@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mobilestore</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mobilestore?characterEncoding=UTF-8</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
@@ -17,6 +17,7 @@
         <mapping resource="Model/Supliergroup.hbm.xml" />
         <mapping resource="Model/Billdetail.hbm.xml" />
         <mapping resource="Model/Productdetail.hbm.xml" />
+        <mapping resource="Model/Employee.hbm.xml" />
         <mapping resource="Model/User.hbm.xml" />
         <mapping resource="Model/Customer.hbm.xml" />
         <mapping resource="Model/Bill.hbm.xml" />

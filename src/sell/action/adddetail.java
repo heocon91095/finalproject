@@ -1,4 +1,4 @@
-package Action.Sell;
+package sell.action;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,9 +6,9 @@ import org.hibernate.SessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import Action.FactorySessionGet;
 import Model.Billdetail;
 import Model.BilldetailId;
+import common.action.FactorySessionGet;
 
 public class adddetail extends ActionSupport {
 	Billdetail billdetail;

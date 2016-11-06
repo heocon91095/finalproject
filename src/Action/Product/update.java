@@ -6,8 +6,8 @@ import org.hibernate.SessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import Action.FactorySessionGet;
 import Model.Product;
+import common.action.FactorySessionGet;
 
 public class update extends ActionSupport implements ModelDriven<Product> {
 Product product;

@@ -8,20 +8,17 @@
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
 	<constant name="struts.mapper.action.prefix.enabled" value="true" />
-	<package name="default" extends="struts-default" namespace="/">
+	<!-- <package name="default" extends="struts-default, tiles-default, json-default"
+		namespace="/">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
-		<action name="login" class="Action.LoginAction">
-			<result name="success" type="tiles">pos.dash</result>
-			<result name="error">Login.jsp</result>
-		</action>
 		<action name="posindex" class="Action.posindex">
 			<result name="success" type="tiles">pos.dash</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- product -->
+		product
 		<action name="product" class="Action.posindex">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
@@ -30,27 +27,27 @@
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="addproductdetail" class="Action.ProductDetail.add" >
+		<action name="addproductdetail" class="Action.ProductDetail.add">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="removeproduct" class="Action.Product.remove" >
+		<action name="removeproduct" class="Action.Product.remove">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="removeproductdetail" class="Action.ProductDetail.remove" >
+		<action name="removeproductdetail" class="Action.ProductDetail.remove">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="updateproduct" class="Action.Product.update" >
+		<action name="updateproduct" class="Action.Product.update">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="updateproductdetail" class="Action.ProductDetail.update" >
+		<action name="updateproductdetail" class="Action.ProductDetail.update">
 			<result name="success" type="tiles">pos.product</result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Customer -->
+		Customer
 		<action name="customer" class="Action.Customer.list">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
@@ -70,16 +67,16 @@
 		<action name="updatecustomer" class="Action.Customer.update">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
-		</action>	
-		<!-- Suplier -->
+		</action>
+		Suplier
 		<action name="suplier" class="Action.Customer.list">
 			<result name="success" type="tiles">pos.suplier</result>
 			<result name="error">Login.jsp</result>
-		</action>		
+		</action>
 		<action name="addsuplier" class="Action.Suplier.add">
 			<result name="success" type="tiles">pos.suplier </result>
 			<result name="error">Login.jsp</result>
-		</action>	  
+		</action>
 		<action name="removesuplier" class="Action.Suplier.remove">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
@@ -91,16 +88,16 @@
 		<action name="updatesuplier" class="Action.Suplier.update">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
-		</action>	
-		<!-- Receipt and Payment -->
+		</action>
+		Receipt and Payment
 		<action name="rp" class="Action.RP.list">
 			<result name="success" type="tiles">pos.RP</result>
 			<result name="error">Login.jsp</result>
-		</action>		
+		</action>
 		<action name="addrp" class="Action.RP.add">
 			<result name="success" type="tiles">pos.RP</result>
 			<result name="error">Login.jsp</result>
-		</action>	  
+		</action>
 		<action name="removerp" class="Action.RP.remove">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
@@ -108,51 +105,40 @@
 		<action name="updaterp" class="Action.RP.update">
 			<result name="success" type="tiles">pos.customer</result>
 			<result name="error">Login.jsp</result>
-		</action>	
-	<!-- Sell -->
-		<action name="sell" class="Action.Sell.create">
-		<result name="success" type="tiles">pos.sell</result>
-		<result name="error">Login.jsp</result>
 		</action>
-		<action name="addbilldetail" class="Action.Sell.adddetail">
-		<result name="success" type="tiles">pos.sell</result>
-		<result name="error">Login.jsp</result>
+		Sell
+		<action name="sell" class="sell.action.create">
+			<result name="success" type="tiles">pos.sell</result>
+			<result name="error">Login.jsp</result>
 		</action>
-		<action name="billlist" class="Action.Sell.showlist">
-		<result name="success" type="tiles">pos.billlist</result>
-		<result name="error">Login.jsp</result>
+		<action name="addbilldetail" class="sell.action.adddetail">
+			<result name="success" type="tiles">pos.sell</result>
+			<result name="error">Login.jsp</result>
 		</action>
-		<action name="getbilllist" class="Action.Sell.list">
-		<result name="success" type="tiles">pos.billlist</result>
-		<result name="error">Login.jsp</result>
+		<action name="billlist" class="sell.action.showlist">
+			<result name="success" type="tiles">pos.billlist</result>
+			<result name="error">Login.jsp</result>
 		</action>
-	</package>
-	
-	
-	
-	<!-- Action return Json -->
-	
-	
-	<package name="Action" extends="json-default" namespace="/">
-		<!-- Product -->
+		Json
+		Product
 		<action name="productjson" class="Action.posproduct" method="getlist">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="getproduct" class="Action.Product.get" >
+		<action name="getproduct" class="Action.Product.get">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<action name="pgrouplist" class="Action.ProductGroup.list" >
+		<action name="pgrouplist" class="Action.ProductGroup.list">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Product detail -->
-		<action name="productdetailjson" class="Action.ProductDetail.get" >
+		Product detail
+		<action name="productdetailjson" class="Action.ProductDetail.get">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Customer -->
+		Customer
 		<action name="customerlistjson" class="Action.Customer.list"
 			method="getList">
 			<result name="success" type="json"></result>
@@ -167,7 +153,7 @@
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Suplier -->
+		Suplier
 		<action name="suplierlistjson" class="Action.Suplier.list"
 			method="getList">
 			<result name="success" type="json"></result>
@@ -182,7 +168,7 @@
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Receipt and Payment -->
+		Receipt and Payment
 		<action name="rplistjson" class="Action.RP.list">
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
@@ -191,14 +177,10 @@
 			<result name="success" type="json"></result>
 			<result name="error">Login.jsp</result>
 		</action>
-		<!-- Sell -->
-		<action name="addbill" class="Action.Sell.add">
-		<result name="success" type="json"></result>
-		<result name="error">Login.jsp</result>
+		Sell
+		<action name="addbill" class="sell.action.add">
+			<result name="success" type="json"></result>
+			<result name="error">Login.jsp</result>
 		</action>
-		<action name="getbilllist" class="Action.Sell.list">
-		<result name="success" type="json"></result>
-		<result name="error">Login.jsp</result>
-		</action>
-	</package>
+	</package> -->
 </struts>

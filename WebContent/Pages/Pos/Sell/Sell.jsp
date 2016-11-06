@@ -55,6 +55,8 @@
 		});
 	}
 	function addbill() {
+		var today = new Date();
+		var dayformat = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+(today.getDay()-1);
 		var bill = {
 			customerid : $("#txtcustomer").val(),
 			total : $("#paytotal").text(),
@@ -72,8 +74,8 @@
 			success : function(data) {
 				console.log(data);
 				var bid = data.bill.billid;
-				console
 				tabledata = getalldata();
+				console.log(tabledata);
 				tabledata.forEach(function(entry) {
 					var billdetail = {
 						billid : bid,
@@ -81,7 +83,7 @@
 						productname : entry[1],
 						number : $("#n" + entry[0]).val(),
 						unitprice : entry[3],
-						totalprice : entry[4]
+						totalprice : parseInt(entry[3]) * $("#n" + entry[0]).val()
 					};
 					console.log(billdetail);
 					$.ajax({
@@ -268,56 +270,6 @@
 		}
 		$(".product-container").append(str);
 	}
-
-	function add() {
-		try {
-			$("#filename").val(getfilename());
-			var file = document.getElementById('imgfile').files[0];
-			//return image base 64 here
-			getBase64(file, function(e) {
-				x = e.target.result;
-				var i = x.indexOf(",", 0);
-				var y = x.substring(i + 1, x.length);
-				$("#fileencode").val(y);
-				console.log($("#fileencode").val());
-			});
-		} catch (error) {
-			console.log("error")
-		}
-		$.ajax({
-			url : "addproduct.action",
-			type : "post",
-			async : false,
-			data : $("#add").serialize(),
-			success : function(data) {
-				console.log("ok");
-			}
-		});
-		$("#code").attr('name', 'productdetail.productid');
-		$.ajax({
-			url : "addproductdetail.action",
-			type : "post",
-			async : false,
-			data : $("#add").serialize(),
-			success : function(data) {
-				console.log("ok");
-				$("#code").attr('name', 'product.productid');
-				$('#myModal').modal("toggle");
-				loadtable();
-			}
-		});
-	}
-	function showAddProduct() {
-		$("#add")[0].reset();
-		$(".modal-title").text("Them san pham");
-		$("#code").removeAttr('disabled');
-		$('#myModal').modal("toggle");
-		$("#submitbutton").val("Them");
-		$("#submitbutton").unbind();
-		$("#submitbutton").click(function() {
-			add();
-		});
-	}
 	function addtocart(id, name, price) {
 		if ($.inArray(id, plist) > -1) {
 			$("#n" + id).val(parseInt($("#n" + id).val()) + 1).change();
@@ -374,19 +326,6 @@
 							- parseInt($("#paytotal").text());
 					$("#excess").val(excess);
 				});
-	}
-	function autocompletecustomer() {
-		var options = {
-			url : "customerlistjson.action",
-			getValue : "customers.customername",
-			list : {
-				match : {
-					enabled : true
-				}
-			},
-			theme : "square"
-		};
-		$("#txtsearchcustomer").easyAutocomplete(options);
 	}
 </script>
 <style>
@@ -447,7 +386,7 @@
 	</div>
 </div>
 
-<div class="row" style="margin-bottom: 50px">
+<div class="row" >
 	<div class="col-md-5"
 		style="margin-top: 10px; padding-left: 20px; margin-bottom: 50px">
 		<div class="product-tool"

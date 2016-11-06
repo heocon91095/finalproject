@@ -14,7 +14,7 @@
 	var data1 = null;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navcm").addClass("active");
+		$("#navrp").addClass("active");
 		$('#example').dataTable({
 			"searching" : false,
 			"columnDefs" : [ {
