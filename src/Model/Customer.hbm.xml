@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 6, 2016 4:26:52 PM by Hibernate Tools 5.2.0.Beta1 -->
+<!-- Generated Nov 17, 2016 7:58:10 PM by Hibernate Tools 5.2.0.Beta1 -->
 <hibernate-mapping>
     <class name="Model.Customer" table="customer" catalog="mobilestore" optimistic-lock="version">
-        <id name="customerid" type="string">
-            <column name="customerid" length="10" />
-            <generator class="assigned" />
+        <id name="customerid" type="java.lang.Integer">
+            <column name="customerid" />
+            <generator class="identity" />
         </id>
         <property name="customername" type="string">
             <column name="customername" length="50" not-null="true" />
@@ -19,9 +19,6 @@
         </property>
         <property name="customergroup" type="string">
             <column name="customergroup" length="20" />
-        </property>
-        <property name="username" type="string">
-            <column name="username" length="25" />
         </property>
         <property name="mail" type="string">
             <column name="mail" length="50" />

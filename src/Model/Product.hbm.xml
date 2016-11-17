@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 6, 2016 4:26:52 PM by Hibernate Tools 5.2.0.Beta1 -->
+<!-- Generated Nov 17, 2016 7:58:10 PM by Hibernate Tools 5.2.0.Beta1 -->
 <hibernate-mapping>
     <class name="Model.Product" table="product" catalog="mobilestore" optimistic-lock="version">
-        <id name="productid" type="string">
-            <column name="productid" length="10" />
-            <generator class="assigned" />
+        <id name="productid" type="java.lang.Integer">
+            <column name="productid" />
+            <generator class="identity" />
         </id>
         <property name="productname" type="string">
             <column name="productname" length="50" not-null="true" />

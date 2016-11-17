@@ -66,7 +66,7 @@
 	}
 	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/rplistjson",
+			url : "/Struts22/getrplist",
 			method : "post",
 			async : "false",
 			data : {
@@ -83,7 +83,7 @@
 	function loadtablebykeyword() {
 		console.log($("#txt_cmsearch").val());
 		$.ajax({
-			url : "/Struts22/customerlistjson",
+			url : "/Struts22/getrplist",
 			method : "post",
 			async : "false",
 			data : {
@@ -127,18 +127,17 @@
 		});
 	}
 	function getrp(data) {
-		console.log(data);
 		$.ajax({
-			url : "rpjson.action",
+			url : "getrp.action",
 			data : {
 				billid : data
 			},
 			success : function(data1) {
 				console.log("ok");
 				var cus = data1.receiptandpayment;
-				$(".modal-title").text("Cập nhật");
+				$(".modal-title")
+						.text("Cập nhật phiếu thu/chi: #" + cus.billid);
 				$("#bid").val(cus.billid);
-				$("#bid").attr('disabled', 'disabled');
 				$("#bname").val(cus.receivername);
 				$("#bgroup").val(cus.billtype);
 				$("#baddress").val(cus.address);
@@ -148,6 +147,7 @@
 				$("#bdate").val(cus.date);
 				$('#myModal').modal("toggle");
 				$("#submitbutton").text("Cập nhật");
+				$("#submitbutton").unbind();
 				$("#submitbutton").click(function() {
 					updaterp();
 				});
@@ -163,7 +163,6 @@
 			success : function(data) {
 				console.log("ok");
 				loadtable();
-				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
 			}
 		});
@@ -172,10 +171,14 @@
 <div class="botbar">
 	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
 	<div class="botbarfunction">
-		Khách hàng <input type="text" class="form-control" id="txt_cmsearch"
-			style="width: 200px; display: inline-block;" />
-		<button class="botbarbutton" id="but_cmsearch"
-			onclick="loadtablebykeyword()">
+		Thu chi | <input type="text" class="form-control" id="txtsearch"
+			placeholder="Nhập từ khóa"
+			style="width: 200px; display: inline-block;" /> Từ ngày: <input
+			type="date" class="form-control" id="datestart" placeholder="Từ ngày"
+			style="width: 160px; display: inline-block;" /> Đến ngày:<input
+			type="date" placeholder="Đến ngày" class="form-control" id="dateend"
+			style="width: 160px; display: inline-block;" />
+		<button onclick="loadtablebykey()" class="botbarbutton">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
@@ -192,7 +195,17 @@
 	<div class="col-md-2">
 		<div class="groupcontainer">
 			Thể loại <a href="#" style="float: right" id="addgroup">+</a>
-			<div class="groupitem"></div>
+			<div class="groupitem">
+				<div>
+					<a href='#' class="group">Tất cả</a>
+				</div>
+				<div>
+					<a href='#' class="group">Thu</a>
+				</div>
+				<div>
+					<a href='#' class="group">Chi</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-10 ">
@@ -222,16 +235,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm khách hàng</h4>
+				<h4 class="modal-title">Thêm phiếu thu/chi</h4>
 			</div>
 			<div class="modal-body ">
 				<form action="addproduct.action" id="add">
+					<input type="hidden" name="receiptandpayment.billid" id="bid" />
 					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã phiếu</td>
-							<td><input type="text" name="receiptandpayment.billid"
-								id="bid" /></td>
-						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Tên người nhận</td>
 							<td><input type="text" name="receiptandpayment.receivername"
@@ -262,7 +271,7 @@
 						<tr>
 							<td style="white-space: nowrap;">Lý do</td>
 							<td><textarea cols="40" name="receiptandpayment.reason"
-								id="breason" ></textarea></td>
+									id="breason"></textarea></td>
 						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Ngày lập</td>
@@ -274,35 +283,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="submitbutton" class="btn btn-default">Thêm</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="groupModal" class="modal fade" role="dialog">
-	<div class="modal-dialog ">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm nhóm khách hàng</h4>
-			</div>
-			<div class="modal-body ">
-				<form action="addcustomergroup.action" id="formaddgroup">
-					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Tên nhóm</td>
-							<td><input type="text" name="customergroup.cgroupname" /></td>
-						</tr>
-						<tr>
-							<td style="white-space: nowrap;">Thông tin nhóm</td>
-							<td><textarea cols="40" name="customergroup.cgroupnote"></textarea></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" id="submitgroup" class="btn btn-default">Thêm</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

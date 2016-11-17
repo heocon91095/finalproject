@@ -44,19 +44,27 @@
 	function addcustomer() {
 		$.ajax({
 			url : "addcustomer.action",
-			data : $("#add").serialize(),
+			data : {
+				customername : $("#cmname").val(),
+				group : $("#cmgroup").val(),
+				phone : $("#cmphone").val(),
+				address : $("#cmaddress").val(),
+				mail : $("#cmmail").val()
+			},
 			success : function(data) {
 				console.log("ok");
 
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+				$("#alertsuccessaddcustomer").show();
 			}
 		});
 	}
 	function addbill() {
 		var today = new Date();
-		var dayformat = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+(today.getDay()-1);
+		var dayformat = today.getFullYear() + "-" + (today.getMonth() + 1)
+				+ "-" + (today.getDay() - 1);
 		var bill = {
 			customerid : $("#txtcustomer").val(),
 			total : $("#paytotal").text(),
@@ -83,7 +91,8 @@
 						productname : entry[1],
 						number : $("#n" + entry[0]).val(),
 						unitprice : entry[3],
-						totalprice : parseInt(entry[3]) * $("#n" + entry[0]).val()
+						totalprice : parseInt(entry[3])
+								* $("#n" + entry[0]).val()
 					};
 					console.log(billdetail);
 					$.ajax({
@@ -94,6 +103,7 @@
 						}
 					});
 				});
+				$('#alertsuccess').show();
 			}
 		});
 	}
@@ -113,25 +123,26 @@
 	function getcustomerlist() {
 		return $
 				.ajax({
-					url : "/Struts22/customerlistjson",
+					url : "getcustomerlist.action",
 					method : "post",
 					async : false,
 					success : function(data) {
 						var option;
 						data.customers
 								.forEach(function(entry) {
-									option += "<option value='"+entry.customerid+"' data-value ='"+entry.customername+"'>"
-											+ entry.customername + "</ option>";
+									option += "<option value='"+entry.customername+"' data-value ='"+entry.customerid+"'>"
+											+ "</ option>";
 								});
 						$("#listcustomer").html(option);
 						$("#txtcustomer").change(
 								function() {
 									console.log($(this));
-									var name = $(
-											"#listcustomer [value='"
-													+ $(this).val() + "']")
-											.text();
+									var name = $(this).val();
 									$("#paycustomer").text(name);
+									var cusid = $(
+											"[value=" + $(this).val() + "]")
+											.attr("data-value");
+									$("#customerid").val(cusid);
 								});
 					},
 				});
@@ -169,7 +180,7 @@
 	}
 	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/productjson",
+			url : "productlist.action",
 			method : "get",
 			data : {
 				group : data,
@@ -202,28 +213,30 @@
 					var price = $("#" + id + " .price").val();
 					addtocart(id, name, price);
 				});
-				$(".pagination li").click(function() {
-					var obj = $(this);
-					var number = obj.text();
-					console.log(number);
-					$(".product-block").each(function(i,obj){
-						console.log(obj);
-						//$(this).removeAttr("hidden");
-						$(this).hide();
-						var count = $(this).attr("count");
-						if(count > ((number -1)*12) && count <= (number*12) )
-							{
-							$(this).show();
-							}
-					});		
-				});
+				$(".pagination li").click(
+						function() {
+							var obj = $(this);
+							var number = obj.text();
+							console.log(number);
+							$(".product-block").each(
+									function(i, obj) {
+										console.log(obj);
+										//$(this).removeAttr("hidden");
+										$(this).hide();
+										var count = $(this).attr("count");
+										if (count > ((number - 1) * 12)
+												&& count <= (number * 12)) {
+											$(this).show();
+										}
+									});
+						});
 			},
 		});
 	}
 	function loadtablebykey() {
 		$("#txtsearch").change(function() {
 			$.ajax({
-				url : "/Struts22/productjson",
+				url : "productlist.action",
 				method : "post",
 				data : {
 					key : $("#txtsearch").val(),
@@ -327,6 +340,9 @@
 					$("#excess").val(excess);
 				});
 	}
+	function togglealert() {
+		$("#alertsuccess").show();
+	}
 </script>
 <style>
 .details-control {
@@ -360,8 +376,7 @@
 }
 </style>
 <div class="botbar">
-	<a href="#" id="botbaractive">Hàng hóa</a> <a href="#">Nhập kho</a> <a
-		href="#">Chuyển hàng</a> <a href="#">Kiểm hàng</a>
+	<a href="billlist.action" id="botbaractive">Hóa đơn</a>
 	<div class="botbarfunction">
 		Thêm hóa đơn <input type="text" class="form-control" id="txtsearch"
 			style="width: 200px; display: inline-block;"
@@ -373,6 +388,7 @@
 				style="width: 200px; display: inline-block; margin-left: 20px" />
 			<datalist id="listcustomer">
 			</datalist>
+			<input type="hidden" id="customerid" value=0 />
 		</div>
 		<button id="createcustomer" class="botbarbutton">
 			<span class="glyphicon glyphicon-plus"></span><span
@@ -386,7 +402,7 @@
 	</div>
 </div>
 
-<div class="row" >
+<div class="row">
 	<div class="col-md-5"
 		style="margin-top: 10px; padding-left: 20px; margin-bottom: 50px">
 		<div class="product-tool"
@@ -403,14 +419,13 @@
 	<div class="col-md-7 ">
 		<p style="margin-top: 5px; margin-left: 15px">
 			Người mua : <span id="paycustomer" style="color: blue">Khách
-				vãng lai</span> 
-				Tình trạng <select id="status">
+				vãng lai</span> Tình trạng <select id="status">
 				<option value="Đã giao hàng">Đã giao hàng</option>
 				<option value="Đã thanh toán">Đã thanh toán</option>
 				<option value="Đã xác nhận">Đã xác nhận</option>
 				<option value="Chờ xử lý">Chờ xử lý</option>
 				<option value="Hủy">Hủy</option>
-				</select>
+			</select>
 		</p>
 		<div class="tablecontainer" style="min-height: 250px;">
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -463,7 +478,7 @@
 				</div>
 				<div>
 					<input type="button" onclick="addbill()" style="width: 100px"
-						value="Luu" />
+						value="Lưu" class="botbarbutton" /> 
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -479,6 +494,19 @@
 		</div>
 	</div>
 </div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Bán
+		hàng thành công!</strong> Hóa đơn đã được lập
+</div>
+<div hidden id="alertsuccessaddcustomer" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessaddcustomer').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Thêm khách
+		hàng thành công!</strong>
+</div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">
@@ -491,10 +519,6 @@
 			<div class="modal-body ">
 				<form action="addproduct.action" id="add">
 					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã khách hàng</td>
-							<td><input type="text" name="customer.customerid" id="cmid" /></td>
-						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Tên khách hàng</td>
 							<td><input type="text" name="customer.customername"

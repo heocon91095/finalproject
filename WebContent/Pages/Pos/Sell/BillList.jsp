@@ -62,12 +62,11 @@
 											}
 										});
 						loadtable();
-						$(".group").click(function(){
+						$(".group").click(function() {
 							var value = $(this).text();
-							if(value== "Tất cả")
-								{
+							if (value == "Tất cả") {
 								value = null;
-								}
+							}
 							loadtable(value);
 						});
 					});
@@ -101,10 +100,21 @@
 									+ "</tr>";
 						}
 						table += "</table>";
-						table += "<h4 align='right' style='margin-right:100px'> Tổng cộng: "
-								+ totaltemp + "</h4>";
-						table += "<div style='margin-left:100px'> <b>Ghi chú:</b> "
-								+ notetemp + "</div>";
+						$
+								.ajax({
+									url : "getbill.action",
+									async : false,
+									data : {
+										billid : dataa
+									},
+									success : function(data) {
+										console.log(data);
+										table += "<h4 align='right' style='margin-right:100px'> Tổng cộng: "
+												+ data.bill.total + "</h4>";
+										table += "<div style='margin-left:100px'> <b>Ghi chú:</b> "
+												+ data.bill.note + "</div>";
+									}
+								});
 					}
 				});
 		return table;
@@ -144,10 +154,10 @@
 		totaltemp = data[0].total;
 		notetemp = data[0].note
 		var date = data[0].day.substr(0, data[0].day.indexOf("T"));
-		var str = "<a title='Edit' href='#' id='e"+data.productid+"'>"
+		var str = "<a title='Edit' href='#' id='e"+data[0].billid+"'>"
 				+ "<span class='glyphicon glyphicon-edit' style='color:green'></span>"
 				+ "</a> | "
-				+ "<a title='Remove' href='#' id='r"+data.productid+"'>"
+				+ "<a title='Remove' href='#' id='r"+data[0].billid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red'></span>"
 				+ "</a>";
 		var str1 = "<select id='s"+data[0].billid+"' productid='"+data[0].billid+"' class='status' >"
@@ -173,11 +183,11 @@
 			var status = $(this).val();
 			changestatus(id, status);
 		});
-		$("#r" + data.productid).click(function() {
-			remove(data.productid);
+		$("#r" + data[0].billid).click(function() {
+			remove(data[0].billid);
 		});
-		$("#e" + data.productid).click(function() {
-			getproduct(data.productid);
+		$("#e" + data[0].billid).click(function() {
+			window.location.href = "getsinglebill.action?billid="+data[0].billid;
 		});
 	}
 	function changestatus(id, status) {
@@ -196,67 +206,26 @@
 	function remove(data) {
 		console.log(data);
 		$.ajax({
-			url : "removeproduct.action",
+			url : "removebill.action",
 			data : {
-				productid : data
+				billid : data
 			},
 			success : function(data) {
 				console.log("ok");
 				$("#example").DataTable().clear();
-				loadtable();
 			}
 		});
 		$.ajax({
-			url : "removeproductdetail.action",
+			url : "removebilldetail.action",
 			data : {
-				productid : data
+				billid : data
 			},
 			success : function(data) {
 				console.log("ok");
 				$("#example").DataTable().clear();
-				loadtable();
 			}
 		});
-	}
-	function updateProduct(data) {
-		console.log($("#add").serialize());
-		try {
-			$("#filename").val(getfilename());
-			var file = document.getElementById('imgfile').files[0];
-			//return image base 64 here
-			getBase64(file, function(e) {
-				x = e.target.result;
-				var i = x.indexOf(",", 0);
-				var y = x.substring(i + 1, x.length);
-				$("#fileencode").val(y);
-				console.log($("#fileencode").val());
-			});
-		} catch (error) {
-			console.log("error")
-		}
-		$('#code').removeAttr('disabled');
-		$.ajax({
-			url : "updateproduct.action",
-			type : "post",
-			async : false,
-			data : $("#add").serialize(),
-			success : function(data) {
-				console.log("ok");
-			}
-		});
-		$("#code").attr('name', 'productdetail.productid');
-		$.ajax({
-			url : "updateproductdetail.action",
-			type : "post",
-			async : false,
-			data : $("#add").serialize(),
-			success : function(data) {
-				console.log("ok");
-				$("#code").attr('name', 'product.productid');
-				$('#myModal').modal("toggle");
-				loadtable();
-			}
-		});
+		loadtable();
 	}
 </script>
 <style>

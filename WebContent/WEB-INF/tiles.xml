@@ -3,50 +3,95 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-	<definition name="baseLayout" template="/BaseLayout.jsp">
-		<put-attribute name="title" value="Template" />
-		<put-attribute name="header" value="/Header.jsp" />
-		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/Footer.jsp" />
-	</definition>
-	<definition name="/test1" extends="baseLayout">
-		<put-attribute name="title" value="Welcome" />
-		<put-attribute name="body" value="/Welcome.jsp" />
-	</definition>
-	<definition name="/test2" extends="baseLayout">
-		<put-attribute name="title" value="Customer Form" />
-		<put-attribute name="body" value="/Customer.jsp" />
-	</definition>
 	<definition name="postemplate" template="\Pages\Template\postemplate.jsp">
 		<put-attribute name="title" value="blank" />
 		<put-attribute name="body" value="" />
 	</definition>
 	<definition name="pos.dash" extends="postemplate">
-	<put-attribute name="title" value="Bảng điều khiển"/>
-	<put-attribute name="body" value="/Pages/Pos/index.jsp"/>
+		<put-attribute name="title" value="Bảng điều khiển" />
+		<put-attribute name="body" value="/Pages/Pos/index.jsp" />
 	</definition>
 	<definition name="pos.product" extends="postemplate">
-	<put-attribute name="title" value="Sản phẩm"/>
-	<put-attribute name="body" value="/Pages/Pos/Product/Product.jsp"/>
+		<put-attribute name="title" value="Sản phẩm" />
+		<put-attribute name="body" value="/Pages/Pos/Product/Product.jsp" />
 	</definition>
 	<definition name="pos.customer" extends="postemplate">
-	<put-attribute name="title" value="Khách hàng"/>
-	<put-attribute name="body" value="/Pages/Pos/Customer/Customer.jsp"/>
+		<put-attribute name="title" value="Khách hàng" />
+		<put-attribute name="body" value="/Pages/Pos/Customer/Customer.jsp" />
 	</definition>
-	<definition name="pos.suplier" extends="postemplate">
-	<put-attribute name="title" value="Nhà cung cấp"/>
-	<put-attribute name="body" value="/Pages/Pos/Suplier/Suplier.jsp"/>
+	<definition name="pos.producer" extends="postemplate">
+		<put-attribute name="title" value="Nhà cung cấp" />
+		<put-attribute name="body" value="/Pages/Pos/Suplier/Suplier.jsp" />
+	</definition>
+	<definition name="pos.producer" extends="postemplate">
+		<put-attribute name="title" value="Nhà sản xuất " />
+		<put-attribute name="body" value="/Pages/Pos/Producer/Producer.jsp" />
 	</definition>
 	<definition name="pos.RP" extends="postemplate">
-	<put-attribute name="title" value="Thu chi"/>
-	<put-attribute name="body" value="/Pages/Pos/RP/RP.jsp"/>
+		<put-attribute name="title" value="Thu chi" />
+		<put-attribute name="body" value="/Pages/Pos/RP/RP.jsp" />
 	</definition>
 	<definition name="pos.sell" extends="postemplate">
-	<put-attribute name="title" value="Bán hàng"/>
-	<put-attribute name="body" value="/Pages/Pos/Sell/Sell.jsp"/>
+		<put-attribute name="title" value="Bán hàng" />
+		<put-attribute name="body" value="/Pages/Pos/Sell/Sell.jsp" />
 	</definition>
 	<definition name="pos.billlist" extends="postemplate">
-	<put-attribute name="title" value="Danh sách hóa đơn"/>
-	<put-attribute name="body" value="/Pages/Pos/Sell/BillList.jsp"/>
+		<put-attribute name="title" value="Danh sách hóa đơn" />
+		<put-attribute name="body" value="/Pages/Pos/Sell/BillList.jsp" />
+	</definition>
+	<definition name="pos.warehouse" extends="postemplate">
+		<put-attribute name="title" value="Phiếu nhập" />
+		<put-attribute name="body" value="/Pages/Pos/Warehouse/WHList.jsp" />
+	</definition>
+	<definition name="pos.createWH" extends="postemplate">
+		<put-attribute name="title" value="Tạo phiếu nhập" />
+		<put-attribute name="body" value="/Pages/Pos/Warehouse/Create.jsp" />
+	</definition>
+	<definition name="pos.editbill" extends="postemplate">
+		<put-attribute name="title" value="Thay đổi hóa đơn" />
+		<put-attribute name="body" value="/Pages/Pos/Sell/Update.jsp" />
+	</definition>
+	<definition name="pos.editWH" extends="postemplate">
+		<put-attribute name="title" value="Thay đổi phiếu nhập" />
+		<put-attribute name="body" value="/Pages/Pos/Warehouse/Update.jsp" />
+	</definition>
+	<definition name="pos.info" extends="postemplate">
+		<put-attribute name="title" value="Thông tin" />
+		<put-attribute name="body" value="/Pages/Pos/Info/Info.jsp" />
+	</definition>
+	<definition name="pos.createinfo" extends="postemplate">
+		<put-attribute name="title" value="Thêm thông tin" />
+		<put-attribute name="body" value="/Pages/Pos/Info/AddInfo.jsp" />
+	</definition>
+	<definition name="pos.editinfo" extends="postemplate">
+		<put-attribute name="title" value="Thay đổi thông tin" />
+		<put-attribute name="body" value="/Pages/Pos/Info/EditInfo.jsp" />
+	</definition>
+	
+	<!-- Ecommerce -->
+	
+	<definition name="ecomtemplate" template="/Pages/Template/ecomtemplate.jsp">
+		<put-attribute name="title" value="blank" />
+		<put-attribute name="body" value="" />
+	</definition>
+	<definition name="ecom.index" extends="ecomtemplate">
+		<put-attribute name="title" value="MobileStore-Điện thoại di động" />
+		<put-attribute name="body" value="/Pages/ECom/index.jsp" />
+	</definition>
+	<definition name="ecom.product" extends="ecomtemplate">
+		<put-attribute name="title" value="Sản phẩm" />
+		<put-attribute name="body" value="/Pages/ECom/productdetail.jsp" />
+	</definition>
+	<definition name="ecom.cart" extends="ecomtemplate">
+		<put-attribute name="title" value="Sản phẩm" />
+		<put-attribute name="body" value="/Pages/ECom/cart.jsp" />
+	</definition>
+	<definition name="ecom.einfo" extends="ecomtemplate">
+		<put-attribute name="title" value="Tin tức" />
+		<put-attribute name="body" value="/Pages/ECom/einfo.jsp" />
+	</definition>
+	<definition name="ecom.einfodetail" extends="ecomtemplate">
+		<put-attribute name="title" value="Tin tức" />
+		<put-attribute name="body" value="/Pages/ECom/einfodetail.jsp" />
 	</definition>
 </tiles-definitions>

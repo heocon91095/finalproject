@@ -60,8 +60,25 @@
 											}
 										});
 						loadtable();
-						getgrouplist(); 
+						getgrouplist();
+						$("#addgroup").click(function() {
+							$("#groupModal").modal('toggle');
+						});
+						$("#submitgroup").click(function() {
+							addgroup();
+							$("#groupModal").modal('toggle');
+						});
 					});
+	function addgroup() {
+		$.ajax({
+			url : "addpgroup.action",
+			data : $("#formaddgroup").serialize(),
+			success : function(data) {
+				console.log("ok");
+				getgrouplist();
+			}
+		});
+	}
 	function getgrouplist() {
 		$(".groupitem").html("");
 		$
@@ -70,7 +87,7 @@
 					success : function(data) {
 						var strall = "<div><a href='#' onclick='return loadtable();'>Tất cả</a></div>"
 						$(".groupitem").append(strall);
-							data.pgs
+						data.pgs
 								.forEach(function(entry) {
 									var str = "<div><a href='#'id='g"+entry.pgroupid+"' title='"+entry.pgroupnote+"'>"
 											+ entry.pgroupname + "</a></div>";
@@ -85,9 +102,9 @@
 					}
 				});
 	}
-	function loadtable(data){
+	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/productjson",
+			url : "/Struts22/productlist",
 			method : "get",
 			data : {
 				group : data,
@@ -103,9 +120,9 @@
 			},
 		});
 	}
-	function loadtablebykey(){
+	function loadtablebykey() {
 		$.ajax({
-			url : "/Struts22/productjson",
+			url : "/Struts22/productlist",
 			method : "post",
 			data : {
 				key : $("#txtsearch").val(),
@@ -138,42 +155,44 @@
 			getproduct(data.productid);
 		});
 	}
-	function getBase64(file, onload){
+	function getBase64(file, onload) {
 		var str;
 		var reader = new FileReader();
-		   reader.onload = onload;
-		   reader.onerror = function (error) {
-		     console.log('Error: ', error);
-		   };
-		   reader.readAsDataURL(file);
+		reader.onload = onload;
+		reader.onerror = function(error) {
+			console.log('Error: ', error);
+		};
+		reader.readAsDataURL(file);
 	}
 	function add() {
-		try{
-		$("#filename").val(getfilename());
-		var file = document.getElementById('imgfile').files[0];
-		//return image base 64 here
-		getBase64(file,function(e){
-			x = e.target.result;
-			var i = x.indexOf(",",0);
-			var y = x.substring(i+1,x.length);
-			$("#fileencode").val(y);
-			console.log($("#fileencode").val());
-		});}
-		catch(error){console.log("error")}
+		try {
+			$("#filename").val(getfilename());
+			var file = document.getElementById('imgfile').files[0];
+			//return image base 64 here
+			getBase64(file, function(e) {
+				x = e.target.result;
+				var i = x.indexOf(",", 0);
+				var y = x.substring(i + 1, x.length);
+				$("#fileencode").val(y);
+				console.log($("#fileencode").val());
+			});
+		} catch (error) {
+			console.log("error")
+		}
 		$.ajax({
 			url : "addproduct.action",
-			type:"post",
-			async:false,
+			type : "post",
+			async : false,
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
-			} 
+			}
 		});
 		$("#code").attr('name', 'productdetail.productid');
 		$.ajax({
 			url : "addproductdetail.action",
-			type:"post",
-			async:false,
+			type : "post",
+			async : false,
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
@@ -181,9 +200,9 @@
 				$('#myModal').modal("toggle");
 				loadtable();
 			}
-		});  
+		});
 	}
-	function getfilename(){
+	function getfilename() {
 		return $("#imgfile").val().replace(/.*(\/|\\)/, '');
 	}
 	function remove(data) {
@@ -236,8 +255,8 @@
 				$("#vat").val(product.vat);
 				$('#myModal').modal("toggle");
 				$.ajax({
-					url : "productdetailjson.action",
-					async: false,
+					url : "getproductdetail.action",
+					async : false,
 					data : {
 						productid : data
 					},
@@ -255,8 +274,8 @@
 						$("#sim").val(detail.sim);
 						$("#battery").val(detail.battery);
 						$("#special").val(detail.special);
-						}
-					});
+					}
+				});
 				$("#submitbutton").text("Cập nhật");
 				$("#submitbutton").unbind();
 				$("#submitbutton").click(function() {
@@ -265,45 +284,47 @@
 			}
 		});
 	}
-	function updateProduct(data){
+	function updateProduct(data) {
 		console.log($("#add").serialize());
-		try{
+		try {
 			$("#filename").val(getfilename());
 			var file = document.getElementById('imgfile').files[0];
 			//return image base 64 here
-			getBase64(file,function(e){
+			getBase64(file, function(e) {
 				x = e.target.result;
-				var i = x.indexOf(",",0);
-				var y = x.substring(i+1,x.length);
+				var i = x.indexOf(",", 0);
+				var y = x.substring(i + 1, x.length);
 				$("#fileencode").val(y);
 				console.log($("#fileencode").val());
-			});}
-			catch(error){console.log("error")}
-			$('#code').removeAttr('disabled');
-			$.ajax({
-				url : "updateproduct.action",
-				type:"post",
-				async:false,
-				data : $("#add").serialize(),
-				success : function(data) {
-					console.log("ok");
-				} 
 			});
-			$("#code").attr('name', 'productdetail.productid');
-			$.ajax({
-				url : "updateproductdetail.action",
-				type:"post",
-				async:false,
-				data : $("#add").serialize(),
-				success : function(data) {
-					console.log("ok");
-					$("#code").attr('name', 'product.productid');
-					$('#myModal').modal("toggle");
-					loadtable();
-				}
-			});
+		} catch (error) {
+			console.log("error")
+		}
+		$('#code').removeAttr('disabled');
+		$.ajax({
+			url : "updateproduct.action",
+			type : "post",
+			async : false,
+			data : $("#add").serialize(),
+			success : function(data) {
+				console.log("ok");
+			}
+		});
+		$("#code").attr('name', 'productdetail.productid');
+		$.ajax({
+			url : "updateproductdetail.action",
+			type : "post",
+			async : false,
+			data : $("#add").serialize(),
+			success : function(data) {
+				console.log("ok");
+				$("#code").attr('name', 'product.productid');
+				$('#myModal').modal("toggle");
+				loadtable();
+			}
+		});
 	}
-	function showAddProduct(){
+	function showAddProduct() {
 		$("#add")[0].reset();
 		$(".modal-title").text("Them san pham");
 		$("#code").removeAttr('disabled');
@@ -317,8 +338,9 @@
 	function showProductDetail(id) {
 		console.log(id);
 		var str = "";
-		$.ajax({
-					url : "productdetailjson.action",
+		$
+				.ajax({
+					url : "getproductdetail.action",
 					data : {
 						productid : id
 					},
@@ -327,7 +349,9 @@
 						console.log(data);
 						var pd = data.pd;
 						str = "<div style='float:left;margin-left:100px;border:3px;border-style:dashed;margin-right:50px;width: 230px;height:250px;'>"
-								+ "<img style='width:100%;height:100%'  alt'piture here' src='/Struts22/img/product/"+pd.image+"' /> "
+								+ "<img style='width:100%;height:100%'  alt'piture here' src='/Struts22/img/product/"
+								+ pd.image
+								+ "' /> "
 								+ "</div>"
 								+ "<table><tr><th colspan='4' style='text-align:center'>Thông tin chi tiết</th></tr>"
 								+ "<tr><td>Màn hình:</td><td>"
@@ -376,8 +400,8 @@
 	<a href="#" id="botbaractive">Hàng hóa</a> <a href="#">Nhập kho</a> <a
 		href="#">Chuyển hàng</a> <a href="#">Kiểm hàng</a>
 	<div class="botbarfunction">
-		Quản lý hàng hóa <input type="text" class="form-control" id="txtsearch"
-			style="width: 200px; display: inline-block;" />
+		Quản lý hàng hóa <input type="text" class="form-control"
+			id="txtsearch" style="width: 200px; display: inline-block;" />
 		<button onclick="loadtablebykey()" class="botbarbutton">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
@@ -428,21 +452,21 @@
 				<h4 class="modal-title">Thêm sản phẩm</h4>
 			</div>
 			<div class="modal-body ">
-				<form action="addproduct.action" id="add" enctype="multipart/form-data">
+				<form action="addproduct.action" id="add"
+					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-md-5">
+						<input type="hidden" id="code" name="product.productid" />
 							<table width="100%" class="popuptable">
 								<tr>
-									<td style="white-space: nowrap;">Mã hàng hóa&nbsp;</td>
-									<td><input type="text" id="code" name="product.productid" /></td>
-								</tr>
-								<tr>
 									<td style="white-space: nowrap;">Tên hàng hóa&nbsp;</td>
-									<td><input type="text" id="name" name="product.productname" /></td>
+									<td><input type="text" id="name"
+										name="product.productname" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Nhà sản xuất&nbsp;</td>
-									<td><input type="text" id="producer" name="product.producer" /></td>
+									<td><input type="text" id="producer"
+										name="product.producer" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Nhà cung cấp&nbsp;</td>
@@ -451,22 +475,23 @@
 								<tr>
 									<td style="white-space: nowrap;">Chọn nhóm&nbsp;</td>
 									<td><select id="group" name="product.groupid">
-											
+
 									</select></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Đơn vị tính&nbsp;</td>
-									<td><input type="text" id ="unit" name="product.unit" /></td>
+									<td><input type="text" id="unit" name="product.unit" /></td>
 								</tr>
 								<tr>
-									<td style="white-space: nowrap;" id="img" >Hình ảnh&nbsp;</td>
-									<td><input type="file" name="imgfile" id="imgfile" /><input type="hidden" name="productdetail.image" id="filename" />
-									<input type="hidden" name="fileencode" id="fileencode" />
-									</td>
+									<td style="white-space: nowrap;" id="img">Hình ảnh&nbsp;</td>
+									<td><input type="file" name="imgfile" id="imgfile" /><input
+										type="hidden" name="productdetail.image" id="filename" /> <input
+										type="hidden" name="fileencode" id="fileencode" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Ghi chú&nbsp;</td>
-									<td><textarea id ="note" name="product.note" cols="23" rows="4"></textarea></td>
+									<td><textarea id="note" name="product.note" cols="23"
+											rows="4"></textarea></td>
 								</tr>
 							</table>
 						</div>
@@ -480,8 +505,8 @@
 									<td><input id="pricein" type="text" name="product.pricein"
 										style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; Giá bán &nbsp;</td>
-									<td><input type="text" id="priceout" name="product.priceout"
-										style="width: 100%" /></td>
+									<td><input type="text" id="priceout"
+										name="product.priceout" style="width: 100%" /></td>
 									<td style="white-space: nowrap;">&nbsp; VAT &nbsp;</td>
 									<td><input type="text" id="vat" name="product.vat"
 										style="width: 60%" />%</td>
@@ -493,19 +518,19 @@
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Màn hình&nbsp;</td>
-									<td><input type="text" id="display" name="productdetail.display"
-										style="width: 100%;" /></td>
+									<td><input type="text" id="display"
+										name="productdetail.display" style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; OS &nbsp;</td>
 									<td><input type="text" id="os" name="productdetail.os"
 										style="width: 100%" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Camera trước&nbsp;</td>
-									<td><input type="text" id="frontcam" name="productdetail.frontcam"
-										style="width: 100%;" /></td>
+									<td><input type="text" id="frontcam"
+										name="productdetail.frontcam" style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; Camera sau &nbsp;</td>
-									<td><input type="text" id="backcam" name="productdetail.backcam"
-										style="width: 100%" /></td>
+									<td><input type="text" id="backcam"
+										name="productdetail.backcam" style="width: 100%" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">CPU&nbsp;</td>
@@ -517,24 +542,24 @@
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Bộ nhớ&nbsp;</td>
-									<td><input type="text" id="storage" name="productdetail.storage"
-										style="width: 100%;" /></td>
+									<td><input type="text" id="storage"
+										name="productdetail.storage" style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp;Thẻ nhớ &nbsp;</td>
-									<td><input type="text" id="sdcard" name="productdetail.sdcard"
-										style="width: 100%" /></td>
+									<td><input type="text" id="sdcard"
+										name="productdetail.sdcard" style="width: 100%" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Sim&nbsp;</td>
 									<td><input type="text" id="sim" name="productdetail.sim"
 										style="width: 100%;" /></td>
 									<td style="white-space: nowrap;">&nbsp; Pin &nbsp;</td>
-									<td><input type="text" id="battery" name="productdetail.battery"
-										style="width: 100%" /></td>
+									<td><input type="text" id="battery"
+										name="productdetail.battery" style="width: 100%" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Đặc biệt&nbsp;</td>
-									<td colspan="3"><input type="text" id="special" name="productdetail.special"
-										style="width: 100%;" /></td>
+									<td colspan="3"><input type="text" id="special"
+										name="productdetail.special" style="width: 100%;" /></td>
 								</tr>
 							</table>
 						</div>
@@ -543,6 +568,36 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="submitbutton" class="btn btn-default">Thêm</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Group Modal -->
+<div id="groupModal" class="modal fade" role="dialog">
+	<div class="modal-dialog ">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Thêm nhóm sản phẩm</h4>
+			</div>
+			<div class="modal-body ">
+				<form action="addcustomergroup.action" id="formaddgroup">
+					<table width="100%" class="popuptable" align="center">
+						<tr>
+							<td style="white-space: nowrap;" width="30%">Tên nhóm</td>
+							<td><input type="text" name="productgroup.pgroupname" /></td>
+						</tr>
+						<tr>
+							<td style="white-space: nowrap;">Thông tin nhóm</td>
+							<td><textarea cols="40" name="productgroup.pgroupnote"></textarea></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="submitgroup" class="btn btn-default">Thêm</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

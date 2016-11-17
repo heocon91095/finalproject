@@ -156,7 +156,7 @@ html, body {
 <script>
 	$(document).ready(function() {
 		$("#edituser").click(function(data) {
-			$("#myModal").modal('toggle');
+			$("#userModal").modal('toggle');
 			var username = "${sessionScope.username}";
 			$.ajax({
 				url : 'getemployee.action',
@@ -223,10 +223,12 @@ html, body {
 						class="glyphicon glyphicon-home"></span></a></li>
 				<li id="navs"><a href="/Struts22/sell">Bán hàng</a></li>
 				<li id="navp"><a href="/Struts22/product">Hàng hóa</a></li>
-				<li><a href="#">Nhập kho</a></li>
-				<li id="navcm"><a href="/Struts22/listcustomer">Khách hàng</a></li>
-				<li id="navsp"><a href="#">Nhà cung cấp</a></li>
-				<li id="navrp"><a href="#">Thu chi</a></li>
+				<li><a href="/Struts22/warehouse">Nhập kho</a></li>
+				<li id="navcm"><a href="/Struts22/customer">Khách hàng</a></li>
+				<li id="navsp"><a href="/Struts22/suplier">Nhà cung cấp</a></li>
+				<li id="navproducer"><a href="/Struts22/suplier">Nhà sản xuất</a></li>
+				<li id="navrp"><a href="/Struts22/rp">Thu chi</a></li>
+				<li><a href="#">Thông tin</a></li>
 				<li><a href="#">Báo cáo</a></li>
 			</ul>
 		</div>
@@ -239,7 +241,7 @@ html, body {
 
 	<!-- Modal -->
 
-	<div id="myModal" class="modal fade" role="dialog">
+	<div id="userModal" class="modal fade" role="dialog">
 		<div class="modal-dialog ">
 			<!-- Modal content-->
 			<div class="modal-content">

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2016 7:58:10 PM by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="Model.Warehouse" table="warehouse" catalog="mobilestore" optimistic-lock="version">
+        <id name="wid" type="java.lang.Integer">
+            <column name="wid" />
+            <generator class="identity" />
+        </id>
+        <property name="supilerid" type="string">
+            <column name="supilerid" length="15" not-null="true" />
+        </property>
+        <property name="pay" type="int">
+            <column name="pay" not-null="true" />
+        </property>
+        <property name="total" type="int">
+            <column name="total" not-null="true" />
+        </property>
+        <property name="day" type="date">
+            <column name="day" length="10" not-null="true" />
+        </property>
+        <property name="creator" type="string">
+            <column name="creator" length="50" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="50" not-null="true" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" length="100" not-null="true" />
+        </property>
+        <property name="tax" type="int">
+            <column name="tax" not-null="true" />
+        </property>
+        <property name="excess" type="int">
+            <column name="excess" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
