@@ -1,4 +1,4 @@
-package Action;
+package pos.common.action;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

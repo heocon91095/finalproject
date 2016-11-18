@@ -66,12 +66,12 @@ input[type="submit"].form-control {
 	<img alt="Logo hang" src="<s:url value="/img/logo.png"/>" />
 	<div class="row">
 		<div align="center" class="center-block col-md-4" id="loginbox">
-			<s:actionerror />
 			<s:form action="login.action" method="post">
 				<s:textfield cssClass="form-control" name="user.username" label="Tài khoản" size="20" />
 				<s:password cssClass="form-control" name="user.password" label="Mật khẩu" size="20" />
 				<s:submit cssClass="form-control" method="execute" key="label.login" align="center" />
 			</s:form>
+			<s:actionerror cssStyle="color:red;margin-top:15px;list-style-type: none;"/>
 		</div>
 	</div>
 </body>

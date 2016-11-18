@@ -1,8 +1,16 @@
-package Action;
+package pos.common.action;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,41 +22,37 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import Model.User;
 
+@ParentPackage("struts-default")
 public class LoginAction extends ActionSupport implements ModelDriven<User> {
 	private User user;
 	private List<User> users;
 
+	@Action(value = "/login", results = { @Result(name = "success", type="chain", location = "posindex"),
+			@Result(name = "error", location = "/Pages/Pos/Login.jsp") })
 	public String execute() {
-		/*
-		 * ServiceRegistry registry = new
-		 * StandardServiceRegistryBuilder().configure("Model/hibernate.cfg.xml")
-		 * .build(); Metadata metadata = new
-		 * MetadataSources(registry).addAnnotatedClass(User.class)
-		 * .addResource("Model/User.hbm.xml") .getMetadataBuilder()
-		 * .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.
-		 * INSTANCE) .build(); SessionFactory sf =
-		 * metadata.getSessionFactoryBuilder().build();
-		 */
-		SessionFactory sf = new FactorySessionGet().get();
-		Session session = sf.openSession();
-		if (session.isConnected()) {
-			System.out.println("Connection success");
+		HttpServletRequest request = ServletActionContext.getRequest();
+		Map websession = ActionContext.getContext().getSession();
+		if (request.getMethod().equals("POST")) {
+			SessionFactory sf = new FactorySessionGet().get();
+			Session session = sf.openSession();
+			System.out.println(user.getUsername());
+			User tuser = (User)session.createQuery("from User where username = :code").setParameter("code", user.getUsername()).uniqueResult();
+			if (user.getPassword().equals(tuser.getPassword())) {
+				websession.put("username", user.getUsername());
+				websession.put("role", user.getRole());
+				return "success";
+			} else {
+				addActionError("Sai Tài khoản hoặc Mật khẩu");
+				return "error";
+			}
 		} else {
-			System.out.println("Connection failed");
-		}
-		System.out.println(user.getUsername());
-		Query query = session.createQuery("from User where username = :code");
-		query.setParameter("code", user.getUsername());
-		User s = (User) query.uniqueResult();
-		if (user.getPassword().equals(s.getPassword())) {
-			return "success";
-		} else {
-			addActionError(getText("error.login"));
+			addActionError("Sai Tài khoản hoặc Mật khẩu");
 			return "error";
 		}
 	}

@@ -26,10 +26,10 @@
 	<div class="center-block col-md-4" style="float: none; margin-top: 5%">
 		<img src="<s:url value="/img/user1.png"/>" alt="hinh user"
 			style="float: left; height: 100px" />
-		<div>Admin1</div>
+		<div><s:property value="employee.employeename" /></div>
 		<hr />
-		<div>Địa chỉ: 280 An duong Vuong</div>
-		<div>Số điện thoại: 01246675972</div>
+		<div><s:property value="employee.address" /></div>
+		<div>Số điện thoại: <s:property value="employee.phone" /></div>
 	</div>
 </div>
 <div class="row">

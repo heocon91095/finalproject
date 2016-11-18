@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/Pages/Pos/Product/Product.jsp=UTF-8
 encoding//WebContent/Pages/Pos/index.jsp=UTF-8
-encoding//src/Action/LoginAction.java=UTF-8
+encoding//src/pos/common/action/LoginAction.java=UTF-8
+encoding//src/pos/sell/action/changestatus.java=UTF-8
+encoding//src/pos/warehouse/action/changestatus.java=UTF-8

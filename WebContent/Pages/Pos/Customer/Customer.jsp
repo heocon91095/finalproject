@@ -40,7 +40,7 @@
 			addgroup();
 			$("#groupModal").modal('toggle');
 		});
-		
+
 	});
 	function getgrouplist() {
 		$(".groupitem").html("");
@@ -79,8 +79,7 @@
 				+ "</a>";
 		$('#example').DataTable().row.add(
 				[ data.customerid, data.customername, data.address, data.phone,
-						data.mail, data.username, data.customergroup, str ])
-				.draw(false);
+						data.mail, data.customergroup, str ]).draw(false);
 		$("#r" + data.customerid).click(function() {
 			remove(data.customerid);
 		});
@@ -90,7 +89,7 @@
 	}
 	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/customerlistjson",
+			url : "/Struts22/getcustomerlist",
 			method : "post",
 			async : "false",
 			data : {
@@ -128,7 +127,13 @@
 	function add() {
 		$.ajax({
 			url : "addcustomer.action",
-			data : $("#add").serialize(),
+			data : {
+				customername : $("#cmname").val(),
+				group : $("#cmgroup").val(),
+				phone : $("#cmphone").val(),
+				address : $("#cmaddress").val(),
+				mail : $("#cmmail").val()
+			},
 			success : function(data) {
 				console.log("ok");
 
@@ -163,7 +168,7 @@
 	}
 	function getcustomer(data) {
 		$.ajax({
-			url : "customerjson.action",
+			url : "getcustomer.action",
 			data : {
 				customerid : data
 			},
@@ -180,6 +185,7 @@
 				$("#cmphone").val(cus.phone);
 				$('#myModal').modal("toggle");
 				$("#submitbutton").text("Cập nhật");
+				$("#submitbutton").unbind();
 				$("#submitbutton").click(function() {
 					updatecustomer();
 				});
@@ -206,7 +212,8 @@
 	<div class="botbarfunction">
 		Khách hàng <input type="text" class="form-control" id="txt_cmsearch"
 			style="width: 200px; display: inline-block;" />
-		<button class="botbarbutton" id="but_cmsearch" onclick="loadtablebykeyword()">
+		<button class="botbarbutton" id="but_cmsearch"
+			onclick="loadtablebykeyword()">
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
@@ -236,7 +243,6 @@
 						<th width="20%">Địa chỉ</th>
 						<th>Điện thoại</th>
 						<th>Email</th>
-						<th>Tên dăng nhập</th>
 						<th width="100px">Nhóm</th>
 						<th>Chức năng</th>
 					</tr>
@@ -256,11 +262,8 @@
 			</div>
 			<div class="modal-body ">
 				<form action="addproduct.action" id="add">
+					<input type="hidden" id="cmid" name="customer.customerid">
 					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã khách hàng</td>
-							<td><input type="text" name="customer.customerid" id="cmid" /></td>
-						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Tên khách hàng</td>
 							<td><input type="text" name="customer.customername"

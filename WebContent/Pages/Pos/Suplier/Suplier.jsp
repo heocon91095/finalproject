@@ -91,7 +91,7 @@
 	}
 	function loadtable(data) {
 		$.ajax({
-			url : "/Struts22/suplierlistjson",
+			url : "getsuplierlist",
 			method : "post",
 			async : "false",
 			data : {
@@ -110,7 +110,7 @@
 	function loadtablebykeyword() {
 		console.log($("#txt_cmsearch").val());
 		$.ajax({
-			url : "/Struts22/suplierlistjson",
+			url : "/Struts22/getsuplierlist",
 			method : "post",
 			async : "false",
 			data : {
@@ -129,14 +129,19 @@
 	function add() {
 		$.ajax({
 			url : "addsuplier.action",
-			data : $("#add").serialize(),
+			data : {
+				supliername : $("#cmname").val(),
+				address: $("#cmaddress").val(),
+				phone: $("#cmphone").val() ,
+				supliergroup: $("#cmgroup").val() ,
+				mail: $("#cmmail").val()
+			},
 			type: "post",
 			success : function(data) {
 				console.log("ok");
-
 				loadtable();
-				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+				$('#alertsuccessaddsuplier').show();
 			}
 		});
 	}
@@ -165,14 +170,14 @@
 	}
 	function getsuplier(data) {
 		$.ajax({
-			url : "suplierjson.action",
+			url : "getsuplier.action",
 			data : {
 				suplierid : data
 			},
 			success : function(data1) {
 				console.log("ok");
 				var cus = data1.suplier;
-				$(".modal-title").text("Cập nhật");
+				$(".modal-title").text("Cập nhật NCC: #"+cus.suplierid);
 				$("#cmid").val(cus.suplierid);
 				$("#cmid").attr('disabled', 'disabled');
 				$("#cmname").val(cus.supliername);
@@ -182,6 +187,7 @@
 				$("#cmphone").val(cus.phone);
 				$('#myModal').modal("toggle");
 				$("#submitbutton").text("Cập nhật");
+				$("#submitbutton").unbind();
 				$("#submitbutton").click(function() {
 					updatesuplier();
 				});
@@ -197,7 +203,6 @@
 			success : function(data) {
 				console.log("ok");
 				loadtable();
-				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
 			}
 		});
@@ -246,6 +251,12 @@
 		</div>
 	</div>
 </div>
+<div hidden id="alertsuccessaddsuplier" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessaddsuplier').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Nhà cung cấp thành công!</strong>
+</div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">
@@ -257,11 +268,8 @@
 			</div>
 			<div class="modal-body ">
 				<form action="addsuplier.action" id="add">
+				<input type="hidden" name="suplier.suplierid" id="cmid" />
 					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã nhà cung cấp</td>
-							<td><input type="text" name="suplier.suplierid" id="cmid" /></td>
-						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Tên nhà cung cấp</td>
 							<td><input type="text" name="suplier.supliername"
