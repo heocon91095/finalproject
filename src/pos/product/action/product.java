@@ -66,17 +66,6 @@ public class product extends ActionSupport implements ModelDriven<Product> {
 		return "success";
 	}
 
-	@Action(value = "/addproduct", results = { @Result(name = "success", type = "json"),
-			@Result(name = "error", location = "/Pages/Pos/Login.jsp") })
-	public String addproduct() {
-		SessionFactory sf = new FactorySessionGet().get();
-		Session ss = sf.openSession();
-		ss.save(product);
-		ss.flush();
-		ss.close();
-		return "success";
-	}
-
 	public Product getProduct() {
 		return product;
 	}

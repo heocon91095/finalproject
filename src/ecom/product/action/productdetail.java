@@ -14,15 +14,15 @@ import Model.Productdetail;
 import pos.common.action.FactorySessionGet;
 
 @ParentPackage("tiles-default")
-public class productdetail extends ActionSupport implements ModelDriven<Product>{
-	String productid;
+public class productdetail extends ActionSupport implements ModelDriven<Product> {
+	int productid;
 	Product product;
 
-	public String getProductid() {
+	public int getProductid() {
 		return productid;
 	}
 
-	public void setProductid(String productid) {
+	public void setProductid(int productid) {
 		this.productid = productid;
 	}
 

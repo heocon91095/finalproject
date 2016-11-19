@@ -22,7 +22,7 @@
 									entry.date = entry.date.substr(0,
 											entry.date.indexOf("G"));
 									var str = "<div class='info'>"
-											+ "<a href='#'>"
+											+ "<a href='infodetail.action?infoid="+entry.infoid+"'>"
 											+ entry.infohead
 											+ "</a>"
 											+ "<div align='right' style='font-size: smaller;'>"
@@ -61,7 +61,7 @@
 							+"<p>CPU: "+dataD.pd.cpu+"</p>"
 							+"<p>Ram:"+dataD.pd.ram+"</p>"
 							+"<p>Camera :"+dataD.pd.backcam+"</p>"
-							+"<p align='right' style='padding-right:10px'><a href='#' style='color:white'>Chi tiết...</a></p>"
+							+"<p align='right' style='padding-right:10px'><a href='eproduct.action?productid="+dataD.productid+"' style='color:white'>Chi tiết...</a></p>"
 							+"</div>";
 							$("#preview"+product.productid).append(detailstr);
 						});
@@ -131,7 +131,7 @@
 		return "<!-- Product Card Made by Tai -->"
 		+"<div class='col-md-3 col-sm-6'>"
 		+"<div style='margin: 10px; border: 0.5px solid #d6d6d6;'>"
-			+"<div style='height: 180px;' id='p"+data.productid+"'><img src='/Struts22/img/product/galaxyj7.jpg' style='max-width:100%;width:100%;max-height:100%;float:left' /><div id='preview"+data.productid+"' hidden style='background: rgba(119, 119, 119, 0.8);height:100%;width:100%;z-index:10;float:left;margin-top:-160px'></div></div>"
+			+"<div style='height: 180px;' id='p"+data.productid+"'><img src='/Struts22/img/product/"+data.prductimg+"' style='max-width:100%;height:100%;max-height:100%;float:left' /><div id='preview"+data.productid+"' hidden style='background: rgba(119, 119, 119, 0.8);height:100%;width:100%;z-index:10;float:left;margin-top:-180px'></div></div>"
 			+"<p style='font-size: large; padding-left: 5px'>"+data.productname+"</p>"
 			+	"<div style='font-size: large; color: red; padding-left: 5px; display: inline-block; width: 100%'>"
 				+data.priceout
@@ -200,12 +200,6 @@
 				tin</div>
 			<div style="width: 100%; border: solid 2px teal; padding: 10px">
 				<div id="infolist">
-					<div class="info">
-						<a href="#">Thông tin x</a>
-						<div align="right" style="font-size: smaller;">Thứ 2 ngày
-							..............................</div>
-						<hr style="margin-top: 3px; margin-bottom: 5px" />
-					</div>
 				</div>
 			</div>
 		</div>

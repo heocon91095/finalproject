@@ -165,21 +165,26 @@
 		reader.readAsDataURL(file);
 	}
 	function add() {
-		try {
-			$("#filename").val(getfilename());
-			var file = document.getElementById('imgfile').files[0];
-			//return image base 64 here
-			getBase64(file, function(e) {
-				x = e.target.result;
-				var i = x.indexOf(",", 0);
-				var y = x.substring(i + 1, x.length);
-				$("#fileencode").val(y);
-				console.log($("#fileencode").val());
+		getfile().done(function() {
+			$.when(addproduct()).then(function(data, textStatus, jqXHR) {
+				$("#productid").val(data.product.productid);
+				$.ajax({
+					url : "addproductdetail.action",
+					type : "post",
+					async : false,
+					data : $("#add").serialize(),
+					success : function(data) {
+						console.log("ok");
+						$("#code").attr('name', 'product.productid');
+						$('#myModal').modal("toggle");
+						loadtable();
+					}
+				});
 			});
-		} catch (error) {
-			console.log("error")
-		}
-		$.ajax({
+		});
+	}
+	function addproduct() {
+		return $.ajax({
 			url : "addproduct.action",
 			type : "post",
 			async : false,
@@ -188,19 +193,24 @@
 				console.log("ok");
 			}
 		});
-		$("#code").attr('name', 'productdetail.productid');
-		$.ajax({
-			url : "addproductdetail.action",
-			type : "post",
-			async : false,
-			data : $("#add").serialize(),
-			success : function(data) {
-				console.log("ok");
-				$("#code").attr('name', 'product.productid');
-				$('#myModal').modal("toggle");
-				loadtable();
-			}
+	}
+	function getfile() {
+		var defer = new $.Deferred();
+		$("#filename").val(getfilename());
+		$("#filename1").val(getfilename());
+		console.log($("#filename1").val());
+		var file = document.getElementById('imgfile').files[0];
+		//return image base 64 here
+		getBase64(file, function(e) {
+			x = e.target.result;
+			var i = x.indexOf(",", 0);
+			var y = x.substring(i + 1, x.length);
+			$("#fileencode").val(y);
+			console.log($("#fileencode").val());
+			defer.resolve();
+			
 		});
+		return defer.promise();
 	}
 	function getfilename() {
 		return $("#imgfile").val().replace(/.*(\/|\\)/, '');
@@ -348,7 +358,7 @@
 					success : function(data) {
 						console.log(data);
 						var pd = data.pd;
-						str = "<div style='float:left;margin-left:100px;border:3px;border-style:dashed;margin-right:50px;width: 230px;height:250px;'>"
+						str = "<div style='float:left;margin-left:100px;border:3px;border-style:dashed;margin-right:50px;width: 300px;height:250px;'>"
 								+ "<img style='width:100%;height:100%'  alt'piture here' src='/Struts22/img/product/"
 								+ pd.image
 								+ "' /> "
@@ -456,7 +466,7 @@
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-md-5">
-						<input type="hidden" id="code" name="product.productid" />
+							<input type="hidden" id="code" name="product.productid" />
 							<table width="100%" class="popuptable">
 								<tr>
 									<td style="white-space: nowrap;">Tên hàng hóa&nbsp;</td>
@@ -485,7 +495,8 @@
 								<tr>
 									<td style="white-space: nowrap;" id="img">Hình ảnh&nbsp;</td>
 									<td><input type="file" name="imgfile" id="imgfile" /><input
-										type="hidden" name="productdetail.image" id="filename" /> <input
+										type="hidden" name="product.prductimg" id="filename" /><input
+										type="hidden" name="productdetail.image" id="filename1" /> <input
 										type="hidden" name="fileencode" id="fileencode" /></td>
 								</tr>
 								<tr>
@@ -514,7 +525,8 @@
 							</table>
 							<table width="100%" class="popuptable">
 								<tr>
-									<td colspan="4"><b>Thông tin chi tiết</b></td>
+									<td colspan="4"><b>Thông tin chi tiết</b> <input
+										type="hidden" name="productdetail.productid" id="productid" /></td>
 								</tr>
 								<tr>
 									<td style="white-space: nowrap;">Màn hình&nbsp;</td>

@@ -5,7 +5,7 @@
 	<h1>${product.productname}</h1>
 	<hr />
 	<div class="col-md-8" style="padding: 10px">
-		<img alt="product" src="/Struts22/img/product/zenfone3.jpg"
+		<img alt="product" src="/Struts22/img/product/${product.prductimg}"
 			style="width: 100%">
 	</div>
 	<div class="col-md-4" style="padding: 10px">
