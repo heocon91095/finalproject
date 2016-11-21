@@ -1,18 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 17, 2016 7:58:10 PM by Hibernate Tools 5.2.0.Beta1 -->
-<hibernate-mapping>
-    <class name="Model.Supliergroup" table="supliergroup" catalog="mobilestore" optimistic-lock="version">
-        <id name="sgroupid" type="java.lang.Integer">
-            <column name="sgroupid" />
-            <generator class="identity" />
-        </id>
-        <property name="sgroupname" type="string">
-            <column name="sgroupname" length="50" not-null="true" />
-        </property>
-        <property name="sgroupnote" type="string">
-            <column name="sgroupnote" length="100" />
-        </property>
-    </class>
-</hibernate-mapping>
+mmandName="Extract Constant" description="Extracts a constant into a new static var and uses the new static var" category="_bU7tcK99EeadAOq7znZXOA"/>
+  <commands xmi:id="_bU7Fb699EeadAOq7znZXOA" elementId="org.eclipse.datatools.sqltools.result.removeAllInstances" commandName="Remove All Visible Results" category="_bU7tZK99EeadAOq7znZXOA"/>
+  <commands xmi:id="_bU7FcK99EeadAOq7znZXOA" elementId="org.eclipse.jdt.ui.edit.text.java.search.implement.occurrences" commandName="Search Implement Occurrences in File" description="Search for implement occurrences of a selected type" category="_bU7tg699EeadAOq7znZXOA"/>
+  <commands xmi:id="_bU7Fca99EeadAOq7znZXOA" elementId="org.eclipse.egit.ui.history.DeleteBranch" commandName="Delete Branch..." category="_bU7tb699EeadAOq7znZXOA"/>
+  <commands xmi:id="_bU7Fcq99EeadAOq7znZXOA

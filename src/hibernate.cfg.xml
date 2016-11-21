@@ -25,6 +25,7 @@
         <mapping resource="Model/Productgroup.hbm.xml" />
         <mapping resource="Model/Billdetail.hbm.xml" />
         <mapping resource="Model/Info.hbm.xml" />
+        <mapping resource="Model/Billtemplate.hbm.xml" />
         <mapping resource="Model/Employee.hbm.xml" />
         <mapping resource="Model/User.hbm.xml" />
         <mapping resource="Model/Producergroup.hbm.xml" />

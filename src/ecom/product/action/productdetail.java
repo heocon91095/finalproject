@@ -44,7 +44,7 @@ public class productdetail extends ActionSupport implements ModelDriven<Product>
 
 	Productdetail pd;
 
-	@Action(value = "/eproduct", results = { @Result(name = "success", type = "tiles", location = "ecom.product") })
+	@Action(value = "/eproductdetail", results = { @Result(name = "success", type = "tiles", location = "ecom.productdetail") })
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub

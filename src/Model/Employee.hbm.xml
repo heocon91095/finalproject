@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 17, 2016 7:58:10 PM by Hibernate Tools 5.2.0.Beta1 -->
+<!-- Generated Nov 20, 2016 11:37:27 PM by Hibernate Tools 5.2.0.Beta1 -->
 <hibernate-mapping>
     <class name="Model.Employee" table="employee" catalog="mobilestore" optimistic-lock="version">
         <id name="employeeid" type="java.lang.Integer">
@@ -12,13 +12,13 @@
             <column name="employeename" length="75" not-null="true" />
         </property>
         <property name="phone" type="string">
-            <column name="phone" length="15" not-null="true" />
+            <column name="phone" length="15" />
         </property>
         <property name="address" type="string">
-            <column name="address" not-null="true" />
+            <column name="address" />
         </property>
         <property name="mail" type="string">
-            <column name="mail" length="100" not-null="true" />
+            <column name="mail" length="100" />
         </property>
         <property name="username" type="string">
             <column name="username" length="20" not-null="true" unique="true" />

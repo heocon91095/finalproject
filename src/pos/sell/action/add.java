@@ -17,7 +17,7 @@ import pos.common.action.FactorySessionGet;
 @ParentPackage("json-default")
 public class add extends ActionSupport {
 	Bill bill;
-	String customerid;
+	int customerid;
 	int total;
 	int tax;
 	int pay;
@@ -33,11 +33,11 @@ public class add extends ActionSupport {
 		this.status = status;
 	}
 
-	public String getCustomerid() {
+	public int getCustomerid() {
 		return customerid;
 	}
 
-	public void setCustomerid(String customerid) {
+	public void setCustomerid(int customerid) {
 		this.customerid = customerid;
 	}
 

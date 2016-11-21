@@ -61,7 +61,7 @@
 							+"<p>CPU: "+dataD.pd.cpu+"</p>"
 							+"<p>Ram:"+dataD.pd.ram+"</p>"
 							+"<p>Camera :"+dataD.pd.backcam+"</p>"
-							+"<p align='right' style='padding-right:10px'><a href='eproduct.action?productid="+dataD.productid+"' style='color:white'>Chi tiết...</a></p>"
+							+"<p align='right' style='padding-right:10px'><a href='eproductdetail.action?productid="+dataD.productid+"' style='color:white'>Chi tiết...</a></p>"
 							+"</div>";
 							$("#preview"+product.productid).append(detailstr);
 						});

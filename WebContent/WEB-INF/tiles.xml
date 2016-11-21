@@ -67,7 +67,10 @@
 		<put-attribute name="title" value="Thay đổi thông tin" />
 		<put-attribute name="body" value="/Pages/Pos/Info/EditInfo.jsp" />
 	</definition>
-	
+	<definition name="pos.setting" extends="postemplate">
+		<put-attribute name="title" value="Cài đặt" />
+		<put-attribute name="body" value="/Pages/Pos/Setting/setting.jsp" />
+	</definition>
 	<!-- Ecommerce -->
 	
 	<definition name="ecomtemplate" template="/Pages/Template/ecomtemplate.jsp">
@@ -78,7 +81,7 @@
 		<put-attribute name="title" value="MobileStore-Điện thoại di động" />
 		<put-attribute name="body" value="/Pages/ECom/index.jsp" />
 	</definition>
-	<definition name="ecom.product" extends="ecomtemplate">
+	<definition name="ecom.productdetail" extends="ecomtemplate">
 		<put-attribute name="title" value="Sản phẩm" />
 		<put-attribute name="body" value="/Pages/ECom/productdetail.jsp" />
 	</definition>
@@ -93,5 +96,9 @@
 	<definition name="ecom.einfodetail" extends="ecomtemplate">
 		<put-attribute name="title" value="Tin tức" />
 		<put-attribute name="body" value="/Pages/ECom/einfodetail.jsp" />
+	</definition>
+	<definition name="ecom.eproduct" extends="ecomtemplate">
+		<put-attribute name="title" value="Sản phẩm" />
+		<put-attribute name="body" value="/Pages/ECom/eproduct.jsp" />
 	</definition>
 </tiles-definitions>

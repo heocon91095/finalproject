@@ -479,6 +479,8 @@
 				<div>
 					<input type="button" onclick="addbill()" style="width: 100px"
 						value="Lưu" class="botbarbutton" /> 
+					<input type="button" onclick="printbill()" style="width: 100px"
+						value="Lưu và in hóa đơn" class="botbarbutton" /> 
 				</div>
 			</div>
 			<div class="col-md-6">

@@ -166,10 +166,10 @@ textarea:focus, input:focus {
 			url : "pgrouplist.action",
 			success : function(data) {
 				data.pgs.forEach(function(entry) {
-					$("#navibar")
-							.append(
-									"<li ><a href=''>" + entry.pgroupname
-											+ "</a></li>");
+					$("#navibar").append(
+							"<li ><a href='eproduct.action?group="
+									+ entry.pgroupname + "'>"
+									+ entry.pgroupname + "</a></li>");
 				});
 				$("#navibar").append("<li><a href=''>Thông tin</a></li>");
 			}
@@ -200,13 +200,14 @@ textarea:focus, input:focus {
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" style="background-color: red">
-				<li><a href="#" style="color: white"><span class="glyphicon glyphicon-shopping-cart"></span>
-						Giỏ hàng</a></li>
+				<li><a href="cart.action" style="color: white"><span
+						class="glyphicon glyphicon-shopping-cart"></span> Giỏ hàng</a></li>
 			</ul>
 		</div>
 	</nav>
-	<main style="margin-bottom:100px ;padding-top: 10px;border: 0;margin-left: 100px;margin-right:100px"> <tiles:insertAttribute
-		name="body" /> </main>
+	<main
+		style="margin-bottom:100px ;padding-top: 10px;border: 0;margin-left: 100px;margin-right:100px">
+	<tiles:insertAttribute name="body" /> </main>
 	<div class="footer">
 		<p align="center"
 			style="background-color: teal; color: white; font-size: large; padding: 5px">Tìm
