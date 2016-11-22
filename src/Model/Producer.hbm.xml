@@ -1,7 +1,27 @@
-Oq7znZXOA"/>
-  <commands xmi:id="_bU7Fga99EeadAOq7znZXOA" elementId="org.eclipse.mylyn.tasks.ui.command.openSelectedTask" commandName="Open Selected Task" category="_bU7tX699EeadAOq7znZXOA"/>
-  <commands xmi:id="_bU7Fgq99EeadAOq7znZXOA" elementId="org.eclipse.wst.jsdt.ui.correction.changeToStatic" commandName="Quick Fix - Change to static access" description="Invokes quick assist and selects 'Change to static access'" category="_bU7tXq99EeadAOq7znZXOA"/>
-  <commands xmi:id="_bU7Fg699EeadAOq7znZXOA" elementId="org.eclipse.datatools.enablement.sybase.asa.schemaobjecteditor.examples.tableschemaeditor.copycolumn" commandName="Copy" category="_bU7tfa99EeadAOq7znZXOA"/>
-  <commands xmi:id="_bU7FhK99EeadAOq7znZXOA" elementId="org.eclipse.egit.ui.RepositoriesLinkWithSelection" commandName="Link with Selection" category="_bU7thK99EeadAOq7znZXOA"/>
-  <commands xmi:id="_bU7Fha99EeadAOq7znZXOA" elementId="org.eclipse.mylyn.context.ui.commands.toggle.focus.active.view" commandName="Focus on Active Task" description="Toggle the focus on active task for the active view" category="_bU7tXa99EeadAOq7znZXOA"/>
-  <commands xmi:id="_bU7Fhq99EeadAOq7znZXOA" elementId="org.eclipse.ui.ide.deleteCompleted" commandName="Delete Completed Tasks" descripti
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 21, 2016 9:24:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Producer" table="producer" catalog="mobilestore" optimistic-lock="version">
+        <id name="producerid" type="java.lang.Integer">
+            <column name="producerid" />
+            <generator class="identity" />
+        </id>
+        <property name="producername" type="string">
+            <column name="producername" length="50" not-null="true" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="15" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="150" not-null="true" />
+        </property>
+        <property name="producergroup" type="string">
+            <column name="producergroup" length="50" not-null="true" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
