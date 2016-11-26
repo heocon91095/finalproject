@@ -203,9 +203,8 @@ html, body {
 </head>
 <body>
 	<div class="topbar">
-		<a href="#"><span class="glyphicon glyphicon-cog"></span>Setting</a> <a
+		<a href="setting.action"><span class="glyphicon glyphicon-cog"></span>Cài đặt</a> <a
 			href="#"><span class="glyphicon glyphicon-question-sign"></span>Help</a>
-		<a href="#">Chi nhánh</a>
 		<div class="login" style="float: right;">
 			<a href="#" id="edituser"><span class="glyphicon glyphicon-user"></span>
 				${sessionScope.username}</a> <a id="logout" href="/Struts22/logout"><span
@@ -223,16 +222,20 @@ html, body {
 						class="glyphicon glyphicon-home"></span></a></li>
 				<li id="navs"><a href="/Struts22/sell">Bán hàng</a></li>
 				<li id="navp"><a href="/Struts22/product">Hàng hóa</a></li>
-				<li><a href="/Struts22/warehouse">Nhập kho</a></li>
+				<li id="navwh"><a href="/Struts22/warehouse">Nhập kho</a></li>
 				<li id="navcm"><a href="/Struts22/customer">Khách hàng</a></li>
 				<li id="navsp"><a href="/Struts22/suplier">Nhà cung cấp</a></li>
-				<li id="navproducer"><a href="/Struts22/suplier">Nhà sản xuất</a></li>
+				<li id="navproducer"><a href="producer.action">Nhà sản xuất</a></li>
 				<li id="navrp"><a href="/Struts22/rp">Thu chi</a></li>
-				<li><a href="#">Thông tin</a></li>
-				<li><a href="#">Báo cáo</a></li>
+				<li id="navinfo"><a href="info.action">Thông tin</a></li>
+				<li id="navreport"><a href="report.action">Báo cáo</a></li>
 			</ul>
 		</div>
 	</nav>
+	<div class="sidebar col-md-2 " style="background-color: white;">
+	<tiles:insertAttribute
+		name="side" />
+	</div>
 	<main style="margin-bottom:100px ;padding: 0;border: 0"> <tiles:insertAttribute
 		name="body" /> </main>
 	<div

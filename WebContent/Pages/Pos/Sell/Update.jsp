@@ -251,7 +251,7 @@
 		if (option) {
 			var str = "<div class='product-block' count='"+count+"' id ='"+data.productid+"' >"
 					+ "<div class='product-img'>"
-					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
 					+ "<input type='hidden' class='price' value="+data.priceout+" />"
 					+ "<input type='hidden' class='name' value="+data.productname+" />"
@@ -264,7 +264,7 @@
 		} else {
 			var str = "<div class='product-block' count='"+count+"' hidden id ='"+data.productid+"' >"
 					+ "<div class='product-img'>"
-					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
 					+ "<input type='hidden' class='price' value="+data.priceout+" />"
 					+ "<input type='hidden' class='name' value="+data.productname+" />"
@@ -370,7 +370,7 @@
 }
 
 .product-block {
-	width: 115px;
+	width: 150px;
 	height: 160px;
 	border: solid 1px;
 	float: left;

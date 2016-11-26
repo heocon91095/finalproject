@@ -28,7 +28,10 @@ public class update extends ActionSupport implements ModelDriven<Employee> {
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		System.out.println(employee);
-		ss.update(employee);
+		if(employee.getEmployeeid() != null)
+			ss.update(employee);
+		else
+			ss.save(employee);
 		ss.flush();
 		ss.close();
 		return "success";

@@ -69,7 +69,6 @@ public class list extends ActionSupport {
 					.setParameter("group", group).list();
 		else
 			billd = ss.createQuery("from Bill p ,Customer k where p.customerid = k.customerid").list();
-		System.out.println(billd.get(0));
 		ss.flush();
 		ss.close();
 		return "success";

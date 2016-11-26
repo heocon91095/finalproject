@@ -407,8 +407,7 @@
 }
 </style>
 <div class="botbar">
-	<a href="#" id="botbaractive">Hàng hóa</a> <a href="#">Nhập kho</a> <a
-		href="#">Chuyển hàng</a> <a href="#">Kiểm hàng</a>
+	<a href="#" id="botbaractive">Hàng hóa</a> <a href="warehouse.action">Nhập kho</a>
 	<div class="botbarfunction">
 		Quản lý hàng hóa <input type="text" class="form-control"
 			id="txtsearch" style="width: 200px; display: inline-block;" />

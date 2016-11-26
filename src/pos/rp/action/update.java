@@ -43,9 +43,15 @@ public class update extends ActionSupport implements ModelDriven<Receiptandpayme
 		// TODO Auto-generated method stub
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
-		System.out.println(receiptandpayment.getReceivername());
-		System.out.println(billid);
-		ss.update(receiptandpayment);
+		Receiptandpayment rp = (Receiptandpayment)ss.createQuery("from Receiptandpayment where billid =:id").setParameter("id", billid).uniqueResult();
+		rp.setAddress(receiptandpayment.getAddress());
+		rp.setBilltype(receiptandpayment.getBilltype());
+		rp.setCash(receiptandpayment.getCash());
+		rp.setDate(receiptandpayment.getDate());
+		rp.setPhone(receiptandpayment.getPhone());
+		rp.setReason(receiptandpayment.getReason());
+		rp.setReceivername(receiptandpayment.getReceivername());
+		ss.update(rp);
 		ss.flush();
 		ss.close();
 		return "success";

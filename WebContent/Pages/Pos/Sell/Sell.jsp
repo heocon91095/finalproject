@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
 	var plist = [];
+	var valueid;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
 		$("#navs").addClass("active");
@@ -62,9 +63,7 @@
 		});
 	}
 	function addbill() {
-		var today = new Date();
-		var dayformat = today.getFullYear() + "-" + (today.getMonth() + 1)
-				+ "-" + (today.getDay() - 1);
+		
 		var bill = {
 			customerid : $("#txtcustomer").val(),
 			total : $("#paytotal").text(),
@@ -82,6 +81,7 @@
 			success : function(data) {
 				console.log(data);
 				var bid = data.bill.billid;
+				valueid = bid;
 				tabledata = getalldata();
 				console.log(tabledata);
 				tabledata.forEach(function(entry) {
@@ -257,7 +257,7 @@
 		if (option) {
 			var str = "<div class='product-block' count='"+count+"' id ='"+data.productid+"' >"
 					+ "<div class='product-img'>"
-					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
 					+ "<input type='hidden' class='price' value="+data.priceout+" />"
 					+ "<input type='hidden' class='name' value="+data.productname+" />"
@@ -270,7 +270,7 @@
 		} else {
 			var str = "<div class='product-block' count='"+count+"' hidden id ='"+data.productid+"' >"
 					+ "<div class='product-img'>"
-					+ "<img src='/Struts22/img/product/galaxynote7.jpg' />"
+					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
 					+ "<input type='hidden' class='price' value="+data.priceout+" />"
 					+ "<input type='hidden' class='name' value="+data.productname+" />"
@@ -343,6 +343,11 @@
 	function togglealert() {
 		$("#alertsuccess").show();
 	}
+	function addbillandprint()
+	{
+		addbill();
+		setTimeout(function(){ window.location.href = "printbill.action?billid="+valueid;}, 2000);
+	}
 </script>
 <style>
 .details-control {
@@ -350,8 +355,8 @@
 }
 
 .product-block {
-	width: 115px;
-	height: 160px;
+	width: 170px;
+	height: 170px;
 	border: solid 1px;
 	float: left;
 	margin: 5px;
@@ -360,7 +365,7 @@
 
 .product-img {
 	width: 100%;
-	height: 95px;
+	height: 105px;
 }
 
 .product-img img {
@@ -479,18 +484,18 @@
 				<div>
 					<input type="button" onclick="addbill()" style="width: 100px"
 						value="Lưu" class="botbarbutton" /> 
-					<input type="button" onclick="printbill()" style="width: 100px"
-						value="Lưu và in hóa đơn" class="botbarbutton" /> 
+					<input type="button" onclick="addbillandprint()" style="width: 100px"
+						value="Lưu và in" class="botbarbutton" /> 
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="note-box"
 					style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
 					<p>
-						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
+						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chú
 					</p>
-					<input type="text" id="note" placeholder="Ghi chu"
-						style="background-color: #d1e2ff; border: none" />
+					<textarea  id="note" placeholder="Ghi chú"
+						style="background-color: #d1e2ff; border: none;height: 75%;width: 100%"></textarea>
 				</div>
 			</div>
 		</div>

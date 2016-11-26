@@ -8,7 +8,7 @@
 	var mode=0;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navp").addClass("active");
+		$("#navreport").addClass("active");
 		drawchart();
 	});
 	function addgroup() {

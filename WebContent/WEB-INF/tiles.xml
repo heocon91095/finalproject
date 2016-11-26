@@ -6,6 +6,7 @@
 	<definition name="postemplate" template="\Pages\Template\postemplate.jsp">
 		<put-attribute name="title" value="blank" />
 		<put-attribute name="body" value="" />
+		<put-attribute name="side" value=""></put-attribute>
 	</definition>
 	<definition name="pos.dash" extends="postemplate">
 		<put-attribute name="title" value="Bảng điều khiển" />
@@ -19,7 +20,7 @@
 		<put-attribute name="title" value="Khách hàng" />
 		<put-attribute name="body" value="/Pages/Pos/Customer/Customer.jsp" />
 	</definition>
-	<definition name="pos.producer" extends="postemplate">
+	<definition name="pos.suplier" extends="postemplate">
 		<put-attribute name="title" value="Nhà cung cấp" />
 		<put-attribute name="body" value="/Pages/Pos/Suplier/Suplier.jsp" />
 	</definition>
@@ -67,9 +68,19 @@
 		<put-attribute name="title" value="Thay đổi thông tin" />
 		<put-attribute name="body" value="/Pages/Pos/Info/EditInfo.jsp" />
 	</definition>
-	<definition name="pos.setting" extends="postemplate">
+	<definition name="pos.settinguser" extends="postemplate">
+		<put-attribute name="title" value="Cài đặt" />
+		<put-attribute name="body" value="/Pages/Pos/Setting/usersetting.jsp" />
+		<put-attribute name="side" value="/Pages/Pos/Setting/nav.jsp"></put-attribute>
+	</definition>
+	<definition name="pos.settingtemplate" extends="postemplate">
 		<put-attribute name="title" value="Cài đặt" />
 		<put-attribute name="body" value="/Pages/Pos/Setting/setting.jsp" />
+		<put-attribute name="side" value="/Pages/Pos/Setting/nav.jsp"></put-attribute>
+	</definition>
+	<definition name="pos.report" extends="postemplate">
+		<put-attribute name="title" value="Thống kế" />
+		<put-attribute name="body" value="/Pages/Pos/Report/report.jsp" />
 	</definition>
 	<!-- Ecommerce -->
 	

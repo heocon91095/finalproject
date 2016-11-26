@@ -106,9 +106,7 @@
 			data : $("#add").serialize(),
 			success : function(data) {
 				console.log("ok");
-
 				loadtable();
-				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
 			}
 		});
@@ -239,7 +237,7 @@
 			</div>
 			<div class="modal-body ">
 				<form action="addproduct.action" id="add">
-					<input type="hidden" name="receiptandpayment.billid" id="bid" />
+					<input type="hidden" name="billid" id="bid" />
 					<table width="100%" class="popuptable" align="center">
 						<tr>
 							<td style="white-space: nowrap;">Tên người nhận</td>

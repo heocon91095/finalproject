@@ -11,15 +11,16 @@
 	function getdata() {
 		var date = new Date();
 		var header = $("#header").val();
+		var label = $("#label").val();
+		console.log(label);
 		var body = (tinymce.activeEditor.getContent());
-		console.log(body);
 		$.ajax({
 			url : "addinfo.action",
 			type:"post",
 			data : {
 				head : header,
 				body : body,
-				label : $("#label").val(),
+				labelimg : label,
 				time : date
 			},
 			success : function(data){

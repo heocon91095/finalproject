@@ -14,7 +14,7 @@
 	var data1 = null;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navrp").addClass("active");
+		$("#navinfo").addClass("active");
 		$('#example').dataTable({
 			"searching" : false,
 			"columnDefs" : [ {
@@ -24,13 +24,7 @@
 		});
 		loadtable();
 		$("#addnew").click(function() {
-			$("#add input,#add textarea,#add #cmgroup").val(" ");
-			$('#cmid').removeAttr('disabled');
-			$("#submitbutton").text("Thêm");
-			$("#submitbutton").click(function() {
-				add();
-			});
-			$("#myModal").modal('toggle');
+			window.location.href = "createinfo.action"
 		});
 		$("#addgroup").click(function() {
 			$("#groupModal").modal('toggle');

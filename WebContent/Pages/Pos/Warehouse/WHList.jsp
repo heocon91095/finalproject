@@ -8,7 +8,7 @@
 			.ready(
 					function() {
 						$(".active").removeClass("active");
-						$("#navp").addClass("active");
+						$("#navwh").addClass("active");
 						var table = $('#example')
 								.DataTable(
 										{

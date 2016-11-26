@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 21, 2016 9:24:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<!-- Generated Nov 25, 2016 9:02:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
 <hibernate-mapping>
     <class name="Model.Bill" table="bill" catalog="mobilestore" optimistic-lock="version">
         <id name="billid" type="java.lang.Integer">

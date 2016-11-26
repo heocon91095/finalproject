@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage("tiles-default")
 public class show extends ActionSupport {
-	@Action(value = "/setting", results = { @Result(name = "success", type = "tiles", location = "pos.setting") })
+	@Action(value = "/setting", results = { @Result(name = "success", type = "tiles", location = "pos.settinguser") })
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
