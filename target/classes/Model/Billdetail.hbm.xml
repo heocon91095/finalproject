@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2016 9:02:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Billdetail" table="billdetail" catalog="mobilestore" optimistic-lock="version">
+        <composite-id name="id" class="Model.BilldetailId">
+            <key-property name="billid" type="int">
+                <column name="billid" />
+            </key-property>
+            <key-property name="productid" type="string">
+                <column name="productid" length="15" />
+            </key-property>
+        </composite-id>
+        <property name="productname" type="string">
+            <column name="productname" length="100" not-null="true" />
+        </property>
+        <property name="number" type="int">
+            <column name="number" not-null="true" />
+        </property>
+        <property name="unitprice" type="int">
+            <column name="unitprice" not-null="true" />
+        </property>
+        <property name="totalprice" type="int">
+            <column name="totalprice" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

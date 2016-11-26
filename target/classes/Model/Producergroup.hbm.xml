@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2016 9:02:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Producergroup" table="producergroup" catalog="mobilestore" optimistic-lock="version">
+        <id name="groupid" type="java.lang.Integer">
+            <column name="groupid" />
+            <generator class="identity" />
+        </id>
+        <property name="groupname" type="string">
+            <column name="groupname" length="50" not-null="true" />
+        </property>
+        <property name="groupnote" type="string">
+            <column name="groupnote" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

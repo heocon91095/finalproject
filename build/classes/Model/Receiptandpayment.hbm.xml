@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2016 9:56:22 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Receiptandpayment" table="receiptandpayment" catalog="mobilestore" optimistic-lock="version">
+        <id name="billid" type="string">
+            <column name="billid" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="billtype" type="string">
+            <column name="billtype" length="20" />
+        </property>
+        <property name="receivername" type="string">
+            <column name="receivername" length="50" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="15" />
+        </property>
+        <property name="cash" type="java.lang.Integer">
+            <column name="cash" />
+        </property>
+        <property name="reason" type="string">
+            <column name="reason" length="250" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="250" />
+        </property>
+        <property name="date" type="string">
+            <column name="date" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

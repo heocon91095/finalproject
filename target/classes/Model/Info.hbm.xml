@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2016 9:02:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Info" table="info" catalog="mobilestore" optimistic-lock="version">
+        <id name="infoid" type="java.lang.Integer">
+            <column name="infoid" />
+            <generator class="identity" />
+        </id>
+        <property name="infohead" type="string">
+            <column name="infohead" length="150" not-null="true" />
+        </property>
+        <property name="infobody" type="string">
+            <column name="infobody" length="65535" not-null="true" />
+        </property>
+        <property name="date" type="string">
+            <column name="date" not-null="true" />
+        </property>
+        <property name="labelimg" type="string">
+            <column name="labelimg" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

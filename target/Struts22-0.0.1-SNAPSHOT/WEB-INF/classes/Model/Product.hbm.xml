@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2016 9:56:22 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="Model.Product" table="product" catalog="mobilestore" optimistic-lock="version">
+        <id name="productid" type="string">
+            <column name="productid" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="productname" type="string">
+            <column name="productname" length="50" not-null="true" />
+        </property>
+        <property name="unit" type="string">
+            <column name="unit" length="15" not-null="true" />
+        </property>
+        <property name="producer" type="string">
+            <column name="producer" length="50" not-null="true" />
+        </property>
+        <property name="supiler" type="string">
+            <column name="supiler" length="50" not-null="true" />
+        </property>
+        <property name="groupid" type="string">
+            <column name="groupid" length="20" />
+        </property>
+        <property name="prductimg" type="string">
+            <column name="prductimg" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" />
+        </property>
+        <property name="pricein" type="int">
+            <column name="pricein" not-null="true" />
+        </property>
+        <property name="priceout" type="int">
+            <column name="priceout" not-null="true" />
+        </property>
+        <property name="vat" type="int">
+            <column name="vat" not-null="true" />
+        </property>
+        <property name="detail" type="string">
+            <column name="detail" />
+        </property>
+    </class>
+</hibernate-mapping>
