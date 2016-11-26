@@ -1,5 +1,5 @@
 package Model;
-// Generated Nov 25, 2016 9:02:55 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Nov 26, 2016 9:09:39 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 public class Warehouse implements java.io.Serializable {
 
 	private Integer wid;
-	private String supilerid;
+	private int supilerid;
 	private int pay;
 	private int total;
 	private Date day;
@@ -22,8 +22,8 @@ public class Warehouse implements java.io.Serializable {
 	public Warehouse() {
 	}
 
-	public Warehouse(String supilerid, int pay, int total, Date day, String creator, String status, String note,
-			int tax, int excess) {
+	public Warehouse(int supilerid, int pay, int total, Date day, String creator, String status, String note, int tax,
+			int excess) {
 		this.supilerid = supilerid;
 		this.pay = pay;
 		this.total = total;
@@ -43,11 +43,11 @@ public class Warehouse implements java.io.Serializable {
 		this.wid = wid;
 	}
 
-	public String getSupilerid() {
+	public int getSupilerid() {
 		return this.supilerid;
 	}
 
-	public void setSupilerid(String supilerid) {
+	public void setSupilerid(int supilerid) {
 		this.supilerid = supilerid;
 	}
 

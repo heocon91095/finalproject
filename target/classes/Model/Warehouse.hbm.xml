@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 25, 2016 9:02:56 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<!-- Generated Nov 26, 2016 9:09:40 PM by Hibernate Tools 5.1.0.Alpha1 -->
 <hibernate-mapping>
     <class name="Model.Warehouse" table="warehouse" catalog="mobilestore" optimistic-lock="version">
         <id name="wid" type="java.lang.Integer">
             <column name="wid" />
             <generator class="identity" />
         </id>
-        <property name="supilerid" type="string">
-            <column name="supilerid" length="15" not-null="true" />
+        <property name="supilerid" type="int">
+            <column name="supilerid" not-null="true" />
         </property>
         <property name="pay" type="int">
             <column name="pay" not-null="true" />

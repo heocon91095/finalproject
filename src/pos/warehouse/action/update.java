@@ -18,7 +18,7 @@ import pos.common.action.FactorySessionGet;
 @ParentPackage("json-default")
 public class update extends ActionSupport {
 	Warehouse wh;
-	String supilerid;
+	int supilerid;
 	int wid;
 	int total;
 	int tax;
@@ -35,11 +35,11 @@ public class update extends ActionSupport {
 		this.status = status;
 	}
 
-	public String getSupilerid() {
+	public int getSupilerid() {
 		return supilerid;
 	}
 
-	public void setSupilerid(String supilerid) {
+	public void setSupilerid(int supilerid) {
 		this.supilerid = supilerid;
 	}
 

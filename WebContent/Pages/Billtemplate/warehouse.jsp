@@ -29,7 +29,7 @@
 		<td width="300px">Số điện thoại: ${suplier.phone}</td>
 	</tr>
 	<tr>
-		<td width="300px">Mã đơn: #${wh.whid}</td>
+		<td width="300px">Mã đơn: #${wh.wid}</td>
 		<td width="300px">Tổng tiền: ${wh.total} VND</td>
 	</tr>
 </table>

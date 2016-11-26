@@ -78,6 +78,11 @@
 		<put-attribute name="body" value="/Pages/Pos/Setting/setting.jsp" />
 		<put-attribute name="side" value="/Pages/Pos/Setting/nav.jsp"></put-attribute>
 	</definition>
+	<definition name="pos.settinggroup" extends="postemplate">
+		<put-attribute name="title" value="Cài đặt" />
+		<put-attribute name="body" value="/Pages/Pos/Setting/groupsetting.jsp" />
+		<put-attribute name="side" value="/Pages/Pos/Setting/nav.jsp"></put-attribute>
+	</definition>
 	<definition name="pos.report" extends="postemplate">
 		<put-attribute name="title" value="Thống kế" />
 		<put-attribute name="body" value="/Pages/Pos/Report/report.jsp" />

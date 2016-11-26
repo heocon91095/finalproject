@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
 	var plist = [];
+	var valueid;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
 		$("#navwh").addClass("active");
@@ -57,9 +58,6 @@
 		});
 	}
 	function addwarehouse() {
-		var today = new Date();
-		var dayformat = today.getFullYear() + "-" + (today.getMonth() + 1)
-				+ "-" + (today.getDay() - 1);
 		var warehouse = {
 			supilerid : $("#txtsuplier").val(),
 			total : $("#paytotal").text(),
@@ -69,7 +67,7 @@
 			note : $("#note").val(),
 			status : $("#status").val(),
 			wid : ${wh.wid}
-		};
+		}
 		$.ajax({
 			url : "updatewh.action",
 			data : warehouse,
@@ -77,6 +75,7 @@
 			success : function(data) {
 				console.log(data);
 				var wid = data.wh.wid;
+				valueid= wid;
 				tabledata = getalldata();
 				console.log(tabledata);
 				tabledata.forEach(function(entry) {
@@ -360,6 +359,10 @@
 			}
 		});
 	}
+	function addwarehouseandprint(){
+		addwarehouse();
+		setTimeout(function(){ window.location.href = "printwh.action?whid="+valueid;}, 1000);
+	}
 </script>
 <style>
 .details-control {
@@ -434,8 +437,9 @@
 	</div>
 	<div class="col-md-7 ">
 		<p style="margin-top: 5px; margin-left: 15px">
-			Mã phiếu nhập : <span style="color: blue">#${wh.wid}</span>
-			Nhà cung cấp : <span id="supliername" style="color: blue"></span> Tình trạng <select id="status">>
+			Mã phiếu nhập : <span style="color: blue">#${wh.wid}</span> Nhà cung
+			cấp : <span id="supliername" style="color: blue"></span> Tình trạng <select
+				id="status">>
 				<option value="Đã thanh toán">Đã thanh toán</option>
 				<option value="Nợ">Nợ</option>
 				<option value="Hủy">Hủy</option>
@@ -476,33 +480,35 @@
 						<tr align="right">
 							<td>Thuế</td>
 							<td><input type="number" class="form-control" id="tax"
-								style="text-align: right;" value=${wh.tax} /></td>
+								style="text-align: right;" value=${wh.tax } /></td>
 						</tr>
 						<tr align="right">
 							<td>Thanh toán</td>
 							<td><input type="number" class="form-control" id="pay"
-								style="text-align: right;" value=${wh.pay} /></td>
+								style="text-align: right;" value=${wh.pay } /></td>
 						</tr>
 						<tr align="right">
 							<td>Tiền thừa</td>
 							<td><input type="number" class="form-control" id="excess"
-								style="text-align: right;" value= ${wh.excess} /></td>
+								style="text-align: right;" value=${wh.excess } /></td>
 						</tr>
 					</table>
 				</div>
 				<div>
 					<input type="button" onclick="addwarehouse()" style="width: 100px"
-						value="Lưu" />
+						value="Lưu" class="botbarbutton" /> <input type="button"
+						onclick="addwarehouseandprint()" style="width: 100px"
+						value="Lưu và in" class="botbarbutton" />
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="note-box"
 					style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
 					<p>
-						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
+						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chú
 					</p>
-					<input type="text" id="note" placeholder="Ghi chu"
-						style="background-color: #d1e2ff; border: none" value="${wh.note}"/>
+					<textarea id="note" placeholder="Ghi chú"
+						style="background-color: #d1e2ff; border: none; height: 75%; width: 100%"></textarea>
 				</div>
 			</div>
 		</div>

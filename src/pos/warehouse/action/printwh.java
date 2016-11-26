@@ -2,6 +2,8 @@ package pos.warehouse.action;
 
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -50,14 +52,14 @@ public class printwh extends ActionSupport {
 	public void setWhdetail(List<Warehousedetail> whdetail) {
 		this.whdetail = whdetail;
 	}
-
+	@Action(value="/printwh",results={@Result(name="success",location = "/Pages/Billtemplate/warehouse.jsp")})
 	@Override
 	public String execute() throws Exception {
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		wh = (Warehouse) ss.createQuery("from Warehouse where wid =:whid").setParameter("whid", whid).uniqueResult();
 		whdetail = ss.createQuery("from Warehousedetail where wid =:whid").setParameter("whid", whid).list();
-		suplier = (Suplier) ss.createQuery("from Customer where customerid =:id").setParameter("id", wh.getSupilerid())
+		suplier = (Suplier) ss.createQuery("from Suplier where suplierid =:id").setParameter("id", wh.getSupilerid())
 				.uniqueResult();
 		ss.close();
 		return super.execute();

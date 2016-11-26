@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2016 at 09:38 AM
+-- Generation Time: Nov 26, 2016 at 05:31 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -284,7 +284,9 @@ CREATE TABLE `productgroup` (
 --
 
 INSERT INTO `productgroup` (`pgroupid`, `pgroupname`, `pgroupnote`) VALUES
-(1, 'Điện thoại', 'Điện thoại');
+(1, 'Điện thoại', 'Điện thoại'),
+(3, 'dsf', 'sdfsdf'),
+(4, 'dsf2', 'sdfsdf');
 
 -- --------------------------------------------------------
 
@@ -331,6 +333,7 @@ CREATE TABLE `suplier` (
 --
 
 INSERT INTO `suplier` (`suplierid`, `supliername`, `phone`, `address`, `supliergroup`, `mail`) VALUES
+(0, 'Không khai báo', ' ', ' ', NULL, ' '),
 (1, ' Samsung VN', ' 0123456789', ' Thái Nguyên, Việt Nam', NULL, ' samsung@samsung.com'),
 (3, ' LG VN', ' 0123456789', ' Miền Bắc Việt Nam', NULL, 'lg@lg.com');
 
@@ -382,7 +385,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 
 CREATE TABLE `warehouse` (
   `wid` int(11) NOT NULL,
-  `supilerid` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `supilerid` int(11) NOT NULL DEFAULT '0',
   `pay` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `day` date NOT NULL,
@@ -392,6 +395,13 @@ CREATE TABLE `warehouse` (
   `tax` int(11) NOT NULL,
   `excess` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `warehouse`
+--
+
+INSERT INTO `warehouse` (`wid`, `supilerid`, `pay`, `total`, `day`, `creator`, `status`, `note`, `tax`, `excess`) VALUES
+(1, 0, 1000000000, 98000000, '2016-11-26', 'admin', 'Đã thanh toán', '', 0, 919000000);
 
 -- --------------------------------------------------------
 
@@ -407,6 +417,14 @@ CREATE TABLE `warehousedetail` (
   `unitprice` int(11) NOT NULL,
   `totalprice` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `warehousedetail`
+--
+
+INSERT INTO `warehousedetail` (`wid`, `productid`, `productname`, `number`, `unitprice`, `totalprice`) VALUES
+(1, '1', 'Samsung', 2, 15000000, 30000000),
+(1, '2', 'Samsung', 4, 17000000, 68000000);
 
 --
 -- Indexes for dumped tables
@@ -575,7 +593,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `productgroup`
 --
 ALTER TABLE `productgroup`
-  MODIFY `pgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `receiptandpayment`
 --
@@ -600,7 +618,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
-  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

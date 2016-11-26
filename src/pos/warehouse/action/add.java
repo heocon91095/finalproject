@@ -20,7 +20,7 @@ import pos.common.action.FactorySessionGet;
 @ParentPackage("json-default")
 public class add extends ActionSupport {
 	Warehouse warehouse;
-	String supilerid;
+	int supilerid;
 	int total;
 	int tax;
 	int pay;
@@ -31,16 +31,19 @@ public class add extends ActionSupport {
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getSupilerid() {
+	public int getSupilerid() {
 		return supilerid;
 	}
-	public void setSupilerid(String supilerid) {
+
+	public void setSupilerid(int supilerid) {
 		this.supilerid = supilerid;
 	}
+
 	public int getTotal() {
 		return total;
 	}
@@ -80,12 +83,15 @@ public class add extends ActionSupport {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 	public Warehouse getWarehouse() {
 		return warehouse;
 	}
+
 	public void setWarehouse(Warehouse warehouse) {
 		this.warehouse = warehouse;
 	}
+
 	@Action(value = "/addwarehouse", results = { @Result(name = "success", type = "json"),
 			@Result(name = "error", location = "/Pages/Pos/Login.jsp") })
 	@Override
@@ -94,7 +100,7 @@ public class add extends ActionSupport {
 		Map websession = ActionContext.getContext().getSession();
 		String creator = (String) websession.get("username");
 		Date date = new Date();
-		warehouse = new Warehouse(supilerid,pay,total,date,creator,status,note,tax,excess);
+		warehouse = new Warehouse(supilerid, pay, total, date, creator, status, note, tax, excess);
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		ss.save(warehouse);

@@ -44,7 +44,6 @@ public class getwarehouseupdate extends ActionSupport implements ModelDriven<War
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		wh = (Warehouse)ss.createQuery("from Warehouse where wid = :id").setParameter("id",wid).uniqueResult();
-		System.out.println(wh.getWid());
 		ss.flush();
 		ss.close();
 		return "success";

@@ -193,7 +193,7 @@
 			remove(data[0].wid);
 		});
 		$("#e" + data[0].wid).click(function() {
-			window.location.href ="getwhupdate.action?id="+data[0].wid;
+			window.location.href ="getwhupdate.action?wid="+data[0].wid;
 		});
 	}
 	function changestatus(id, status) {
