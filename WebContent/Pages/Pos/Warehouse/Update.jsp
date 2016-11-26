@@ -5,7 +5,7 @@
 	var plist = [];
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navs").addClass("active");
+		$("#navwh").addClass("active");
 		$('#example').dataTable({
 			"bPaginate" : false,
 			"bInfo" : false,
@@ -367,8 +367,8 @@
 }
 
 .product-block {
-	width: 115px;
-	height: 160px;
+	width: 170px;
+	height: 170px;
 	border: solid 1px;
 	float: left;
 	margin: 5px;
@@ -393,7 +393,7 @@
 }
 </style>
 <div class="botbar">
-	<a href="billlist.action" id="botbaractive">Danh sách phiếu nhập</a>
+	<a href="warehouset.action" id="botbaractive">Danh sách phiếu nhập</a>
 	<div class="botbarfunction">
 		Tạo phiếu nhập <input type="text" class="form-control" id="txtsearch"
 			style="width: 200px; display: inline-block;"

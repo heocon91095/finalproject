@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
 	var plist = [];
+	var valueid;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
 		$("#navs").addClass("active");
@@ -78,6 +79,7 @@
 			success : function(data) {
 				console.log(data);
 				var bid = data.bill.billid;
+				valueid = bid;
 				tabledata = getalldata();
 				console.log(tabledata);
 				tabledata.forEach(function(entry) {
@@ -363,6 +365,11 @@
 			}
 		});
 	}
+	function addbillandprint()
+	{
+		addbill();
+		setTimeout(function(){ window.location.href = "printbill.action?billid="+valueid;}, 1000);
+	}
 </script>
 <style>
 .details-control {
@@ -370,8 +377,8 @@
 }
 
 .product-block {
-	width: 150px;
-	height: 160px;
+	width: 170px;
+	height: 170px;
 	border: solid 1px;
 	float: left;
 	margin: 5px;
@@ -498,18 +505,20 @@
 				</div>
 				<div>
 					<input type="button" onclick="addbill()" style="width: 100px"
-						value="Luu" />
+						value="Lưu" class="botbarbutton" /> 
+					<input type="button" onclick="addbillandprint()" style="width: 100px"
+						value="Lưu và in" class="botbarbutton" /> 
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="note-box"
 					style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
 					<p>
-						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
+						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chú
 					</p>
-					<input type="text" id="note" placeholder="Ghi chu"
-						value="${bill.note}"
-						style="background-color: #d1e2ff; border: none" />
+					<textarea id="note" placeholder="Ghi chú"
+						style="background-color: #d1e2ff; border: none; height: 75%; width: 100%">${bill.note}</textarea>
+
 				</div>
 			</div>
 		</div>

@@ -85,7 +85,6 @@ public class list extends ActionSupport {
 					.setParameter("group", group).list();
 		else
 			whd = ss.createQuery("from Warehouse p ,Suplier k where p.supilerid = k.suplierid").list();
-		System.out.println(whd.get(0));
 		ss.flush();
 		ss.close();
 		return "success";

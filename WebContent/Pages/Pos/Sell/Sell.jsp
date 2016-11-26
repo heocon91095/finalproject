@@ -346,7 +346,7 @@
 	function addbillandprint()
 	{
 		addbill();
-		setTimeout(function(){ window.location.href = "printbill.action?billid="+valueid;}, 2000);
+		setTimeout(function(){ window.location.href = "printbill.action?billid="+valueid;}, 1000);
 	}
 </script>
 <style>

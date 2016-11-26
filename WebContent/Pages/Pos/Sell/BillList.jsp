@@ -247,7 +247,7 @@
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
-			<button class="botbarbutton" onclick="showAddProduct()">
+			<button class="botbarbutton" onclick="window.location.href='sell.action';">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
 			<button class="botbarbutton">

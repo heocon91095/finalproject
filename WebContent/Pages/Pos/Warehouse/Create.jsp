@@ -3,9 +3,10 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
 	var plist = [];
+	var valueid;
 	$(document).ready(function() {
 		$(".active").removeClass("active");
-		$("#navs").addClass("active");
+		$("#navwh").addClass("active");
 		$('#example').dataTable({
 			"bPaginate" : false,
 			"bInfo" : false,
@@ -77,6 +78,7 @@
 			success : function(data) {
 				console.log(data);
 				var wid = data.warehouse.wid;
+				valueid =wid;
 				tabledata = getalldata();
 				console.log(tabledata);
 				tabledata.forEach(function(entry) {
@@ -333,6 +335,10 @@
 					$("#excess").val(excess);
 				});
 	}
+	function addwarehouseandprint(){
+		addwarehouse();
+		setTimeout(function(){ window.location.href = "printwh.action?whid="+valueid;}, 1000);
+	}
 </script>
 <style>
 .details-control {
@@ -340,8 +346,8 @@
 }
 
 .product-block {
-	width: 115px;
-	height: 160px;
+	width: 170px;
+	height: 170px;
 	border: solid 1px;
 	float: left;
 	margin: 5px;
@@ -366,7 +372,7 @@
 }
 </style>
 <div class="botbar">
-	<a href="billlist.action" id="botbaractive">Danh sách phiếu nhập</a>
+	<a href="warehouse.action" id="botbaractive">Danh sách phiếu nhập</a>
 	<div class="botbarfunction">
 		Tạo phiếu nhập <input type="text" class="form-control" id="txtsearch"
 			style="width: 200px; display: inline-block;"
@@ -464,18 +470,22 @@
 					</table>
 				</div>
 				<div>
+					<div>
 					<input type="button" onclick="addwarehouse()" style="width: 100px"
-						value="Lưu" />
+						value="Lưu" class="botbarbutton" /> 
+					<input type="button" onclick="addwarehouseandprint()" style="width: 100px"
+						value="Lưu và in" class="botbarbutton" /> 
+				</div>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="note-box"
 					style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
 					<p>
-						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
+						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chú
 					</p>
-					<input type="text" id="note" placeholder="Ghi chu"
-						style="background-color: #d1e2ff; border: none" />
+					<textarea  id="note" placeholder="Ghi chú"
+						style="background-color: #d1e2ff; border: none;height: 75%;width: 100%"></textarea>
 				</div>
 			</div>
 		</div>

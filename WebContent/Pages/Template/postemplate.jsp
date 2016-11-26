@@ -232,7 +232,7 @@ html, body {
 			</ul>
 		</div>
 	</nav>
-	<div class="sidebar col-md-2 " style="background-color: white;">
+	<div class="sidebar col-md-2 " style="background-color: white;padding: 0;margin-top: 0;margin-bottom: 0;border: 0">
 	<tiles:insertAttribute
 		name="side" />
 	</div>
