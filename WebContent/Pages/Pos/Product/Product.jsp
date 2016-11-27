@@ -145,14 +145,23 @@
 				+ "</a> | "
 				+ "<a title='Remove' href='#' id='r"+data.productid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red'></span>"
+				+ "</a> | "
+				+ "<a title='Barcode' href='#' id='b"+data.productid+"'>"
+				+ "<span class='glyphicon glyphicon-export'style='color:orange' cusid='"+data.productid+"' ></span>"
 				+ "</a>";
 		data.str = str;
 		$('#example').DataTable().row.add(data).draw(false);
+		$("#r" + data.productid).unbind();
+		$("#e" + data.productid).unbind();
+		$("#b" + data.productid).unbind();
 		$("#r" + data.productid).click(function() {
 			remove(data.productid);
 		});
 		$("#e" + data.productid).click(function() {
 			getproduct(data.productid);
+		});
+		$("#b" + data.productid).click(function() {
+			getbarcode("SP"+data.productid);
 		});
 	}
 	function getBase64(file, onload) {
@@ -208,7 +217,7 @@
 			$("#fileencode").val(y);
 			console.log($("#fileencode").val());
 			defer.resolve();
-			
+
 		});
 		return defer.promise();
 	}
@@ -400,6 +409,31 @@
 				});
 		return str;
 	}
+	function excel() {
+		var data = $("#example").dataTable().fnGetData();
+		console.log(data);
+		var str = "<table><tr><th>Mã hàng hóa</th><th>Tên hàng hóa</th>"
+				+ "<th>Giá nhập</th><th>Giá bán</th><th>Đơn vị tính</th>"
+				+ "<th>Nhóm</th></tr>";
+		data.forEach(function(entry) {
+			str += "<tr><td>" + entry.productid + "</td><td>"
+					+ entry.productname + "</td><td>" + entry.pricein
+					+ "</td><td>" + entry.priceout + "</td><td>" + entry.unit
+					+ "</td><td>" + entry.groupid + "</td></tr>";
+		});
+		str += "</table>";
+		$("#exceltable").html(str);
+		var html = $("#exceltable").html();
+		window
+				.open('data:application/vnd.ms-excel;charset=utf-8,\uFEFF'
+						+ html);
+	}
+	function getbarcode(data) {
+		$("#barcodecontent").barcode(data, "code39");
+		var html =$("#barcode").html();
+		var newWindow = window.open();
+		newWindow.document.write(html);
+	}
 </script>
 <style>
 .details-control {
@@ -407,7 +441,8 @@
 }
 </style>
 <div class="botbar">
-	<a href="#" id="botbaractive">Hàng hóa</a> <a href="warehouse.action">Nhập kho</a>
+	<a href="#" id="botbaractive">Hàng hóa</a> <a href="warehouse.action">Nhập
+		kho</a>
 	<div class="botbarfunction">
 		Quản lý hàng hóa <input type="text" class="form-control"
 			id="txtsearch" style="width: 200px; display: inline-block;" />
@@ -418,7 +453,7 @@
 			<button class="botbarbutton" onclick="showAddProduct()">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
-			<button class="botbarbutton">
+			<button class="botbarbutton" onclick="excel()">
 				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
@@ -450,6 +485,9 @@
 			</table>
 		</div>
 	</div>
+</div>
+<div hidden id="barcode">
+	<div id="barcodecontent"></div>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -584,6 +622,7 @@
 		</div>
 	</div>
 </div>
+<div hidden id="exceltable"></div>
 <!-- Group Modal -->
 <div id="groupModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">

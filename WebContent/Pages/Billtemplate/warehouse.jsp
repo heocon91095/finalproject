@@ -22,14 +22,14 @@
 }
 </style>
 <div id="header"></div>
-<h1 align="center">Hoá đơn mua hàng</h1>
+<h1 align="center">Phiếu nhập kho</h1>
 <table align="center">
 	<tr>
 		<td width="300px">Nhà cung cấp: ${suplier.supliername}</td>
 		<td width="300px">Số điện thoại: ${suplier.phone}</td>
 	</tr>
 	<tr>
-		<td width="300px">Mã đơn: #${wh.wid}</td>
+		<td width="300px">Mã phiếu: #${wh.wid}</td>
 		<td width="300px">Tổng tiền: ${wh.total} VND</td>
 	</tr>
 </table>

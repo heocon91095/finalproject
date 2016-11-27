@@ -163,6 +163,9 @@
 				+ "</a> | "
 				+ "<a title='Remove' href='#' id='r"+data[0].wid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red'></span>"
+				+ "</a> | "
+				+ "<a title='Barcode' href='#' id='b"+data[0].wid+"'>"
+				+ "<span class='glyphicon glyphicon-export'style='color:orange' cusid='"+data[0].wid+"' ></span>"
 				+ "</a>";
 		var str1 = "<select id='s"+data[0].wid+"' productid='"+data[0].wid+"' class='status' >"
 				+ "<option value='Đã thanh toán'>Đã thanh toán</option>"
@@ -194,6 +197,9 @@
 		});
 		$("#e" + data[0].wid).click(function() {
 			window.location.href ="getwhupdate.action?wid="+data[0].wid;
+		});
+		$("#b" + data[0].wid).click(function() {
+			window.location.href = "printwh.action?whid="+data[0].wid;
 		});
 	}
 	function changestatus(id, status) {
@@ -273,6 +279,25 @@
 			}
 		});
 	}
+	function excel() {
+		var data = $("#example").dataTable().fnGetData();
+		console.log(data);
+		var str = "<table><tr><th>Mã phiếu nhập</th><th>Nhà cung cấp</th>"
+				+ "<th>Địa chỉ</th><th>Điện thoại</th><th>Tình trạng</th>"
+				+ "<th>Ngày mua</th></tr>";
+		 data.forEach(function(entry) {
+			str += "<tr><td>" + entry.billid + "</td><td>" + entry.customername
+					+ "</td><td>" + entry.address + "</td><td>" + entry.phone
+					+ "</td><td>" + $("#s"+entry.billid).val() + "</td><td>" + entry.date
+					+ "</td></tr>";
+		});
+		str += "</table>";
+		$("#exceltable").html(str);
+		var html = $("#exceltable").html();
+		window
+				.open('data:application/vnd.ms-excel;charset=utf-8,\uFEFF'
+						+ html);
+	}
 </script>
 <style>
 .details-control {
@@ -295,7 +320,7 @@
 			<button class="botbarbutton" id="newwarehouse">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
-			<button class="botbarbutton">
+			<button class="botbarbutton" onclick="excel()">
 				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
@@ -342,3 +367,4 @@
 		</div>
 	</div>
 </div>
+<div hidden id="exceltable"></div>

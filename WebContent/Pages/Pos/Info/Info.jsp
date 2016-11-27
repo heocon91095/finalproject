@@ -106,7 +106,7 @@
 	}
 </script>
 <div class="botbar">
-	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
+	<a href="#" id="botbaractive">Khách hàng</a>
 	<div class="botbarfunction">
 		Thông tin | <input type="text" class="form-control" id="txtsearch"
 			placeholder="Nhập từ khóa"
@@ -121,9 +121,6 @@
 		<div style="float: right;">
 			<button class="botbarbutton" id="addnew">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
-			</button>
-			<button class="botbarbutton">
-				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
 	</div>

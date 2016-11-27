@@ -260,7 +260,7 @@
 					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
 					+ "<input type='hidden' class='price' value="+data.priceout+" />"
-					+ "<input type='hidden' class='name' value="+data.productname+" />"
+					+ "<input type='hidden' class='name' value='"+data.productname+"' />"
 					+ "<div class='product-price'>"
 					+ data.priceout
 					+ "</div>"
@@ -272,8 +272,8 @@
 					+ "<div class='product-img'>"
 					+ "<img src='/Struts22/img/product/"+data.prductimg+"' />"
 					+ "</div>"
-					+ "<input type='hidden' class='price' value="+data.priceout+" />"
-					+ "<input type='hidden' class='name' value="+data.productname+" />"
+					+ "<input type='hidden' class='price' value="+ data.priceout +" />"
+					+ "<input type='hidden' class='name' value='"+ data.productname +"' />"
 					+ "<div class='product-price'>"
 					+ data.priceout
 					+ "</div>"

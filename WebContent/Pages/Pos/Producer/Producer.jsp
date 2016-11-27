@@ -77,6 +77,9 @@
 				+ "</a> | "
 				+ "<a title='Remove' href='#' id='r"+data.producerid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red' cusid='"+data.producerid+"' ></span>"
+				+ "</a> |"
+				+ "<a title='Barcode' href='#' id='b"+data.producerid+"'>"
+				+ "<span class='glyphicon glyphicon-export'style='color:orange' cusid='"+data.producerid+"' ></span>"
 				+ "</a>";
 		$('#example').DataTable().row.add(
 				[ data.producerid, data.producername, data.address, data.phone,
@@ -84,8 +87,8 @@
 		$("#r" + data.producerid).click(function() {
 			remove(data.producerid);
 		});
-		$("#e" + data.producerid).click(function() {
-			getproducer(data.producerid);
+		$("#b" + data.producerid).click(function() {
+			getbarcode("NSX"+data.producerid);
 		});
 	}
 	function loadtable(data) {
@@ -206,10 +209,34 @@
 			}
 		});
 	}
+	function excel() {
+		var data = $("#example").dataTable().fnGetData();
+		console.log(data);
+		var str = "<table><tr><th>Mã NSX</th><th>Nhà sản xuất</th>"
+				+ "<th>Địa chỉ</th><th>Điện thoại</th><th>Email</th>"
+				+ "<th>Nhóm</th></tr>";
+		 data.forEach(function(entry) {
+			str += "<tr><td>" + entry[0] + "</td><td>" + entry[1]
+					+ "</td><td>" + entry[2] + "</td><td>" + entry[3]
+					+ "</td><td>" + entry[4] + "</td><td>" + entry[5]
+					+ "</td></tr>";
+		});
+		str += "</table>";
+		$("#exceltable").html(str);
+		var html = $("#exceltable").html();
+		window
+				.open('data:application/vnd.ms-excel;charset=utf-8,\uFEFF'
+						+ html);
+	}
+	function getbarcode(data){
+		$("#barcodecontent").barcode(data, "code39");     
+		var html = "<div style='padding: 0px; overflow: auto; width: 175px;'> "+$("#barcode").html()+"</div>";
+		var newWindow = window.open();
+		newWindow.document.write(html); 
+	}
 </script>
 <div class="botbar">
-	<a href="#" id="botbaractive">Nhà sản xuất</a><a href="#">In mã
-		vạch</a>
+
 	<div class="botbarfunction">
 		Nhà sản xuất <input type="text" class="form-control" id="txt_cmsearch"
 			style="width: 200px; display: inline-block;" />
@@ -221,7 +248,7 @@
 			<button class="botbarbutton" id="addnew">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
-			<button class="botbarbutton">
+			<button class="botbarbutton" onclick="excel()">
 				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
@@ -258,6 +285,10 @@
 		onclick="$('#alertsuccessaddproducer').hide()" aria-label="close"
 		style="padding-left: 10px">&times;</a> <strong>Nhà sản xuất
 		thành công!</strong>
+</div>
+<div hidden id="exceltable"></div>
+<div  hidden  id="barcode">
+	<div id="barcodecontent"></div>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">

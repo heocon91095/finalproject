@@ -30,53 +30,37 @@
 	}
 </script>
 
-<div hidden class="col-md-10 ">
-	<div class="tablecontainer">
-		<div align="right">
-			<a href="#" id="adduser"><span class="glyphicon glyphicon-plus"></span></a>
+<div class="row">
+	<div class="col-md-2">
+		<div class="groupcontainer">
+			Cài đặt <a href="#" style="float: right" id="addgroup">+</a>
+			<div class="groupitem">
+				<div>
+					<a href='setting.action' class="group">Quản lý người dùng</a>
+				</div>
+				<div>
+					<a href='groupsetting.action' class="group">Quản lý nhóm</a>
+				</div>
+				<div style="background-color: teal">
+					<a href='settingtemplate.action' class="group" style="color: white">Mẫu
+						hóa đơn</a>
+				</div>
+			</div>
 		</div>
-		<table id="tableuser" class="display example" cellspacing="0"
-			width="100%">
-			<thead>
-				<tr>
-					<th>Mã Người dùng</th>
-					<th>Username</th>
-					<th>Mã nhân viên</th>
-					<th>Họ tên</th>
-					<th>Quyền</th>
-					<th>Chức năng</th>
-				</tr>
-			</thead>
-		</table>
 	</div>
-</div>
-<div hidden class="col-md-10 ">
-	<div class="tablecontainer">
-		<table id="tablegroup" class="display example" cellspacing="0"
-			width="100%">
-			<thead>
-				<tr>
-					<th>Mã nhóm</th>
-					<th>Tên nhóm</th>
-					<th>Ghi chú</th>
-					<th>Chức năng</th>
-				</tr>
-			</thead>
-		</table>
-	</div>
-</div>
-<div class="col-md-10 ">
-	<h1>Chỉnh sửa hóa đơn in ra</h1>
-	<div>
-		<label>Header:&nbsp;</label>
-		<textarea id="head" style="height: 200px"></textarea>
-		<br /> <label>Footer:&nbsp;</label>
-		<textarea id="body" style="height: 200px"></textarea>
-		<br />
-		<div align="right">
-			<input type="button" class="botbarbutton" onclick="savetemplate()"
-				value="Save" /> <input type="button" class="botbarbutton"
-				onclick="preview()" value="Preview" />
+	<div class="col-md-10 ">
+		<h1>Chỉnh sửa hóa đơn in ra</h1>
+		<div>
+			<label>Header:&nbsp;</label>
+			<textarea id="head" style="height: 200px"></textarea>
+			<br /> <label>Footer:&nbsp;</label>
+			<textarea id="body" style="height: 200px"></textarea>
+			<br />
+			<div align="right">
+				<input type="button" class="botbarbutton" onclick="savetemplate()"
+					value="Save" /> <input type="button" class="botbarbutton"
+					onclick="preview()" value="Preview" />
+			</div>
 		</div>
 	</div>
 </div>

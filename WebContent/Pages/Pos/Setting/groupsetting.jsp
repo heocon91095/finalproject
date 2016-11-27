@@ -12,7 +12,18 @@
 		});
 		loadtable();
 		$("#adduser").click(function() {
+			$("#addbutton").unbind();
+			$("#addbutton").click(function() {
+				addgroup();
+			})
+			$("#modaltitle").text("Thêm nhóm");
+			$("#name").val("");
+			$("#note").val("");
+			$("addbutton").text("Thêm");
 			$("#groupModal").modal('toggle');
+		});
+		$("#group").change(function() {
+			loadtable();
 		});
 	})
 	function loadtable() {
@@ -276,47 +287,65 @@
 			removegroup(id);
 		});
 		$("#e" + id).click(function() {
-			editgroup(id,name,note);
+			editgroup(id, name, note);
 		});
 	}
-	function editgroup(id,name,note) {
-		if ($("#group").val() == "product") {
-			$("#groupid").val(id);
-			$("#name").val(name);
-			$("#note").val(note);
-			$("#groupModal").modal("toggle");
-			$("#addbutton").click(function(){
-				updategroup();
-			});
-		}
+	function editgroup(id, name, note) {
+		$("#addbutton").unbind();
+		$("#modaltitle").text("Cập nhật nhóm");
+		$("#groupid").val(id);
+		$("#name").val(name);
+		$("#note").val(note);
+		$("#groupModal").modal("toggle");
+		$("#addbutton").text("Cập nhật")
+		$("#addbutton").click(function() {
+			updategroup();
+		});
 	}
 </script>
-
-<div>
-	Nhóm: <select id="group">
-		<option value="product" selected="selected">Sản phẩm</option>
-		<option value="suplier">Nhà cung cấp</option>
-		<option value="producer">Nhà sản xuất</option>
-		<option value="customer">Khách hàng</option>
-	</select>
-</div>
-
-<div class="col-md-10 ">
-	<div class="tablecontainer">
-		<div align="right">
-			<a href="#" id="adduser"><span class="glyphicon glyphicon-plus"></span></a>
+<div class="row">
+	<div class="col-md-2">
+		<div class="groupcontainer">
+			Cài đặt <a href="#" style="float: right" id="addgroup">+</a>
+			<div class="groupitem">
+				<div>
+					<a href='setting.action' class="group">Quản lý người dùng</a>
+				</div>
+				<div style="background-color: teal">
+					<a href='groupsetting.action' class="group" style="color: white">Quản
+						lý nhóm</a>
+				</div>
+				<div>
+					<a href='settingtemplate.action' class="group">Mẫu hóa đơn</a>
+				</div>
+			</div>
 		</div>
-		<table id="tableuser" class="display example" cellspacing="0"
-			width="100%">
-			<thead>
-				<tr>
-					<th>Mã nhóm</th>
-					<th>Tên nhóm</th>
-					<th>Ghi chú</th>
-					<th>Chức năng</th>
-				</tr>
-			</thead>
-		</table>
+	</div>
+	<div class="col-md-10 ">
+		<div>
+			Nhóm: <select id="group">
+				<option value="product" selected="selected">Sản phẩm</option>
+				<option value="suplier">Nhà cung cấp</option>
+				<option value="producer">Nhà sản xuất</option>
+				<option value="customer">Khách hàng</option>
+			</select>
+		</div>
+		<div class="tablecontainer">
+			<div align="right">
+				<a href="#" id="adduser"><span class="glyphicon glyphicon-plus"></span></a>
+			</div>
+			<table id="tableuser" class="display example" cellspacing="0"
+				width="100%">
+				<thead>
+					<tr>
+						<th>Mã nhóm</th>
+						<th>Tên nhóm</th>
+						<th>Ghi chú</th>
+						<th>Chức năng</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 </div>
 <!--Bootstrap Modal User -->
@@ -326,7 +355,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Thêm nhóm</h4>
+				<h4 class="modal-title" id="modaltitle">Thêm nhóm</h4>
 			</div>
 			<div class="modal-body ">
 				<form id="add">

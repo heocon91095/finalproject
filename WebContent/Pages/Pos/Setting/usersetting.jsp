@@ -98,25 +98,42 @@
 		});
 	}
 </script>
-
-<div  class="col-md-10 ">
-	<div class="tablecontainer">
-		<div align="right">
-			<a href="#" id="adduser"><span class="glyphicon glyphicon-plus"></span></a>
+<div class="row">
+	<div class="col-md-2">
+		<div class="groupcontainer">
+			Cài đặt <a href="#" style="float: right" id="addgroup">+</a>
+			<div class="groupitem">
+				<div style="background-color: teal">
+					<a href='setting.action' class="group" style="color: white">Quản lý người dùng</a>
+				</div>
+				<div>
+					<a href='groupsetting.action' class="group">Quản lý nhóm</a>
+				</div>
+				<div>
+					<a href='settingtemplate.action' class="group">Mẫu hóa đơn</a>
+				</div>
+			</div>
 		</div>
-		<table id="tableuser" class="display example" cellspacing="0"
-			width="100%">
-			<thead>
-				<tr>
-					<th>Mã Người dùng</th>
-					<th>Username</th>
-					<th>Mã nhân viên</th>
-					<th>Họ tên</th>
-					<th>Quyền</th>
-					<th>Chức năng</th>
-				</tr>
-			</thead>
-		</table>
+	</div>
+	<div class="col-md-10 ">
+		<div class="tablecontainer">
+			<div align="right">
+				<a href="#" id="adduser"><span class="glyphicon glyphicon-plus"></span></a>
+			</div>
+			<table id="tableuser" class="display example" cellspacing="0"
+				width="100%">
+				<thead>
+					<tr>
+						<th>Mã Người dùng</th>
+						<th>Username</th>
+						<th>Mã nhân viên</th>
+						<th>Họ tên</th>
+						<th>Quyền</th>
+						<th>Chức năng</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 </div>
 <!--Bootstrap Modal User -->

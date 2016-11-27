@@ -18,10 +18,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import Model.Bill;
 import Model.Billdetail;
 import pos.common.action.FactorySessionGet;
-import pos.customer.action.add;
 
 @ParentPackage("json-default")
-public class get extends ActionSupport {
+public class getmoney extends ActionSupport {
 	String startdate;
 	String enddate;
 	List<Object> data;
@@ -50,26 +49,22 @@ public class get extends ActionSupport {
 		this.data = data;
 	}
 
-	@Action(value = "/getdatareport", results = { @Result(name = "success", type = "json") })
+	@Action(value = "/getdatareportmoney", results = { @Result(name = "success", type = "json") })
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		Criteria cr1 = ss.createCriteria(Bill.class);
-		cr1.setProjection(Projections.property("billid"));
-		Criteria cr = ss.createCriteria(Billdetail.class);
 		if (!startdate.equals("") && !enddate.equals("")) {
 			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 			Date start = sd.parse(startdate);
 			Date end = sd.parse(enddate);
 			cr1.add(Restrictions.between("day", start, end));
-			List<Integer> id = cr1.list();
-			cr.add(Restrictions.in("id.billid", id));
 		}
-		cr.setProjection(Projections.projectionList().add(Projections.groupProperty("productname"))
-				.add(Projections.sum("number")));
-		data = cr.list();
+		cr1.setProjection(Projections.projectionList().add(Projections.groupProperty("day"))
+				.add(Projections.sum("total")));
+		data = cr1.list();
 		ss.close();
 		return super.execute();
 	}

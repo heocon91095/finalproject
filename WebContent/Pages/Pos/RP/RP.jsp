@@ -165,9 +165,27 @@
 			}
 		});
 	}
+	function excel() {
+		var data = $("#example").dataTable().fnGetData();
+		console.log(data);
+		var str = "<table><tr><th>Mã phiếu</th><th>Loại</th>"
+				+ "<th>Người nhận</th><th>Điện thoại</th><th>Địa chỉ</th>"
+				+ "<th>Số tiền</th><th>Lý do</th><th>Ngày tạo</th></tr>";
+		data.forEach(function(entry) {
+			str += "<tr><td>" + entry[0] + "</td><td>" + entry[1] + "</td><td>"
+					+ entry[2] + "</td><td>" + entry[3] + "</td><td>"
+					+ entry[4] + "</td><td>" + entry[5] + "</td><td>"
+					+ entry[6] + "</td><td>" + entry[7] + "</td></tr>";
+		});
+		str += "</table>";
+		$("#exceltable").html(str);
+		var html = $("#exceltable").html();
+		window
+				.open('data:application/vnd.ms-excel;charset=utf-8,\uFEFF'
+						+ html);
+	}
 </script>
 <div class="botbar">
-	<a href="#" id="botbaractive">Khách hàng</a><a href="#">In mã vạch</a>
 	<div class="botbarfunction">
 		Thu chi | <input type="text" class="form-control" id="txtsearch"
 			placeholder="Nhập từ khóa"
@@ -183,7 +201,7 @@
 			<button class="botbarbutton" id="addnew">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
-			<button class="botbarbutton">
+			<button class="botbarbutton" onclick="excel()">
 				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
@@ -226,6 +244,7 @@
 		</div>
 	</div>
 </div>
+<div hidden id="exceltable"></div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">

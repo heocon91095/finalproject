@@ -32,6 +32,7 @@
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+	<script type="text/javascript" src="/Struts22/Script/jquery-barcode.min.js"></script>
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -178,7 +179,7 @@ html, body {
 	function changeinfo() {
 		$.ajax({
 			url : 'updateemployee.action',
-			type: 'post',
+			type : 'post',
 			data : $("#updateinfo").serialize(),
 			success : function() {
 				console.log("update OK");
@@ -186,25 +187,25 @@ html, body {
 			}
 		});
 	}
-	function changepassword(){
-		if($("#newpass").val() == $("#renewpass").val() )
-		$.ajax({
-			url : 'changepassword.action',
-			type: 'post',
-			data : $("#changepass").serialize(),
-			success : function() {
-				console.log("update OK");
-				alert("Re-login to take effect");
-				window.location.href = "/Struts22/";
-			}
-		});
+	function changepassword() {
+		if ($("#newpass").val() == $("#renewpass").val())
+			$.ajax({
+				url : 'changepassword.action',
+				type : 'post',
+				data : $("#changepass").serialize(),
+				success : function() {
+					console.log("update OK");
+					alert("Re-login to take effect");
+					window.location.href = "/Struts22/";
+				}
+			});
 	}
 </script>
 </head>
 <body>
 	<div class="topbar">
-		<a href="setting.action"><span class="glyphicon glyphicon-cog"></span>Cài đặt</a> <a
-			href="#"><span class="glyphicon glyphicon-question-sign"></span>Help</a>
+		<a href="setting.action"><span class="glyphicon glyphicon-cog"></span>Cài
+			đặt</a> <a href="#"><span class="glyphicon glyphicon-question-sign"></span>Help</a>
 		<div class="login" style="float: right;">
 			<a href="#" id="edituser"><span class="glyphicon glyphicon-user"></span>
 				${sessionScope.username}</a> <a id="logout" href="/Struts22/logout"><span
@@ -232,10 +233,7 @@ html, body {
 			</ul>
 		</div>
 	</nav>
-	<div class="sidebar col-md-2 " style="background-color: white;padding: 0;margin-top: 0;margin-bottom: 0;border: 0">
-	<tiles:insertAttribute
-		name="side" />
-	</div>
+
 	<main style="margin-bottom:100px ;padding: 0;border: 0"> <tiles:insertAttribute
 		name="body" /> </main>
 	<div
@@ -289,11 +287,11 @@ html, body {
 							</tr>
 							<tr>
 								<td style="white-space: nowrap;">Mật khẩu mới</td>
-								<td><input type="password" name="newpass" id ="newpass" /></td>
+								<td><input type="password" name="newpass" id="newpass" /></td>
 							</tr>
 							<tr>
 								<td style="white-space: nowrap;">Nhập lại mật khẩu mới</td>
-								<td><input type="password" name="renewpass" id="renewpass"/></td>
+								<td><input type="password" name="renewpass" id="renewpass" /></td>
 							</tr>
 						</table>
 					</form>

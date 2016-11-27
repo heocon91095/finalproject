@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2016 at 05:31 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Nov 27, 2016 at 03:42 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -43,11 +43,8 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`billid`, `customerid`, `total`, `tax`, `pay`, `excess`, `note`, `status`, `day`) VALUES
-(1, 0, 32000000, 0, 32000000, 0, '', 'Chờ xử lý', '2016-11-25'),
-(2, 0, 32000000, 0, 123456789, 91456789, '', 'Đã giao hàng', '2016-11-25'),
-(3, 0, 17000000, 0, 100, -16999900, '', 'Đã giao hàng', '2016-11-25'),
-(4, 0, 17000000, 0, 100, -16999900, '', 'Đã giao hàng', '2016-11-25'),
-(5, 0, 32000000, 0, 0, 0, '', 'Đã giao hàng', '2016-11-25');
+(7, 0, 49000000, 0, 1000000, -48000000, 'ádwqeq', 'Đã giao hàng', '2016-11-27'),
+(8, 0, 81000000, 0, 10000000, -71000000, '', 'Đã giao hàng', '2016-11-27');
 
 -- --------------------------------------------------------
 
@@ -71,11 +68,17 @@ CREATE TABLE `billdetail` (
 INSERT INTO `billdetail` (`billid`, `productid`, `productname`, `number`, `unitprice`, `totalprice`) VALUES
 (1, '1', 'Samsung', 1, 15000000, 15000000),
 (1, '2', 'Samsung', 1, 17000000, 17000000),
-(2, '1', 'Samsung', 1, 15000000, 15000000),
-(2, '2', 'Samsung', 1, 17000000, 17000000),
+(2, '1', 'Samsung', 2, 15000000, 30000000),
+(2, '2', 'Samsung', 2, 17000000, 34000000),
 (3, '2', 'Samsung', 1, 17000000, 17000000),
 (5, '1', 'Samsung', 1, 15000000, 15000000),
-(5, '2', 'Samsung', 1, 17000000, 17000000);
+(5, '2', 'Samsung', 1, 17000000, 17000000),
+(6, '1', 'Samsung', 1, 15000000, 15000000),
+(6, '2', 'Samsung', 3, 17000000, 51000000),
+(7, '1', 'Samsung', 1, 15000000, 15000000),
+(7, '2', 'Samsung', 2, 17000000, 34000000),
+(8, '1', 'Samsung Galaxy S7', 2, 15000000, 30000000),
+(8, '2', 'Samsung Galaxy Note 7', 3, 17000000, 51000000);
 
 -- --------------------------------------------------------
 
@@ -88,6 +91,13 @@ CREATE TABLE `billtemplate` (
   `header` text COLLATE utf8_unicode_ci NOT NULL,
   `footer` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `billtemplate`
+--
+
+INSERT INTO `billtemplate` (`id`, `header`, `footer`) VALUES
+(1, '<p style="text-align: center;">C&ocirc;ng ty tr&aacute;ch nhiệm hữu hạng, ABC XYZ</p>', '<p style="text-align: center;">M&atilde; số thuế : 0123456789</p>');
 
 -- --------------------------------------------------------
 
@@ -206,7 +216,8 @@ CREATE TABLE `producergroup` (
 --
 
 INSERT INTO `producergroup` (`groupid`, `groupname`, `groupnote`) VALUES
-(1, 'Nhóm NSX 1', 'Nhóm đầu tiên');
+(1, 'Nhóm NSX 1', 'Nhóm đầu tiên'),
+(2, '123214', 'sadsaf');
 
 -- --------------------------------------------------------
 
@@ -284,9 +295,7 @@ CREATE TABLE `productgroup` (
 --
 
 INSERT INTO `productgroup` (`pgroupid`, `pgroupname`, `pgroupnote`) VALUES
-(1, 'Điện thoại', 'Điện thoại'),
-(3, 'dsf', 'sdfsdf'),
-(4, 'dsf2', 'sdfsdf');
+(1, 'Điện thoại', 'Điện thoại');
 
 -- --------------------------------------------------------
 
@@ -334,8 +343,8 @@ CREATE TABLE `suplier` (
 
 INSERT INTO `suplier` (`suplierid`, `supliername`, `phone`, `address`, `supliergroup`, `mail`) VALUES
 (0, 'Không khai báo', ' ', ' ', NULL, ' '),
-(1, ' Samsung VN', ' 0123456789', ' Thái Nguyên, Việt Nam', NULL, ' samsung@samsung.com'),
-(3, ' LG VN', ' 0123456789', ' Miền Bắc Việt Nam', NULL, 'lg@lg.com');
+(1, ' Samsung VN', ' 0123456789', ' Thái Nguyên, Việt Nam', 'Nhóm 1', ' samsung@samsung.com'),
+(3, ' LG VN', ' 0123456789', ' Miền Bắc Việt Nam', 'Nhóm 1', 'lg@lg.com');
 
 -- --------------------------------------------------------
 
@@ -354,7 +363,8 @@ CREATE TABLE `supliergroup` (
 --
 
 INSERT INTO `supliergroup` (`sgroupid`, `sgroupname`, `sgroupnote`) VALUES
-(1, 'Nhóm 1', 'Nhóm 1');
+(1, 'Nhóm 1', 'Nhóm 1'),
+(2, 'ád12', 'ádsad');
 
 -- --------------------------------------------------------
 
@@ -401,7 +411,9 @@ CREATE TABLE `warehouse` (
 --
 
 INSERT INTO `warehouse` (`wid`, `supilerid`, `pay`, `total`, `day`, `creator`, `status`, `note`, `tax`, `excess`) VALUES
-(1, 0, 1000000000, 98000000, '2016-11-26', 'admin', 'Đã thanh toán', '', 0, 919000000);
+(1, 0, 1000000, 64000000, '2016-11-26', 'admin', 'Đã thanh toán', '', 0, -63000000),
+(2, 0, 1200000, 81000000, '2016-11-26', 'admin', 'Đã thanh toán', '', 0, -79800000),
+(3, 0, 0, 47000000, '2016-11-26', 'admin', 'Đã thanh toán', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -424,7 +436,11 @@ CREATE TABLE `warehousedetail` (
 
 INSERT INTO `warehousedetail` (`wid`, `productid`, `productname`, `number`, `unitprice`, `totalprice`) VALUES
 (1, '1', 'Samsung', 2, 15000000, 30000000),
-(1, '2', 'Samsung', 4, 17000000, 68000000);
+(1, '2', 'Samsung', 2, 17000000, 34000000),
+(2, '1', 'Samsung', 2, 15000000, 30000000),
+(2, '2', 'Samsung', 3, 17000000, 51000000),
+(3, '1', 'Samsung', 2, 15000000, 30000000),
+(3, '2', 'Samsung', 1, 17000000, 17000000);
 
 --
 -- Indexes for dumped tables
@@ -548,12 +564,12 @@ ALTER TABLE `warehousedetail`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `billid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `billtemplate`
 --
 ALTER TABLE `billtemplate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customer`
 --
@@ -583,7 +599,7 @@ ALTER TABLE `producer`
 -- AUTO_INCREMENT for table `producergroup`
 --
 ALTER TABLE `producergroup`
-  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product`
 --
@@ -593,7 +609,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `productgroup`
 --
 ALTER TABLE `productgroup`
-  MODIFY `pgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `receiptandpayment`
 --
@@ -608,7 +624,7 @@ ALTER TABLE `suplier`
 -- AUTO_INCREMENT for table `supliergroup`
 --
 ALTER TABLE `supliergroup`
-  MODIFY `sgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -618,7 +634,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
-  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

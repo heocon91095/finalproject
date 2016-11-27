@@ -159,6 +159,9 @@
 				+ "</a> | "
 				+ "<a title='Remove' href='#' id='r"+data[0].billid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red'></span>"
+				+ "</a> | "
+				+ "<a title='Barcode' href='#' id='b"+data[0].billid+"'>"
+				+ "<span class='glyphicon glyphicon-export'style='color:orange' cusid='"+data[0].billid+"' ></span>"
 				+ "</a>";
 		var str1 = "<select id='s"+data[0].billid+"' productid='"+data[0].billid+"' class='status' >"
 				+ "<option value='Đã giao hàng'>Đã giao hàng</option>"
@@ -186,8 +189,13 @@
 		$("#r" + data[0].billid).click(function() {
 			remove(data[0].billid);
 		});
-		$("#e" + data[0].billid).click(function() {
-			window.location.href = "getsinglebill.action?billid="+data[0].billid;
+		$("#e" + data[0].billid).click(
+				function() {
+					window.location.href = "getsinglebill.action?billid="
+							+ data[0].billid;
+				});
+		$("#b" + data[0].billid).click(function() {
+			window.location.href = "printbill.action?billid="+data[0].billid;
 		});
 	}
 	function changestatus(id, status) {
@@ -227,6 +235,25 @@
 		});
 		loadtable();
 	}
+	function excel() {
+		var data = $("#example").dataTable().fnGetData();
+		console.log(data);
+		var str = "<table><tr><th>Mã đơn hàng</th><th>Khách hàng</th>"
+				+ "<th>Địa chỉ</th><th>Điện thoại</th><th>Tình trạng</th>"
+				+ "<th>Ngày mua</th></tr>";
+		data.forEach(function(entry) {
+			str += "<tr><td>" + entry.billid + "</td><td>" + entry.customername
+					+ "</td><td>" + entry.address + "</td><td>" + entry.phone
+					+ "</td><td>" + $("#s" + entry.billid).val() + "</td><td>"
+					+ entry.date + "</td></tr>";
+		});
+		str += "</table>";
+		$("#exceltable").html(str);
+		var html = $("#exceltable").html();
+		window
+				.open('data:application/vnd.ms-excel;charset=utf-8,\uFEFF'
+						+ html);
+	}
 </script>
 <style>
 .details-control {
@@ -247,10 +274,11 @@
 			<span class="glyphicon glyphicon-search"></span>
 		</button>
 		<div style="float: right;">
-			<button class="botbarbutton" onclick="window.location.href='sell.action';">
+			<button class="botbarbutton"
+				onclick="window.location.href='sell.action';">
 				<span class="glyphicon glyphicon-plus"></span> Thêm
 			</button>
-			<button class="botbarbutton">
+			<button class="botbarbutton" onclick="excel()">
 				<span class="glyphicon glyphicon-export"></span> Xuất Excel
 			</button>
 		</div>
@@ -299,6 +327,7 @@
 		</div>
 	</div>
 </div>
+<div hidden id="exceltable"></div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-lg">
