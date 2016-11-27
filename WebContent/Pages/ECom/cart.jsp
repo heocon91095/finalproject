@@ -211,13 +211,13 @@
 		</div>
 		<div class="col-md-6">
 			<div class="note-box"
-				style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
-				<p>
-					<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chu
-				</p>
-				<input type="text" id="note" placeholder="Ghi chu"
-					style="background-color: #d1e2ff; border: none" />
-			</div>
+					style="background-color: #d1e2ff; padding: 15px; margin: 5px; border: solid 1px; height: 100px">
+					<p>
+						<span class=" glyphicon glyphicon-pencil"></span>&nbsp;Ghi chú
+					</p>
+					<textarea  id="note" placeholder="Ghi chú"
+						style="background-color: #d1e2ff; border: none;height: 75%;width: 100%"></textarea>
+				</div>
 			<div style="padding: 15px; margin: 5px">
 				<input type="button" class="botbarbutton" onclick="addbill()"
 					style="font-size: large" value="Mua ngay" />

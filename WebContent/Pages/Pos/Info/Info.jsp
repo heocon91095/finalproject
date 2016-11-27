@@ -45,15 +45,20 @@
 				+ "</a> | "
 				+ "<a title='Remove' href='#' id='r"+data.infoid+"'>"
 				+ "<span class='glyphicon glyphicon-trash'style='color:red' cusid='"+data.infoid+"' ></span>"
+				+ "</a> | "
+				+ "<a title='Barcode' href='#' id='b"+data.infoid+"'>"
+				+ "<span class='glyphicon glyphicon-envelope'style='color:orange' cusid='"+data.infoid+"' ></span>"
 				+ "</a>";
 		$('#example').DataTable().row.add(
-				[ data.infoid, data.infohead, data.date, str ])
-				.draw(false);
+				[ data.infoid, data.infohead, data.date, str ]).draw(false);
 		$("#r" + data.infoid).click(function() {
 			remove(data.infoid);
 		});
 		$("#e" + data.infoid).click(function() {
-			window.location.href = "editinfo.action?infoid="+data.infoid;
+			window.location.href = "editinfo.action?infoid=" + data.infoid;
+		});
+		$("#b" + data.infoid).click(function() {
+			sendemail(data.infoid, data.infohead)
 		});
 	}
 	function loadtable(data) {
@@ -103,6 +108,27 @@
 				loadtable();
 			}
 		});
+	}
+	function sendemail(id, head) {
+		var str = "MobileStore có tin mới :" + head
+				+ "\n\n Truy cập trang web để biết thêm chi tiết"
+		$.ajax({
+			url : "maillist.action",
+			success : function(data) {
+				data.mails.forEach(function(entry) {
+					$.ajax({
+						url : "sendemail.action",
+						data : {
+							to : entry.mail,
+							content : str
+						},
+						success : function(data) {
+							console.log("sended");
+						}
+					});
+				})
+			}
+		})
 	}
 </script>
 <div class="botbar">

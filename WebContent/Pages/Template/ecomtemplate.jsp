@@ -171,7 +171,17 @@ textarea:focus, input:focus {
 									+ entry.pgroupname + "'>"
 									+ entry.pgroupname + "</a></li>");
 				});
-				$("#navibar").append("<li><a href=''>Thông tin</a></li>");
+				$("#navibar").append("<li><a href='einfo.action'>Thông tin</a></li>");
+			}
+		})
+	}
+	function addmail(){
+		var mail = $("#infomail").val();
+		$.ajax({
+			url :"addmail.action",
+			data: {mail : mail},
+			success:function(){
+				console.log("ok");
 			}
 		})
 	}
@@ -185,7 +195,7 @@ textarea:focus, input:focus {
 					alt="Logo hang" src="<s:url value="/img/logo.png"/>" /></a>
 			</div>
 			<ul class="nav navbar-nav" id="navibar">
-				<li id="navd"><a href="/Struts22/posindex"><span
+				<li id="navd"><a href="eindex.action"><span
 						class="glyphicon glyphicon-home"></span></a></li>
 				<li id="searchbar">
 					<div
@@ -225,9 +235,9 @@ textarea:focus, input:focus {
 			</div>
 			<div class="col-md-4" style="padding-left: 20px">
 				<b>Đăng kí nhận tin khuyến mãi</b><br /> <input type="text"
-					class="form-control" placeholder="Nhập email"
+					class="form-control" id="infomail" placeholder="Nhập email"
 					style="display: inline-block; width: 80%" /> <input type="button"
-					value="Gửi" class="botbarbutton"
+					value="Gửi" class="botbarbutton" onclick="addmail()"
 					style="margin-left: -7px; padding: 6px" />
 			</div>
 		</div>
@@ -235,6 +245,5 @@ textarea:focus, input:focus {
 			style="bottom: 0; background-color: teal; width: 100%; color: white;"
 			align="center">TranPhucTai-K39.104.078 &copy;Copyright</div>
 	</div>
-
 </body>
 </html>
