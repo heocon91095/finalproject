@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import Model.Bill;
+import Model.Customer;
 import pos.common.action.FactorySessionGet;
 
 @ParentPackage("json-default")
@@ -100,6 +101,11 @@ public class add extends ActionSupport {
 		SessionFactory sf = new FactorySessionGet().get();
 		Session ss = sf.openSession();
 		ss.save(bill);
+		String mailcontent = "Quý khách vừa mua hàng tại MobileStore: Mã đone hàng:#" + bill.getBillid() + ";Tình trạng"
+				+ status + ";Tổng tiền: " + total + "VND\n\n Cảm ơn quý khách đã mua hàng tại MobileStore";
+		int id = bill.getCustomerid();
+		Customer cus = (Customer) ss.createQuery("from Customer where customerid =:id").setParameter("id", id)
+				.uniqueResult();
 		ss.flush();
 		ss.close();
 		return "success";

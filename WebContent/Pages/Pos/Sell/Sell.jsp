@@ -65,7 +65,7 @@
 	function addbill() {
 		
 		var bill = {
-			customerid : $("#txtcustomer").val(),
+			customerid : $("#customerid").val(),
 			total : $("#paytotal").text(),
 			tax : $("#tax").val(),
 			pay : $("#pay").val(),
@@ -140,7 +140,7 @@
 									var name = $(this).val();
 									$("#paycustomer").text(name);
 									var cusid = $(
-											"[value=" + $(this).val() + "]")
+											"[value='" + $(this).val() + "']")
 											.attr("data-value");
 									$("#customerid").val(cusid);
 								});

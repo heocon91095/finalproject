@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
 import Model.Bill;
+import Model.Customer;
+import ecom.mail.action.send;
 import pos.common.action.FactorySessionGet;
 @ParentPackage("json-default")
 public class changestatus extends ActionSupport {
@@ -47,8 +49,15 @@ public class changestatus extends ActionSupport {
 		System.out.println(bill);
 		bill.setStatus(status);
 		ss.update(bill);
+		String mailcontent = "Đơn hàng số #"+billid+" của quý khách đã thay đổi tình trạng thành: "+status+"\n\n Cảm ơn quý khách đã mua hàng tại MobileStore";
+		int id = bill.getCustomerid();
+		Customer cus = (Customer) ss.createQuery("from Customer where customerid =:id").setParameter("id", id).uniqueResult();
 		ss.flush();
 		ss.close();
+		if(cus.getMail() != null)
+		{
+			new send().sendemail(cus.getMail(), mailcontent);
+		}
 		return "success";
 	}
 }

@@ -12,6 +12,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import Model.Bill;
+import Model.Customer;
+import ecom.mail.action.send;
 import pos.common.action.FactorySessionGet;
 
 @ParentPackage("json-default")
@@ -117,8 +119,16 @@ public class update extends ActionSupport {
 		bill.setStatus(status);
 		System.out.println(bill.getTotal());
 		ss.update(bill);
+		String mailcontent = "Đơn hàng số #" + billid + " của quý khách vùa có sự thay đổi. Tình trạng" + status
+				+ "Tổng tiền: " + total + "VND\n\n Cảm ơn quý khách đã mua hàng tại MobileStore";
+		int id = bill.getCustomerid();
+		Customer cus = (Customer) ss.createQuery("from Customer where customerid =:id").setParameter("id", id)
+				.uniqueResult();
 		ss.flush();
 		ss.close();
+		if (cus.getMail() != null) {
+			new send().sendemail(cus.getMail(), mailcontent);
+		}
 		return "success";
 	}
 }
