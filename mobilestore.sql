@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2016 at 03:42 PM
+-- Generation Time: Nov 28, 2016 at 02:10 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -44,7 +44,8 @@ CREATE TABLE `bill` (
 
 INSERT INTO `bill` (`billid`, `customerid`, `total`, `tax`, `pay`, `excess`, `note`, `status`, `day`) VALUES
 (7, 0, 49000000, 0, 1000000, -48000000, 'ádwqeq', 'Đã giao hàng', '2016-11-27'),
-(8, 0, 81000000, 0, 10000000, -71000000, '', 'Đã giao hàng', '2016-11-27');
+(8, 0, 81000000, 0, 10000000, -71000000, '', 'Đã giao hàng', '2016-11-27'),
+(9, 1, 32000000, 0, 10000000, -22000000, '', 'Hủy', '2016-11-28');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,9 @@ INSERT INTO `billdetail` (`billid`, `productid`, `productname`, `number`, `unitp
 (7, '1', 'Samsung', 1, 15000000, 15000000),
 (7, '2', 'Samsung', 2, 17000000, 34000000),
 (8, '1', 'Samsung Galaxy S7', 2, 15000000, 30000000),
-(8, '2', 'Samsung Galaxy Note 7', 3, 17000000, 51000000);
+(8, '2', 'Samsung Galaxy Note 7', 3, 17000000, 51000000),
+(9, '1', 'Samsung Galaxy S7', 1, 15000000, 15000000),
+(9, '2', 'Samsung Galaxy Note 7', 1, 17000000, 17000000);
 
 -- --------------------------------------------------------
 
@@ -119,7 +122,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customerid`, `customername`, `phone`, `address`, `customergroup`, `mail`) VALUES
-(0, 'Khách vãng lai', NULL, NULL, NULL, NULL);
+(0, 'Khách vãng lai', NULL, NULL, NULL, NULL),
+(1, ' Trần Phúc Tài', ' 0123456789', ' 27c Trần Quang Khải , P.Tân Định, Q.1, TP.HCM', 'Nhóm 1', 'heocon91095@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -132,6 +136,13 @@ CREATE TABLE `customergroup` (
   `cgroupname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `cgroupnote` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `customergroup`
+--
+
+INSERT INTO `customergroup` (`cgroupid`, `cgroupname`, `cgroupnote`) VALUES
+(1, 'Nhóm 1', 'Nhóm 1');
 
 -- --------------------------------------------------------
 
@@ -176,6 +187,24 @@ CREATE TABLE `info` (
 
 INSERT INTO `info` (`infoid`, `infohead`, `infobody`, `date`, `labelimg`) VALUES
 (1, 'asd', '<p>asdsadsad</p>', 'Sat Nov 26 2016 14:25:31 GMT+0700 (SE Asia Standard Time)', 'sadsad');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `infomail`
+--
+
+CREATE TABLE `infomail` (
+  `id` int(11) NOT NULL,
+  `mail` varchar(200) COLLATE utf32_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+--
+-- Dumping data for table `infomail`
+--
+
+INSERT INTO `infomail` (`id`, `mail`) VALUES
+(1, 'heocon91095@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -490,6 +519,12 @@ ALTER TABLE `info`
   ADD PRIMARY KEY (`infoid`);
 
 --
+-- Indexes for table `infomail`
+--
+ALTER TABLE `infomail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `producer`
 --
 ALTER TABLE `producer`
@@ -564,7 +599,7 @@ ALTER TABLE `warehousedetail`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `billid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `billtemplate`
 --
@@ -574,12 +609,12 @@ ALTER TABLE `billtemplate`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerid` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `customerid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customergroup`
 --
 ALTER TABLE `customergroup`
-  MODIFY `cgroupid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cgroupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `employee`
 --
@@ -590,6 +625,11 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `info`
   MODIFY `infoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `infomail`
+--
+ALTER TABLE `infomail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `producer`
 --
