@@ -29,17 +29,17 @@
 			url : "pgrouplist.action"
 		});
 	}
-	function getproductbygroup(data) {
+	function getproductbykey(data) {
 		return $.ajax({
 			url : "productlist.action",
 			data : {
-				group : data
+				key : data
 			}
 		});
 	}
 	function getproductlist() {
 		$
-				.when(getproductbygroup("${group}"))
+				.when(getproductbykey("${key}"))
 				.then(
 						function(data, textStatus, jqXHR) {
 							data.products
@@ -133,7 +133,7 @@
 							localStorage.setItem(id, item);
 						}
 					}
-					$("#alertsuccess").show();					
+					$("#alertsuccess").show();
 				});
 	}
 	function drawproduct(data) {

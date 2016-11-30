@@ -76,6 +76,7 @@
 			success : function(data) {
 				console.log("ok");
 				getgrouplist();
+				$("#alertsuccessgroup").show();
 			}
 		});
 	}
@@ -161,7 +162,7 @@
 			getproduct(data.productid);
 		});
 		$("#b" + data.productid).click(function() {
-			getbarcode("SP"+data.productid);
+			getbarcode("SP" + data.productid);
 		});
 	}
 	function getBase64(file, onload) {
@@ -187,6 +188,7 @@
 						$("#code").attr('name', 'product.productid');
 						$('#myModal').modal("toggle");
 						loadtable();
+						$("#alertsuccess").show();
 					}
 				});
 			});
@@ -430,7 +432,7 @@
 	}
 	function getbarcode(data) {
 		$("#barcodecontent").barcode(data, "code39");
-		var html =$("#barcode").html();
+		var html = $("#barcode").html();
 		var newWindow = window.open();
 		newWindow.document.write(html);
 	}
@@ -488,6 +490,19 @@
 </div>
 <div hidden id="barcode">
 	<div id="barcodecontent"></div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Thêm
+		hàng hóa thành công!</strong>
+</div>
+<div hidden id="alertsuccessgroup" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessgroup').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Thêm nhóm
+		thành công!</strong>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">

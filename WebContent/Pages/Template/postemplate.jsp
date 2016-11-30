@@ -205,7 +205,7 @@ html, body {
 <body>
 	<div class="topbar">
 		<a href="setting.action"><span class="glyphicon glyphicon-cog"></span>Cài
-			đặt</a> <a href="#"><span class="glyphicon glyphicon-question-sign"></span>Help</a>
+			đặt</a> <a href="help.action"><span class="glyphicon glyphicon-question-sign"></span>Trợ giúp</a>
 		<div class="login" style="float: right;">
 			<a href="#" id="edituser"><span class="glyphicon glyphicon-user"></span>
 				${sessionScope.username}</a> <a id="logout" href="/Struts22/logout"><span

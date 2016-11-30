@@ -1,6 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<script>
+	function addproduct2cart() {
+		var id = $
+		{
+			product.productid
+		}
+		;
+		var name = "${product.productname}";
+		var unitprice = "${product.priceout}";
+		if (localStorage.getItem("cartlist") == null) {
+			var cartlist = [];
+			cartlist.push(id);
+			var array = JSON.stringify(cartlist);
+			localStorage.setItem("cartlist", array);
+			var item = (1 + ":" + name + "|" + unitprice);
+			localStorage.setItem(id, item);
+		} else {
+			var cartlist = JSON.parse(localStorage.getItem("cartlist"));
+			if (localStorage.getItem(id) == null) {
+				cartlist.push(id);
+				var array = JSON.stringify(cartlist);
+				localStorage.setItem("cartlist", array);
+				var item = (1 + ":" + name + "|" + unitprice);
+				localStorage.setItem(id, item);
+			} else {
+				var number = localStorage.getItem(id);
+				var number = parseInt(number.substr(0, number.indexOf(":")));
+				number++;
+				var item = (number + ":" + name + "|" + unitprice);
+				localStorage.setItem(id, item);
+			}
+		}
+		$("#alertsuccess").show();
+	}
+</script>
 <div class="row">
 	<h1>${product.productname}</h1>
 	<hr />
@@ -66,4 +101,14 @@
 		</table>
 	</div>
 </div>
-<div align="center"><button class="botbarbutton" style="font-size: large;">Mua hàng<span class="glyphicon glyphicon-shopping-cart"></span></button></div>
+<div align="center">
+	<button class="botbarbutton " style="font-size: large;"
+		onclick="addproduct2cart()">
+		Mua hàng<span class="glyphicon glyphicon-shopping-cart"></span>
+	</button>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Đã thêm vào giỏ hàng</strong>
+</div>

@@ -32,6 +32,7 @@
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -161,6 +162,9 @@ textarea:focus, input:focus {
 	$(document).ready(function() {
 		loadproductgroup();
 	});
+	function esearch() {
+		window.location.href = "search.action?key=" + $("#txtsearch").val();
+	}
 	function loadproductgroup() {
 		$.ajax({
 			url : "pgrouplist.action",
@@ -171,16 +175,19 @@ textarea:focus, input:focus {
 									+ entry.pgroupname + "'>"
 									+ entry.pgroupname + "</a></li>");
 				});
-				$("#navibar").append("<li><a href='einfo.action'>Thông tin</a></li>");
+				$("#navibar").append(
+						"<li><a href='einfo.action'>Thông tin</a></li>");
 			}
 		})
 	}
-	function addmail(){
+	function addmail() {
 		var mail = $("#infomail").val();
 		$.ajax({
-			url :"addmail.action",
-			data: {mail : mail},
-			success:function(){
+			url : "addmail.action",
+			data : {
+				mail : mail
+			},
+			success : function() {
 				console.log("ok");
 			}
 		})
@@ -200,9 +207,9 @@ textarea:focus, input:focus {
 				<li id="searchbar">
 					<div
 						style="background-color: teal; width 200px; padding: 8px; display: inline-block; float: left">
-						<input type="text" placeholder="Tìm kiếm sản phẩm"
+						<input type="text" placeholder="Tìm kiếm sản phẩm" id="txtsearch"
 							style="display: inline-block; padding-right: 50px; border-radius: 8px; border: 1px solid teal; height: 34px; padding-left: 10px" />
-						<button
+						<button onclick="esearch()"
 							style="margin-left: -35px; width: 50p; background-color: Transparent; background-repeat: no-repeat; border: none; cursor: pointer; overflow: hidden; outline: none;">
 							<span style="color: teal" class="glyphicon glyphicon-search"></span>
 						</button>
@@ -220,13 +227,16 @@ textarea:focus, input:focus {
 	<tiles:insertAttribute name="body" /> </main>
 	<div class="footer">
 		<p align="center"
-			style="background-color: teal; color: white; font-size: large; padding: 5px">Tìm
-			kiếm nhiều :</p>
+			style="background-color: teal; color: white; font-size: large; padding: 5px">
+			Tìm kiếm nhiều : <a href="search.action?key=apple"
+				style="color: white;">Apple</a>/<a href="search.action?key=samsung"
+				style="color: white;">Samsung</a>
+		</p>
 		<div class="row"
 			style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px; font-size: 16px;">
 			<div class="col-md-4" style="padding-left: 20px">
-				<b>Mobile Store</b><br /> <a>Giới thiệu Mobile Store</a><br /> <a>Danh
-					sách cửa hàng</a><br /> <a>Trung tâm bảo hành</a><br />
+				<b>Mobile Store</b><br /> <a href="about.action">Giới thiệu Mobile Store</a><br /> <a href="location.action">Cửa
+					hàng</a><br /> <a href="location.action">Trung tâm bảo hành</a><br />
 			</div>
 			<div class="col-md-4" style="padding-left: 20px">
 				<b>CÓ THẮC MẮC?</b><br /> Bán hàng (7:30 - 22:00)<br /> 1800.1060

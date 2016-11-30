@@ -54,6 +54,8 @@
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+				$('#alertsuccessaddsuplier').show();
+				getsuplierlist();
 			}
 		});
 	}
@@ -96,6 +98,7 @@
 						}
 					});
 				});
+				$('#alertsuccess').show();
 			}
 		});
 	}
@@ -370,7 +373,7 @@
 }
 
 .product-block {
-	width: 170px;
+	width: 160px;
 	height: 170px;
 	border: solid 1px;
 	float: left;
@@ -513,6 +516,18 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Nhập
+		kho thành công!</strong> Phiếu nhập đã được lập
+</div>
+<div hidden id="alertsuccessaddsuplier" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccessaddsuplier').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Nhà
+		cung cấp thành công!</strong>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">

@@ -108,6 +108,7 @@
 				console.log("ok");
 				loadtable();
 				$("#myModal").modal('toggle');
+				$("#alertsuccess").show();
 			}
 		});
 	}
@@ -245,6 +246,12 @@
 	</div>
 </div>
 <div hidden id="exceltable"></div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Thêm
+		phiếu thu/chi thành công!</strong>
+</div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">

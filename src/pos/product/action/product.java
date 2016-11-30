@@ -19,6 +19,16 @@ import pos.common.action.FactorySessionGet;
 public class product extends ActionSupport implements ModelDriven<Product> {
 	Product product;
 	List<Product> products;
+	int n;
+
+	public int getN() {
+		return n;
+	}
+
+	public void setN(int n) {
+		this.n = n;
+	}
+
 	String key;
 
 	public String getKey() {
@@ -54,9 +64,11 @@ public class product extends ActionSupport implements ModelDriven<Product> {
 			return "success";
 		}
 		if (group != null) {
-			Query query = ss.createQuery("from Product where groupid = :group");
-			query.setParameter("group", group);
-			products = query.list();
+			if (n != 0)
+				products = ss.createQuery("from Product where groupid = :group order by productid desc").setParameter("group", group).setMaxResults(n).list();
+			else
+				products = ss.createQuery("from Product where groupid = :group").setParameter("group", group).list();
+
 			ss.close();
 			System.out.println("2");
 			return "success";

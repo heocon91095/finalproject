@@ -54,6 +54,7 @@
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+				$("#alertsuccessaddcustomer").show();
 			}
 		});
 	}
@@ -82,6 +83,7 @@
 				valueid = bid;
 				tabledata = getalldata();
 				console.log(tabledata);
+				$("#alertsuccess").show();
 				tabledata.forEach(function(entry) {
 					var billdetail = {
 						billid : bid,
@@ -377,7 +379,7 @@
 }
 
 .product-block {
-	width: 170px;
+	width: 160px;
 	height: 170px;
 	border: solid 1px;
 	float: left;
@@ -524,6 +526,19 @@
 		</div>
 	</div>
 </div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Bán
+		hàng thành công!</strong> Hóa đơn đã được lập
+</div>
+<div hidden id="alertsuccessaddcustomer" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessaddcustomer').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Thêm khách
+		hàng thành công!</strong>
+</div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog ">
@@ -536,10 +551,6 @@
 			<div class="modal-body ">
 				<form action="addproduct.action" id="add">
 					<table width="100%" class="popuptable" align="center">
-						<tr>
-							<td style="white-space: nowrap;" width="30%">Mã khách hàng</td>
-							<td><input type="text" name="customer.customerid" id="cmid" /></td>
-						</tr>
 						<tr>
 							<td style="white-space: nowrap;">Tên khách hàng</td>
 							<td><input type="text" name="customer.customername"

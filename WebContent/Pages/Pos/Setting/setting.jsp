@@ -58,8 +58,8 @@
 			<br />
 			<div align="right">
 				<input type="button" class="botbarbutton" onclick="savetemplate()"
-					value="Save" /> <input type="button" class="botbarbutton"
-					onclick="preview()" value="Preview" />
+					value="Save" /> <!-- <input type="button" class="botbarbutton"
+					onclick="preview()" value="Preview" /> -->
 			</div>
 		</div>
 	</div>

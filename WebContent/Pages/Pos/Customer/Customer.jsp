@@ -147,6 +147,7 @@
 				loadtable();
 				//jQuery.noConflict();
 				$("#myModal").modal('toggle');
+				$("#alertsuccess").show();
 			}
 		});
 	}
@@ -157,6 +158,7 @@
 			success : function(data) {
 				console.log("ok");
 				getgrouplist();
+				$("#alertsuccessgroup").show();
 			}
 		});
 	}
@@ -284,6 +286,19 @@
 <div hidden id="exceltable"></div>
 <div  hidden  id="barcode">
 	<div id="barcodecontent"></div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Thêm
+		khách hàng thành công!</strong>
+</div>
+<div hidden id="alertsuccessgroup" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessgroup').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Thêm nhóm
+		thành công!</strong>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">

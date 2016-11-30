@@ -43,7 +43,8 @@
 	function getproductbygroup(data){
 		return $.ajax({
 			url : "productlist.action",
-			data:{group :data}
+			data:{group :data,
+				n : 8}
 		});
 	}
 	function getproductlist(){
@@ -122,8 +123,7 @@
 					localStorage.setItem(id,item);
 				}
 			}
-			console.log(localStorage.getItem("cartlist"));
-			console.log(localStorage.getItem(id));
+			$("#alertsuccess").show();
 		});
 	}
 	function drawproduct(data){
@@ -170,7 +170,7 @@
 						<img src="/Struts22/img/product/zenfone3.jpg" alt="Asus"
 							style="height: 260px">
 					</div>
-
+	
 					<div class="item">
 						<img src="/Struts22/img/product/htcone.jpg" alt="HTC"
 							style="height: 260px">
@@ -207,4 +207,9 @@
 	<!-- Product here -->
 	<div class="product-container" style="margin-top: 10px">
 	</div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Đã thêm vào giỏ hàng</strong>
 </div>

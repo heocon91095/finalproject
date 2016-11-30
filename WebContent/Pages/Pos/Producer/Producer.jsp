@@ -144,6 +144,7 @@
 				loadtable();
 				$("#myModal").modal('toggle');
 				$('#alertsuccessaddproducer').show();
+				$("#alertsuccess").show();
 			}
 		});
 	}
@@ -154,6 +155,7 @@
 			success : function(data) {
 				console.log("ok");
 				getgrouplist();
+				$("#alertsuccessgroup").show();
 			}
 		});
 	}
@@ -279,16 +281,22 @@
 		</div>
 	</div>
 </div>
-<div hidden id="alertsuccessaddproducer" class="alert alert-success"
-	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
-	<a href="#" class="close"
-		onclick="$('#alertsuccessaddproducer').hide()" aria-label="close"
-		style="padding-left: 10px">&times;</a> <strong>Nhà sản xuất
-		thành công!</strong>
-</div>
 <div hidden id="exceltable"></div>
 <div  hidden  id="barcode">
 	<div id="barcodecontent"></div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Thêm
+		nhà sản xuất thành công!</strong>
+</div>
+<div hidden id="alertsuccessgroup" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close"
+		onclick="$('#alertsuccessgroup').hide()" aria-label="close"
+		style="padding-left: 10px">&times;</a> <strong>Thêm nhóm
+		thành công!</strong>
 </div>
 <!--Bootstrap Modal -->
 <div id="myModal" class="modal fade" role="dialog">

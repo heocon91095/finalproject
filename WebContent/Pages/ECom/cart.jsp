@@ -62,6 +62,7 @@
 				data : billdetail,
 				success : function(data1) {
 					console.log("ok");
+					
 				}
 			});
 		});
@@ -71,7 +72,9 @@
 				function(dataC, textStatus, jqXHR) {
 					$.when(addbillmain(dataC.customerid)).then(
 							function(dataB, textStatus, jqXHR) {
-								addbilldetail(dataB.bill.billid)
+								addbilldetail(dataB.bill.billid);
+								$("#alertsuccess").show();
+								window.localStorage.clear();;
 							});
 				});
 
@@ -224,4 +227,9 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div hidden id="alertsuccess" class="alert alert-success"
+	style="position: fixed; bottom: 0; z-index: 10; left: 50%; transform: translateX(-50%);">
+	<a href="#" class="close" onclick="$('#alertsuccess').hide()"
+		aria-label="close" style="padding-left: 10px">&times;</a> <strong>Mua hàng thành công!</strong>
 </div>

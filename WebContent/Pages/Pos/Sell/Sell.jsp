@@ -355,7 +355,7 @@
 }
 
 .product-block {
-	width: 170px;
+	width: 165px;
 	height: 170px;
 	border: solid 1px;
 	float: left;

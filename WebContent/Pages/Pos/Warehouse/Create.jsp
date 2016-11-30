@@ -346,7 +346,7 @@
 }
 
 .product-block {
-	width: 170px;
+	width: 160px;
 	height: 170px;
 	border: solid 1px;
 	float: left;
