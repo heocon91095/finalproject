@@ -21,6 +21,8 @@
 				className : "dt-center pprice"
 			}, {
 				className : "dt-center ptotal"
+			}, {
+				className : "dt-center"
 			} ]
 		});
 		loadtable();
@@ -175,7 +177,9 @@
 		$("#groupitem").change(function() {
 			var gid = $(this).val();
 			console.log(gid);
-			loadtable(gid);
+			if(gid == "all")
+				loadtable();
+			else loadtable(gid);
 		})
 	}
 	function loadtable(data) {
@@ -188,6 +192,7 @@
 			async : "false",
 			success : function(data) {
 				$(".product-container").empty();
+				$(".pagination").empty();
 				data1 = JSON.stringify(data.products);
 				console.log(data1);
 				var count = 0;
@@ -244,13 +249,49 @@
 				async : "false",
 				success : function(data) {
 					$(".product-container").empty();
-					data1 = JSON.stringify(data.products);
-					console.log(data1);
+					$(".pagination").empty();
+					var count = 0;
 					data.products.forEach(function(entry) {
-						drawproductgrid(entry);
+						++count;
+						if ((count - 1) % 12 == 0) {
+							var str = "<li><a href='#'>" + (((count - 1) / 12) + 1)
+									+ "</a></li> "
+							$(".pagination").append(str);
+						}
+						if (count <= 12) {
+							drawproductgrid(entry, true, count);
+						} else {
+							drawproductgrid(entry, false, count);
+						}
 					});
+					$(".product-block").click(function() {
+						var obj = $(this);
+						var id = obj.attr('id');
+						console.log(id);
+						var name = $("#" + id + " .name").val();
+						var price = $("#" + id + " .price").val();
+						addtocart(id, name, price);
+					});
+					$(".pagination li").click(
+							function() {
+								var obj = $(this);
+								var number = obj.text();
+								console.log(number);
+								$(".product-block").each(
+										function(i, obj) {
+											console.log(obj);
+											//$(this).removeAttr("hidden");
+											$(this).hide();
+											var count = $(this).attr("count");
+											if (count > ((number - 1) * 12)
+													&& count <= (number * 12)) {
+												$(this).show();
+											}
+										});
+							});
 				},
 			});
+			
 		});
 	}
 	function drawproductgrid(data, option, count) {
@@ -291,12 +332,21 @@
 			$(".pnumber").unbind();
 			$(".ptotal").unbind();
 			console.log(id);
+			var strd = "<a href='#' onclick='deleterow($(this),"+id+")'><i class='glyphicon glyphicon-remove' style='color:red'></i></a>"
 			var strsl = "<input class='pnumber' style='text-align:right' type='number' id ='n"+id+"' value=1 />"
 			$('#example').DataTable().row
-					.add([ id, name, strsl, price, price ]).draw(false);
+					.add([ id, name, strsl, price, price,strd ]).draw(false);
 			countptotal();
 			counttotal();
 			$(".pnumber").trigger("change");
+		}
+	}
+	function deleterow(data,id){
+		$("#example").DataTable().row( data.parents('tr') ).remove().draw();
+		$(".pnumber").trigger("change");	
+		var index = plist.indexOf(id.toString());
+		if (index > -1) {
+		    plist.splice(index, 1);
 		}
 	}
 	function counttotal() {
@@ -413,7 +463,7 @@
 		<div class="product-tool"
 			style="display: inline-block; display: flex; align-items: center;">
 			Nhóm:<select id="groupitem" class="form-control"
-				style="display: inline-block; vertical-align: middle; width: 100px">
+				style="display: inline-block; vertical-align: middle; width: 150px">
 			</select>&nbsp; Trang:
 			<ul class="pagination">
 			</ul>
@@ -441,13 +491,14 @@
 						<th>Số lượng</th>
 						<th>Đơn giá</th>
 						<th>Thành tiền</th>
+						<th></th>
 					</tr>
 				</thead>
 			</table>
 			<br />
 			<table width="100%">
 				<tr style="font-weight: bold; font-size: large;">
-					<td align="right" width="70%">Tong cong:&nbsp;</td>
+					<td align="right" width="70%">Tổng cộng:&nbsp;</td>
 					<td class="total">0</td>
 				</tr>
 			</table>

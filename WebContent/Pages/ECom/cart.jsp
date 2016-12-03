@@ -20,7 +20,9 @@
 				className : "dt-center pprice"
 			}, {
 				className : "dt-center ptotal"
-			} ]
+			} , {
+				className : "dt-center"
+			}]
 		});
 		countptotal();
 		getpaytotal();
@@ -112,13 +114,19 @@
 			$(".pnumber").unbind();
 			$(".ptotal").unbind();
 			console.log(id);
+			var strd = "<a href='#' onclick='deleterow($(this),"+id+")'><i class='glyphicon glyphicon-remove' style='color:red'></i></a>"
 			var strsl = "<input class='pnumber' style='text-align:right' type='number' id ='n"+id+"' value="+number+" />"
 			$('#example').DataTable().row
-					.add([ id, name, strsl, price, price ]).draw(false);
+					.add([ id, name, strsl, price, price,strd ]).draw(false);
 			countptotal();
 			counttotal();
 			$(".pnumber").trigger("change");
 		}
+	}
+	function deleterow(data,id){
+		$("#example").DataTable().row( data.parents('tr') ).remove().draw();
+		localStorage.removeItem(id);
+		$(".pnumber").trigger("change");	
 	}
 	function addcustomer() {
 		return $.ajax({
@@ -168,13 +176,14 @@
 					<th>Số lượng</th>
 					<th>Đơn giá</th>
 					<th>Thành tiền</th>
+					<th></th>
 				</tr>
 			</thead>
 		</table>
 		<br />
 		<table width="100%">
 			<tr style="font-weight: bold; font-size: large;">
-				<td align="right" width="70%">Tong cong:&nbsp;</td>
+				<td align="right" width="70%">Tổng cộng:&nbsp;</td>
 				<td class="total">0</td>
 			</tr>
 		</table>

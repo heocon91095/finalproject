@@ -347,7 +347,7 @@
 	}
 	function showAddProduct() {
 		$("#add")[0].reset();
-		$(".modal-title").text("Them san pham");
+		$(".modal-title").text("Thêm sản phẩm");
 		$("#code").removeAttr('disabled');
 		$('#myModal').modal("toggle");
 		$("#submitbutton").val("Them");
